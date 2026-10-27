@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mobile Verification | ResQMeal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #101b33;
+            --navy-soft: #172642;
+            --orange: #f2a93b;
+            --orange-dark: #d88b19;
+            --white: #ffffff;
+            --light: #f4f5f7;
+            --text: #1d2738;
+            --muted: #687386;
+            --border: #d9dee7;
+            --success-bg: #eef7f1;
+            --success-text: #24623b;
+            --warning-bg: #fff4df;
+            --warning-text: #765000;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--light);
+            color: var(--text);
+        }
+
+        /* ==================== HEADER ==================== */
+
+        header {
+            background: var(--navy);
+            color: var(--white);
+            padding: 18px 32px;
+            border-bottom: 3px solid var(--orange);
+        }
+
+        .header-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .logo-mark {
+            width: 42px;
+            height: 42px;
+            border: 2px solid var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 1.4px;
+        }
+
+        .brand-name .resq {
+            color: var(--orange);
+        }
+
+        .brand-name .meal {
+            color: var(--white);
+        }
+
+        .brand-caption {
+            margin-top: 5px;
+            color: #c6cedb;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+        }
+
+        /* ==================== MAIN ==================== */
+
+        .page-shell {
+            min-height: calc(100vh - 82px);
+            padding: 48px 20px 60px;
+        }
+
+        .verification-layout {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.85fr 1.35fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        /* ==================== INTRO PANEL ==================== */
+
+        .intro-panel {
+            background: var(--navy);
+            color: var(--white);
+            padding: 34px;
+            position: relative;
+            overflow: hidden;
+            min-height: 520px;
+            border-top: 5px solid var(--orange);
+        }
+
+        .intro-panel::after {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border: 1px solid rgba(242, 169, 59, 0.25);
+            border-radius: 50%;
+            right: -75px;
+            bottom: -70px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 7px 11px;
+            border: 1px solid rgba(242, 169, 59, 0.55);
+            color: var(--orange);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .intro-panel h1 {
+            margin: 0;
+            font-size: 36px;
+            line-height: 1.08;
+            letter-spacing: -0.6px;
+        }
+
+        .intro-panel h1 span {
+            color: var(--orange);
+        }
+
+        .intro-text {
+            margin: 18px 0 0;
+            color: #cbd3df;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .verification-steps {
+            margin-top: 32px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 14px;
+            background: var(--navy-soft);
+            border-left: 3px solid var(--orange);
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(242, 169, 59, 0.6);
+            color: var(--orange);
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f1f4f8;
+        }
+
+        .security-note {
+            position: absolute;
+            left: 34px;
+            right: 34px;
+            bottom: 30px;
+            color: #aeb8c8;
+            font-size: 11px;
+            line-height: 1.5;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 14px;
+        }
+
+        /* ==================== VERIFICATION CARD ==================== */
+
+        .card {
+            background: var(--white);
+            border-top: 5px solid var(--orange);
+            padding: 34px;
+            box-shadow: 0 14px 35px rgba(16, 27, 51, 0.09);
+        }
+
+        .card-heading {
+            margin-bottom: 24px;
+        }
+
+        .card-heading h2 {
+            margin: 0 0 7px;
+            color: var(--navy);
+            font-size: 25px;
+            line-height: 1.2;
+        }
+
+        .card-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* ==================== APPLICATION CODE ==================== */
+
+        .application-code {
+            background: var(--navy);
+            color: var(--white);
+            padding: 15px 17px;
+            margin: 22px 0;
+            border-left: 4px solid var(--orange);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .application-code strong {
+            color: var(--orange);
+            letter-spacing: 0.5px;
+        }
+
+        /* ==================== FLASH MESSAGE ==================== */
+
+        .message {
+            padding: 13px 15px;
+            margin-bottom: 18px;
+            background: var(--warning-bg);
+            color: var(--warning-text);
+            border-left: 4px solid var(--orange);
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* ==================== FORM ==================== */
+
+        form {
+            margin-top: 24px;
+            padding-top: 22px;
+            border-top: 1px solid #e3e6ec;
+        }
+
+        form:first-of-type {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            background: #fbfcfd;
+            color: var(--text);
+            font-size: 15px;
+            border-radius: 3px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(242, 169, 59, 0.13);
+            background: var(--white);
+        }
+
+        input[readonly] {
+            background: #f1f3f6;
+            color: #4d596c;
+            cursor: not-allowed;
+        }
+
+        #otp {
+            letter-spacing: 5px;
+            font-weight: 800;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        input::placeholder {
+            color: #9aa3b1;
+            letter-spacing: normal;
+            font-weight: normal;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 14px 16px;
+            border: 1px solid var(--orange);
+            border-radius: 3px;
+            background: var(--orange);
+            color: var(--navy);
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--orange-dark);
+            border-color: var(--orange-dark);
+        }
+
+        /* ==================== INFO ==================== */
+
+        .info {
+            margin-top: 25px;
+            padding: 15px 16px;
+            background: #f4f6f9;
+            border-left: 4px solid var(--navy);
+            color: #596477;
+            line-height: 1.6;
+            font-size: 12px;
+        }
+
+        .info strong {
+            color: var(--navy);
+        }
+
+        /* ==================== BACK LINK ==================== */
+
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .back-link:hover {
+            color: var(--orange-dark);
+            text-decoration: underline;
+        }
+
+        /* ==================== FOOTER ==================== */
+
+        .footer {
+            max-width: 980px;
+            margin: 24px auto 0;
+            padding: 15px 0 0;
+            border-top: 1px solid #d9dee7;
+            color: #7a8493;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+
+        @media (max-width: 800px) {
+            .verification-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-panel {
+                min-height: auto;
+                padding: 28px;
+            }
+
+            .security-note {
+                position: static;
+                margin-top: 28px;
+            }
+
+            .intro-panel h1 {
+                font-size: 31px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 18px;
+            }
+
+            .page-shell {
+                padding: 25px 14px 40px;
+            }
+
+            .card {
+                padding: 24px 20px;
+            }
+
+            .intro-panel {
+                padding: 25px 20px;
+            }
+
+            .intro-panel h1 {
+                font-size: 28px;
+            }
+
+            .brand-name {
+                font-size: 19px;
+            }
+
+            .brand-caption {
+                font-size: 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <div class="logo-mark">
+            RQ
+        </div>
+
+        <div class="brand">
+            <div class="brand-name">
+                <span class="resq">RESQ</span><span class="meal">MEAL</span>
+            </div>
+
+            <div class="brand-caption">
+                AI-assisted food waste reduction
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<main class="page-shell">
+
+    <div class="verification-layout">
+
+        <!-- ==================== INTRO PANEL ==================== -->
+
+        <section class="intro-panel">
+
+            <div class="eyebrow">
+                Event / Party Registration
+            </div>
+
+            <h1>
+                MOBILE<br>
+                <span>VERIFICATION</span>
+            </h1>
+
+            <p class="intro-text">
+                Confirm control of the registered mobile number
+                before the Event / Party application proceeds
+                to Administrative review.
+            </p>
+
+            <div class="verification-steps">
+
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-text">
+                        Confirm registered mobile number
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-text">
+                        Receive a six-digit OTP
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-text">
+                        Verify the submitted OTP
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-text">
+                        Continue to Admin review
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="security-note">
+                MOBILE VERIFICATION IS A REGISTRATION
+                CONFIRMATION STEP. IT IS SEPARATE FROM
+                ADMIN APPROVAL AND FOOD-SAFETY VERIFICATION.
+            </div>
+
+        </section>
+
+        <!-- ==================== VERIFICATION CARD ==================== -->
+
+        <section class="card">
+
+            <div class="card-heading">
+
+                <h2>
+                    Verify Registered Mobile
+                </h2>
+
+                <p>
+                    Verify the mobile number provided for the
+                    Event/Party registration.
+                </p>
+
+            </div>
+
+            <div class="application-code">
+                Application Code:
+                <strong>{{ application.application_code }}</strong>
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="message">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- SEND OTP -->
+
+            <form method="POST"
+                  action="{{ url_for('donor.send_event_otp', application_code=application_code) }}">
+
+                <label for="phone">
+                    Registered Mobile Number
+                </label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value="{{ application.phone }}"
+                    readonly
+                >
+
+                <button type="submit">
+                    Send OTP
+                </button>
+
+            </form>
+
+            <!-- VERIFY OTP -->
+
+            <form method="POST"
+                  action="{{ url_for('donor.verify_event_otp', application_code=application_code) }}">
+
+                <label for="otp">
+                    Enter OTP
+                </label>
+
+                <input
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    maxlength="6"
+                    minlength="6"
+                    pattern="[0-9]{6}"
+                    placeholder="Enter 6-digit OTP"
+                    required
+                >
+
+                <button type="submit">
+                    Verify Mobile Number
+                </button>
+
+            </form>
+
+            <div class="info">
+                <strong>Note:</strong>
+                OTP verification confirms control of the provided
+                mobile number. It does not represent Admin approval
+                or food-safety certification. The application will
+                proceed to Admin review after successful verification.
+            </div>
+
+            <a href="{{ url_for('donor.register') }}" class="back-link">
+                ← Back to Donor Registration
+            </a>
+
+        </section>
+
+    </div>
+
+    <div class="footer">
+        ResQMeal &nbsp;•&nbsp; Recover More. Waste Less.
+    </div>
+
+</main>
+
+</body>
+</html>

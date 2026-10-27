@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Donor Dashboard | ResQMeal</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            background: #F4F5F7;
+
+            color: #202735;
+        }
+
+
+        /* =================================================
+           TOP NAVIGATION
+        ================================================= */
+
+        .topbar {
+
+            min-height: 78px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 48px;
+
+            background: #17233C;
+
+            border-bottom:
+                3px solid #F2A93B;
+
+            box-shadow:
+                0 8px 24px rgba(23, 35, 60, 0.18);
+        }
+
+
+        .brand {
+
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .logo {
+
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border:
+                2px solid #F2A93B;
+
+            border-radius: 50%;
+
+            background: #101A30;
+
+            color: #F2A93B;
+
+            font-size: 14px;
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+
+        .logo span {
+            color: #FFFFFF;
+        }
+
+
+        .brand-text h1 {
+
+            color: #FFFFFF;
+
+            font-size: 20px;
+
+            font-weight: 900;
+
+            letter-spacing: 0.8px;
+        }
+
+
+        .brand-text h1 span {
+            color: #F2A93B;
+        }
+
+
+        .brand-text p {
+
+            margin-top: 4px;
+
+            color: #C5CBD7;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .logout-button {
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-width: 94px;
+            height: 38px;
+
+            padding: 0 17px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.28);
+
+            border-radius: 7px;
+
+            background: transparent;
+
+            color: #FFFFFF;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.3px;
+
+            transition: 0.2s ease;
+        }
+
+
+        .logout-button:hover {
+
+            background: #F2A93B;
+
+            border-color: #F2A93B;
+
+            color: #17233C;
+        }
+
+
+        /* =================================================
+           MAIN
+        ================================================= */
+
+        .main {
+
+            width: 100%;
+
+            max-width: 1220px;
+
+            margin: 0 auto;
+
+            padding: 42px 28px 55px;
+        }
+
+
+        /* =================================================
+           WELCOME SECTION
+        ================================================= */
+
+        .welcome-section {
+
+            margin-bottom: 27px;
+        }
+
+
+        .eyebrow {
+
+            margin-bottom: 8px;
+
+            color: #C77B0C;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: 1.8px;
+
+            text-transform: uppercase;
+        }
+
+
+        .welcome-section h2 {
+
+            color: #17233C;
+
+            font-size: 34px;
+
+            line-height: 1.2;
+
+            font-weight: 900;
+        }
+
+
+        .welcome-section h2 span {
+
+            color: #D88E20;
+        }
+
+
+        .welcome-section p {
+
+            max-width: 720px;
+
+            margin-top: 10px;
+
+            color: #667085;
+
+            font-size: 14px;
+
+            line-height: 1.65;
+        }
+
+
+        /* =================================================
+           ACCOUNT SUMMARY
+        ================================================= */
+
+        .account-summary {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+
+            margin-bottom: 38px;
+
+            padding: 18px 22px;
+
+            background: #17233C;
+
+            border-left:
+                5px solid #F2A93B;
+
+            box-shadow:
+                0 10px 25px rgba(23, 35, 60, 0.13);
+        }
+
+
+        .account-info {
+
+            display: flex;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 42px;
+        }
+
+
+        .info-item small {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #AEB7C8;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .info-item strong {
+
+            color: #FFFFFF;
+
+            font-size: 14px;
+
+            font-weight: 800;
+        }
+
+
+        .active-status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 6px 11px;
+
+            border:
+                1px solid rgba(242, 169, 59, 0.35);
+
+            background: rgba(242, 169, 59, 0.10);
+
+            color: #F2A93B;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: 0.7px;
+        }
+
+
+        .active-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #F2A93B;
+        }
+
+
+        /* =================================================
+           SECTION HEADING
+        ================================================= */
+
+        .section-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 17px;
+
+            padding-bottom: 11px;
+
+            border-bottom:
+                1px solid #D9DDE4;
+        }
+
+
+        .section-title {
+
+            color: #17233C;
+
+            font-size: 20px;
+
+            font-weight: 900;
+        }
+
+
+        .section-label {
+
+            color: #8A93A3;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =================================================
+           DASHBOARD GRID
+        ================================================= */
+
+        .dashboard-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 17px;
+        }
+
+
+        .card {
+
+            position: relative;
+
+            min-height: 178px;
+
+            padding: 23px;
+
+            background: #FFFFFF;
+
+            border:
+                1px solid #DCE0E6;
+
+            border-top:
+                3px solid #17233C;
+
+            box-shadow:
+                0 7px 20px rgba(23, 35, 60, 0.055);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+
+        .card:hover {
+
+            transform: translateY(-3px);
+
+            border-top-color: #F2A93B;
+
+            box-shadow:
+                0 13px 28px rgba(23, 35, 60, 0.12);
+        }
+
+
+        .card-link {
+
+            display: block;
+
+            height: 100%;
+
+            color: inherit;
+
+            text-decoration: none;
+        }
+
+
+        /* =================================================
+           CARD ICON
+        ================================================= */
+
+        .card-icon {
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 17px;
+
+            background: #17233C;
+
+            border:
+                1px solid #263653;
+
+            color: #F2A93B;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: 0.6px;
+        }
+
+
+        .card h3 {
+
+            margin-bottom: 8px;
+
+            color: #17233C;
+
+            font-size: 16px;
+
+            font-weight: 900;
+        }
+
+
+        .card p {
+
+            max-width: 330px;
+
+            color: #667085;
+
+            font-size: 12.5px;
+
+            line-height: 1.58;
+        }
+
+
+        .card-arrow {
+
+            position: absolute;
+
+            right: 20px;
+
+            bottom: 17px;
+
+            color: #D88E20;
+
+            font-size: 20px;
+
+            font-weight: 900;
+        }
+
+
+        /* =================================================
+           CORE RECOVERY CARD
+        ================================================= */
+
+        .recovery-management-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #17233C 0%,
+                    #202E4A 100%
+                );
+
+            border-top:
+                3px solid #F2A93B;
+
+            box-shadow:
+                0 12px 28px rgba(23, 35, 60, 0.18);
+        }
+
+
+        .recovery-management-card:hover {
+
+            border-top-color: #FFFFFF;
+
+            box-shadow:
+                0 16px 34px rgba(23, 35, 60, 0.24);
+        }
+
+
+        .recovery-management-card .card-icon {
+
+            background: #F2A93B;
+
+            border-color: #F2A93B;
+
+            color: #17233C;
+        }
+
+
+        .recovery-management-card h3 {
+
+            color: #FFFFFF;
+        }
+
+
+        .recovery-management-card p {
+
+            color: #D4DAE4;
+        }
+
+
+        .recovery-management-card .card-arrow {
+
+            color: #F2A93B;
+        }
+
+
+        .recovery-badge {
+
+            position: absolute;
+
+            top: 18px;
+
+            right: 18px;
+
+            padding: 5px 9px;
+
+            background: #F2A93B;
+
+            color: #17233C;
+
+            font-size: 8px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =================================================
+           PROFILE CARD
+        ================================================= */
+
+        .profile-card {
+
+            border-top-color: #F2A93B;
+        }
+
+
+        .profile-card .card-icon {
+
+            background: #FFF4DF;
+
+            border-color: #F2D49D;
+
+            color: #C77B0C;
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        .footer {
+
+            margin-top: 48px;
+
+            padding-top: 18px;
+
+            border-top:
+                1px solid #D9DDE4;
+
+            text-align: center;
+
+            color: #8A93A3;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.3px;
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 900px) {
+
+            .dashboard-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+
+            .topbar {
+
+                padding: 0 25px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .topbar {
+
+                min-height: 70px;
+
+                padding: 0 16px;
+            }
+
+
+            .brand {
+
+                gap: 9px;
+            }
+
+
+            .logo {
+
+                width: 40px;
+                height: 40px;
+
+                font-size: 12px;
+            }
+
+
+            .brand-text h1 {
+
+                font-size: 17px;
+            }
+
+
+            .brand-text p {
+
+                display: none;
+            }
+
+
+            .logout-button {
+
+                min-width: 78px;
+
+                height: 35px;
+
+                padding: 0 12px;
+
+                font-size: 11px;
+            }
+
+
+            .main {
+
+                padding:
+                    30px 16px 42px;
+            }
+
+
+            .welcome-section h2 {
+
+                font-size: 27px;
+            }
+
+
+            .welcome-section p {
+
+                font-size: 13px;
+            }
+
+
+            .account-summary {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                padding: 18px;
+            }
+
+
+            .account-info {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 16px;
+            }
+
+
+            .dashboard-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 14px;
+            }
+
+
+            .card {
+
+                min-height: 165px;
+
+                padding: 21px;
+            }
+
+
+            .recovery-badge {
+
+                top: 16px;
+
+                right: 16px;
+            }
+
+
+            .section-heading {
+
+                align-items: flex-end;
+            }
+
+
+            .section-label {
+
+                font-size: 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================================
+     TOP NAVIGATION
+================================================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="logo">
+            R<span>Q</span>
+        </div>
+
+
+        <div class="brand-text">
+
+            <h1>
+                RESQ<span>MEAL</span>
+            </h1>
+
+            <p>
+                AI-Assisted Food Waste Reduction
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="/donor/logout"
+        class="logout-button"
+    >
+        Logout
+    </a>
+
+</header>
+
+
+
+<!-- =================================================
+     MAIN CONTENT
+================================================= -->
+
+<main class="main">
+
+
+    <!-- =================================================
+         WELCOME
+    ================================================== -->
+
+    <section class="welcome-section">
+
+        <div class="eyebrow">
+            Donor Dashboard
+        </div>
+
+
+        <h2>
+            Welcome,
+            <span>{{ donor_username }}</span>
+        </h2>
+
+
+        <p>
+            Manage surplus food declarations, recovery
+            activities, matches, notifications and your
+            donor account from one place.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         ACCOUNT SUMMARY
+    ================================================== -->
+
+    <section class="account-summary">
+
+        <div class="account-info">
+
+
+            <div class="info-item">
+
+                <small>
+                    Donor Code
+                </small>
+
+                <strong>
+                    {{ donor_code }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <small>
+                    Account Status
+                </small>
+
+                <span class="active-status">
+
+                    <span class="active-dot"></span>
+
+                    ACTIVE
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         DASHBOARD OPTIONS
+    ================================================== -->
+
+    <div class="section-heading">
+
+        <h3 class="section-title">
+            Donor Services
+        </h3>
+
+        <span class="section-label">
+            ResQMeal Network
+        </span>
+
+    </div>
+
+
+    <section class="dashboard-grid">
+
+
+        <!-- =================================================
+             RECOVERY MANAGEMENT
+        ================================================== -->
+
+        <a
+            href="{{ url_for('donor.recovery_management') }}"
+            class="card card-link recovery-management-card"
+        >
+
+            <div class="recovery-badge">
+                Core
+            </div>
+
+
+            <div class="card-icon">
+                RM
+            </div>
+
+
+            <h3>
+                Recovery Management
+            </h3>
+
+
+            <p>
+                Monitor every surplus declaration and
+                follow its recovery journey from submission
+                through verification, collection and
+                distribution.
+            </p>
+
+
+            <div class="card-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <!-- =================================================
+             DECLARE SURPLUS
+        ================================================== -->
+
+        <a
+            href="{{ url_for('donor.declare_surplus') }}"
+            class="card card-link"
+        >
+
+            <div class="card-icon">
+                DS
+            </div>
+
+
+            <h3>
+                Declare Surplus
+            </h3>
+
+
+            <p>
+                Declare available surplus food for
+                verified NGO recovery.
+            </p>
+
+
+            <div class="card-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <!-- =================================================
+             RECOVERY MATCHES
+        ================================================== -->
+
+        <a
+            href="{{ url_for('donor.recovery_matches') }}"
+            class="card card-link"
+        >
+
+            <div class="card-icon">
+                AI
+            </div>
+
+
+            <h3>
+                Recovery Matches
+            </h3>
+
+
+            <p>
+                View AI-assisted recovery matches and
+                suitable NGO opportunities.
+            </p>
+
+
+            <div class="card-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <!-- =================================================
+             RECOVERY STATUS
+        ================================================== -->
+
+        <a
+            href="#"
+            class="card card-link"
+        >
+
+            <div class="card-icon">
+                RS
+            </div>
+
+
+            <h3>
+                Recovery Status
+            </h3>
+
+
+            <p>
+                Track the current status of your food
+                recovery activities.
+            </p>
+
+
+            <div class="card-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <!-- =================================================
+             COMPLETED RECOVERY
+        ================================================== -->
+
+        <a
+            href="#"
+            class="card card-link"
+        >
+
+            <div class="card-icon">
+                CR
+            </div>
+
+
+            <h3>
+                Completed Recovery
+            </h3>
+
+
+            <p>
+                View previously completed food recovery
+                activities and records.
+            </p>
+
+
+            <div class="card-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <!-- =================================================
+             NOTIFICATIONS
+        ================================================== -->
+
+        <a
+            href="#"
+            class="card card-link"
+        >
+
+            <div class="card-icon">
+                NT
+            </div>
+
+
+            <h3>
+                Notifications
+            </h3>
+
+
+            <p>
+                View important updates, recovery alerts
+                and system notifications.
+            </p>
+
+
+            <div class="card-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <!-- =================================================
+             DONOR PROFILE
+        ================================================== -->
+
+        <a
+            href="{{ url_for('donor.profile') }}"
+            class="card card-link profile-card"
+        >
+
+            <div class="card-icon">
+                DP
+            </div>
+
+
+            <h3>
+                Donor Profile
+            </h3>
+
+
+            <p>
+                View your registered donor details,
+                application information and account status.
+            </p>
+
+
+            <div class="card-arrow">
+                →
+            </div>
+
+        </a>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <div class="footer">
+
+        ResQMeal • Recover More. Waste Less.
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

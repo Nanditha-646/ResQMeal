@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NGO Application Details | ResQMeal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6fa;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* ================= HEADER ================= */
+
+        .topbar {
+            background: #071a35;
+            min-height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            box-shadow: 0 4px 16px rgba(7, 26, 53, 0.16);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 3px solid #f47b20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f47b20;
+            font-weight: 900;
+            font-size: 17px;
+            letter-spacing: 1px;
+        }
+
+        .brand-name {
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .resq {
+            color: #f47b20;
+        }
+
+        .meal {
+            color: #ffffff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .admin-label {
+            color: #d9e2f0;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            text-decoration: none;
+            background: #f47b20;
+            color: #ffffff;
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .logout-btn:hover {
+            background: #d96512;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            width: 90%;
+            max-width: 1180px;
+            margin: 36px auto 60px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #17365f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .back-link:hover {
+            color: #f47b20;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background: #071a35;
+            color: #ffffff;
+            border-radius: 14px;
+            border-left: 6px solid #f47b20;
+            padding: 32px 36px;
+            margin-bottom: 24px;
+        }
+
+        .hero-label {
+            color: #f47b20;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+
+        .hero-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 25px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: #cbd6e6;
+            font-size: 13px;
+            line-height: 1.6;
+            max-width: 720px;
+        }
+
+        .application-code {
+            display: inline-block;
+            margin-top: 13px;
+            color: #ffffff;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.16);
+            padding: 8px 11px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.7px;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status {
+            display: inline-block;
+            padding: 9px 13px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .status-submitted,
+        .status-review {
+            background: #fff1df;
+            color: #a84f00;
+        }
+
+        .status-correction {
+            background: #fff7d7;
+            color: #806500;
+        }
+
+        .status-verified,
+        .status-active {
+            background: #e8f4ee;
+            color: #17643f;
+        }
+
+        .status-rejected {
+            background: #fdeaea;
+            color: #a32727;
+        }
+
+        .status-default {
+            background: #edf0f5;
+            color: #536176;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            background: #ffffff;
+            border: 1px solid #dce2eb;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(15, 34, 59, 0.05);
+        }
+
+        .section-heading {
+            background: #f9fafc;
+            border-bottom: 1px solid #e2e6ed;
+            padding: 20px 24px;
+        }
+
+        .section-heading h2 {
+            color: #071a35;
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .section-heading p {
+            color: #718096;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .section-body {
+            padding: 24px;
+        }
+
+        /* ================= INFORMATION GRID ================= */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+        }
+
+        .info-item {
+            padding: 15px 16px;
+            border-bottom: 1px solid #e7ebf0;
+        }
+
+        .info-item:nth-child(odd) {
+            border-right: 1px solid #e7ebf0;
+        }
+
+        .info-item:nth-last-child(-n+2) {
+            border-bottom: none;
+        }
+
+        .info-label {
+            display: block;
+            color: #7a8799;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+        }
+
+        .info-value {
+            color: #172033;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .full-width.info-item:nth-child(odd) {
+            border-right: none;
+        }
+
+        /* ================= DOCUMENTS ================= */
+
+        .document-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .document-card {
+            border: 1px solid #dce2eb;
+            border-radius: 10px;
+            padding: 18px;
+            background: #ffffff;
+        }
+
+        .document-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .document-number {
+            color: #f47b20;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .document-name {
+            color: #071a35;
+            font-size: 16px;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .document-type {
+            color: #718096;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .view-document {
+            display: inline-block;
+            text-decoration: none;
+            background: #071a35;
+            color: #ffffff;
+            padding: 9px 13px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .view-document:hover {
+            background: #f47b20;
+        }
+
+        /* ================= VERIFICATION ================= */
+
+        .verification-box {
+            background: #f8f9fb;
+            border: 1px solid #e1e5eb;
+            border-radius: 9px;
+            padding: 16px;
+        }
+
+        .verification-title {
+            color: #071a35;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            margin-bottom: 12px;
+        }
+
+        .verification-form {
+            display: grid;
+            grid-template-columns: 210px 1fr auto;
+            gap: 11px;
+            align-items: end;
+        }
+
+        .field label {
+            display: block;
+            color: #56647a;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 6px;
+        }
+
+        .field select,
+        .field textarea {
+            width: 100%;
+            border: 1px solid #ccd4df;
+            border-radius: 6px;
+            background: #ffffff;
+            color: #172033;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            padding: 10px;
+            outline: none;
+        }
+
+        .field select:focus,
+        .field textarea:focus {
+            border-color: #f47b20;
+        }
+
+        .field textarea {
+            min-height: 42px;
+            resize: vertical;
+        }
+
+        .verify-btn {
+            border: none;
+            background: #f47b20;
+            color: #ffffff;
+            padding: 11px 16px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .verify-btn:hover {
+            background: #d96512;
+        }
+
+        .verification-note {
+            margin-top: 10px;
+            color: #7a8799;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* ================= DOCUMENT STATUS ================= */
+
+        .document-status {
+            display: inline-block;
+            padding: 7px 10px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .document-pending {
+            background: #fff1df;
+            color: #a84f00;
+        }
+
+        .document-verified {
+            background: #e8f4ee;
+            color: #17643f;
+        }
+
+        .document-correction {
+            background: #fff7d7;
+            color: #806500;
+        }
+
+        .document-rejected {
+            background: #fdeaea;
+            color: #a32727;
+        }
+
+        .document-default {
+            background: #edf0f5;
+            color: #536176;
+        }
+
+        /* ================= NOTES ================= */
+
+        .admin-notes {
+            margin-top: 14px;
+            padding: 13px 15px;
+            background: #fff8ef;
+            border-left: 4px solid #f47b20;
+            border-radius: 5px;
+        }
+
+        .admin-notes strong {
+            display: block;
+            color: #071a35;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 5px;
+        }
+
+        .admin-notes p {
+            color: #59667a;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ================= EMPTY DOCUMENT ================= */
+
+        .empty-documents {
+            padding: 35px 20px;
+            text-align: center;
+            border: 1px dashed #cbd3de;
+            border-radius: 8px;
+        }
+
+        .empty-documents h3 {
+            color: #071a35;
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        .empty-documents p {
+            color: #718096;
+            font-size: 12px;
+        }
+
+        /* ================= FLASH ================= */
+
+        .flash-area {
+            margin-bottom: 20px;
+        }
+
+        .flash {
+            padding: 13px 16px;
+            border-radius: 7px;
+            margin-bottom: 9px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .flash.success {
+            background: #e8f4ee;
+            color: #17643f;
+            border: 1px solid #c8e4d5;
+        }
+
+        .flash.error {
+            background: #fdeaea;
+            color: #a32727;
+            border: 1px solid #efcaca;
+        }
+
+        .flash.warning {
+            background: #fff7d7;
+            color: #806500;
+            border: 1px solid #eadc9f;
+        }
+
+        .flash.info {
+            background: #eaf1fb;
+            color: #234d80;
+            border: 1px solid #cedcf0;
+        }
+
+        /* ================= FOOTER ACTION ================= */
+
+        .bottom-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 26px;
+        }
+
+        .back-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #071a35;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .back-button:hover {
+            background: #f47b20;
+        }
+
+        .verification-rule {
+            color: #667389;
+            font-size: 11px;
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .hero-main {
+                flex-direction: column;
+            }
+
+            .verification-form {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item:nth-child(odd) {
+                border-right: none;
+            }
+
+            .info-item:nth-last-child(-n+2) {
+                border-bottom: 1px solid #e7ebf0;
+            }
+
+            .info-item:last-child {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .topbar {
+                padding: 15px 5%;
+                min-height: auto;
+                flex-wrap: wrap;
+                gap: 14px;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .page {
+                width: 94%;
+                margin-top: 25px;
+            }
+
+            .hero {
+                padding: 27px 24px;
+            }
+
+            .hero h1 {
+                font-size: 25px;
+            }
+
+            .section-body {
+                padding: 18px;
+            }
+
+            .document-top {
+                flex-direction: column;
+            }
+
+            .bottom-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .verification-rule {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topbar">
+
+        <a
+            href="{{ url_for('admin.dashboard') }}"
+            class="brand"
+        >
+
+            <div class="logo">RQ</div>
+
+            <div class="brand-name">
+                <span class="resq">RESQ</span><span class="meal">MEAL</span>
+            </div>
+
+        </a>
+
+        <div class="header-right">
+
+            <span class="admin-label">
+                Administrative Oversight
+            </span>
+
+            <a
+                href="{{ url_for('admin.logout') }}"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= PAGE ================= -->
+
+    <main class="page">
+
+        <a
+            href="{{ url_for('admin.ngo_applications') }}"
+            class="back-link"
+        >
+            ← Back to NGO Applications
+        </a>
+
+
+        <!-- ================= FLASH MESSAGES ================= -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="flash-area">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero">
+
+            <div class="hero-label">
+                NGO APPLICATION REVIEW
+            </div>
+
+            <div class="hero-main">
+
+                <div>
+
+                    <h1>
+                        {{ application.ngo_name }}
+                    </h1>
+
+                    <p>
+                        Review the NGO registration information and verify
+                        each mandatory supporting document before the
+                        application can proceed to NGO activation.
+                    </p>
+
+                    <div class="application-code">
+                        {{ application.application_code }}
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    {% if application.application_status == "APPLICATION_SUBMITTED" %}
+
+                        <span class="status status-submitted">
+                            Application Submitted
+                        </span>
+
+                    {% elif application.application_status == "DOCUMENT_REVIEW" %}
+
+                        <span class="status status-review">
+                            Document Review
+                        </span>
+
+                    {% elif application.application_status == "CORRECTION_REQUIRED" %}
+
+                        <span class="status status-correction">
+                            Correction Required
+                        </span>
+
+                    {% elif application.application_status == "VERIFIED" %}
+
+                        <span class="status status-verified">
+                            Verified
+                        </span>
+
+                    {% elif application.application_status == "ACTIVE_NGO" %}
+
+                        <span class="status status-active">
+                            Active NGO
+                        </span>
+
+                    {% elif application.application_status == "REJECTED" %}
+
+                        <span class="status status-rejected">
+                            Rejected
+                        </span>
+
+                    {% else %}
+
+                        <span class="status status-default">
+                            {{ application.application_status }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= NGO INFORMATION ================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>NGO Registration Information</h2>
+
+                <p>
+                    Information submitted during the NGO registration process.
+                </p>
+
+            </div>
+
+
+            <div class="section-body">
+
+                <div class="info-grid">
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            NGO Name
+                        </span>
+
+                        <div class="info-value">
+                            {{ application.ngo_name }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Application Code
+                        </span>
+
+                        <div class="info-value">
+                            {{ application.application_code }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Authorized Representative
+                        </span>
+
+                        <div class="info-value">
+                            {{ application.authorized_representative_name }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Phone
+                        </span>
+
+                        <div class="info-value">
+                            {{ application.phone }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Email
+                        </span>
+
+                        <div class="info-value">
+                            {{ application.email }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Registration Number
+                        </span>
+
+                        <div class="info-value">
+
+                            {% if application.registration_number %}
+                                {{ application.registration_number }}
+                            {% else %}
+                                Not provided
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Registration Date
+                        </span>
+
+                        <div class="info-value">
+
+                            {% if application.registration_date %}
+                                {{ application.registration_date }}
+                            {% else %}
+                                Not provided
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Postal Code
+                        </span>
+
+                        <div class="info-value">
+
+                            {% if application.postal_code %}
+                                {{ application.postal_code }}
+                            {% else %}
+                                Not provided
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            City
+                        </span>
+
+                        <div class="info-value">
+                            {{ application.city }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            State
+                        </span>
+
+                        <div class="info-value">
+                            {{ application.state }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item full-width">
+
+                        <span class="info-label">
+                            Registered Address
+                        </span>
+
+                        <div class="info-value">
+                            {{ application.registered_address }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item full-width">
+
+                        <span class="info-label">
+                            Organization Description
+                        </span>
+
+                        <div class="info-value">
+
+                            {% if application.organization_description %}
+                                {{ application.organization_description }}
+                            {% else %}
+                                Not provided
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Submitted At
+                        </span>
+
+                        <div class="info-value">
+
+                            {% if application.submitted_at %}
+                                {{ application.submitted_at.strftime('%d %b %Y, %I:%M %p') }}
+                            {% else %}
+                                —
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <span class="info-label">
+                            Reviewed At
+                        </span>
+
+                        <div class="info-value">
+
+                            {% if application.reviewed_at %}
+                                {{ application.reviewed_at.strftime('%d %b %Y, %I:%M %p') }}
+                            {% else %}
+                                Not reviewed yet
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ADMIN NOTES ================= -->
+
+        {% if application.admin_review_notes or application.correction_message %}
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <h2>Administrative Review Information</h2>
+
+                    <p>
+                        Notes and correction information associated with this application.
+                    </p>
+
+                </div>
+
+                <div class="section-body">
+
+                    {% if application.admin_review_notes %}
+
+                        <div class="admin-notes">
+
+                            <strong>
+                                Admin Review Notes
+                            </strong>
+
+                            <p>
+                                {{ application.admin_review_notes }}
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if application.correction_message %}
+
+                        <div class="admin-notes">
+
+                            <strong>
+                                Correction Message
+                            </strong>
+
+                            <p>
+                                {{ application.correction_message }}
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        <!-- ================= DOCUMENT VERIFICATION ================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>Mandatory Document Verification</h2>
+
+                <p>
+                    Verify each submitted NGO document individually. All four
+                    mandatory documents must be verified before the NGO
+                    application reaches VERIFIED status.
+                </p>
+
+            </div>
+
+
+            <div class="section-body">
+
+                {% if documents %}
+
+                    <div class="document-list">
+
+                        {% for document in documents %}
+
+                            <div class="document-card">
+
+                                <div class="document-top">
+
+                                    <div>
+
+                                        <div class="document-number">
+                                            DOCUMENT {{ loop.index }}
+                                        </div>
+
+                                        <div class="document-name">
+
+                                            {% if document.document_type == "REGISTRATION_CERTIFICATE" %}
+
+                                                Registration Certificate
+
+                                            {% elif document.document_type == "PAN_DOCUMENT" %}
+
+                                                PAN Document
+
+                                            {% elif document.document_type == "ADDRESS_PROOF" %}
+
+                                                Address Proof
+
+                                            {% elif document.document_type == "AUTHORIZED_REPRESENTATIVE_ID" %}
+
+                                                Authorized Representative ID
+
+                                            {% else %}
+
+                                                {{ document.document_type }}
+
+                                            {% endif %}
+
+                                        </div>
+
+                                        <div class="document-type">
+                                            {{ document.document_type }}
+                                        </div>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        {% if document.verification_status == "PENDING" %}
+
+                                            <span class="document-status document-pending">
+                                                Pending Verification
+                                            </span>
+
+                                        {% elif document.verification_status == "VERIFIED" %}
+
+                                            <span class="document-status document-verified">
+                                                Verified
+                                            </span>
+
+                                        {% elif document.verification_status == "CORRECTION_REQUIRED" %}
+
+                                            <span class="document-status document-correction">
+                                                Correction Required
+                                            </span>
+
+                                        {% elif document.verification_status == "REJECTED" %}
+
+                                            <span class="document-status document-rejected">
+                                                Rejected
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="document-status document-default">
+                                                {{ document.verification_status }}
+                                            </span>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- DOCUMENT ACTION -->
+
+                                <div class="document-actions">
+
+                                    <a
+                                        href="{{
+                                            url_for(
+                                                'admin.view_ngo_document',
+                                                document_id=document.ngo_document_id
+                                            )
+                                        }}"
+                                        class="view-document"
+                                        target="_blank"
+                                    >
+                                        View Document
+                                    </a>
+
+                                </div>
+
+
+                                <!-- VERIFICATION FORM -->
+
+                                <div class="verification-box">
+
+                                    <div class="verification-title">
+                                        Administrative Verification
+                                    </div>
+
+                                    <form
+                                        method="POST"
+                                        action="{{
+                                            url_for(
+                                                'admin.verify_ngo_document',
+                                                document_id=document.ngo_document_id
+                                            )
+                                        }}"
+                                        class="verification-form"
+                                    >
+
+                                        <div class="field">
+
+                                            <label for="status-{{ document.ngo_document_id }}">
+                                                Verification Decision
+                                            </label>
+
+                                            <select
+                                                id="status-{{ document.ngo_document_id }}"
+                                                name="verification_status"
+                                                required
+                                            >
+
+                                                <option value="">
+                                                    Select decision
+                                                </option>
+
+                                                <option value="VERIFIED">
+                                                    Verified
+                                                </option>
+
+                                                <option value="CORRECTION_REQUIRED">
+                                                    Correction Required
+                                                </option>
+
+                                                <option value="REJECTED">
+                                                    Rejected
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="field">
+
+                                            <label for="notes-{{ document.ngo_document_id }}">
+                                                Notes / Reason
+                                            </label>
+
+                                            <textarea
+                                                id="notes-{{ document.ngo_document_id }}"
+                                                name="admin_notes"
+                                                placeholder="Required for correction or rejection."
+                                            ></textarea>
+
+                                        </div>
+
+
+                                        <button
+                                            type="submit"
+                                            class="verify-btn"
+                                        >
+                                            Save Decision
+                                        </button>
+
+                                    </form>
+
+
+                                    <div class="verification-note">
+                                        Notes are mandatory when selecting
+                                        Correction Required or Rejected.
+                                    </div>
+
+                                </div>
+
+
+                                <!-- EXISTING ADMIN NOTES -->
+
+                                {% if document.admin_notes %}
+
+                                    <div class="admin-notes">
+
+                                        <strong>
+                                            Previous Admin Notes
+                                        </strong>
+
+                                        <p>
+                                            {{ document.admin_notes }}
+                                        </p>
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-documents">
+
+                        <h3>
+                            No Documents Found
+                        </h3>
+
+                        <p>
+                            The NGO has not uploaded the mandatory supporting
+                            documents yet.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= BOTTOM ================= -->
+
+        <div class="bottom-actions">
+
+            <a
+                href="{{ url_for('admin.ngo_applications') }}"
+                class="back-button"
+            >
+                ← Back to NGO Applications
+            </a>
+
+            <div class="verification-rule">
+                Four mandatory documents must be verified<br>
+                before the application can become VERIFIED.
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

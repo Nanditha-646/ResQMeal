@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101a33">
+    <title>NGO Dashboard | ResQMeal</title>
+
+    <style>
+        :root {
+            --navy: #101a33;
+            --navy-light: #1b2948;
+            --orange: #f28c28;
+            --white: #ffffff;
+            --background: #f5f7fb;
+            --text: #172033;
+            --muted: #7a8394;
+            --border: #e5e9f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .topbar {
+            min-height: 72px;
+            padding: 15px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            background: var(--navy);
+            color: var(--white);
+            box-shadow: 0 4px 18px rgba(16, 26, 51, .18);
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: .5px;
+        }
+
+        .brand span,
+        .welcome-tag,
+        .card-number,
+        .card-icon {
+            color: var(--orange);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links .logout {
+            padding: 10px 15px;
+            border: 1px solid var(--orange);
+            border-radius: 7px;
+            color: var(--orange);
+        }
+
+        .nav-links .logout:hover {
+            background: var(--orange);
+            color: var(--navy);
+        }
+
+        .welcome-section {
+            padding: 48px 7% 78px;
+            background: linear-gradient(125deg, var(--navy), var(--navy-light));
+            color: var(--white);
+        }
+
+        .welcome-tag {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+        }
+
+        .welcome-section h1 {
+            margin-top: 14px;
+            font-size: clamp(28px, 4vw, 40px);
+            line-height: 1.2;
+        }
+
+        .welcome-section p {
+            max-width: 720px;
+            margin-top: 13px;
+            color: #c8cfdd;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 9px 14px;
+            border: 1px solid rgba(242, 140, 40, .45);
+            border-radius: 20px;
+            background: rgba(242, 140, 40, .12);
+            color: var(--orange);
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--orange);
+        }
+
+        .container {
+            position: relative;
+            width: 86%;
+            max-width: 1200px;
+            margin: -38px auto 55px;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+            color: var(--navy);
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .flash-list {
+            margin-bottom: 20px;
+        }
+
+        .flash {
+            margin-bottom: 9px;
+            padding: 13px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .flash.success {
+            background: #e9f7f0;
+            border-color: #b9e4cd;
+            color: #236747;
+        }
+
+        .flash.error,
+        .flash.danger {
+            background: #fff0f0;
+            border-color: #f0c6c8;
+            color: #9f3038;
+        }
+
+        .flash.warning {
+            background: #fff6e5;
+            border-color: #f1d79e;
+            color: #805b18;
+        }
+
+        .flash.info {
+            background: #edf3ff;
+            border-color: #cedcf6;
+            color: #294b80;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 19px;
+        }
+
+        .action-card {
+            position: relative;
+            display: block;
+            min-width: 0;
+            min-height: 190px;
+            padding: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: var(--white);
+            box-shadow: 0 8px 25px rgba(16, 26, 51, .06);
+            transition: .22s ease;
+        }
+
+        .action-card::after {
+            position: absolute;
+            right: -25px;
+            bottom: -25px;
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: rgba(242, 140, 40, .08);
+            content: "";
+            pointer-events: none;
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--orange);
+            box-shadow: 0 14px 30px rgba(16, 26, 51, .11);
+        }
+
+        .card-number {
+            margin-bottom: 13px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .card-icon {
+            display: grid;
+            width: 40px;
+            height: 40px;
+            margin-bottom: 15px;
+            place-items: center;
+            border-radius: 9px;
+            background: var(--navy);
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .action-card h3 {
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .action-card p {
+            max-width: 300px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 22px;
+            right: 20px;
+            color: #a1a8b6;
+            font-size: 19px;
+            transition: .2s;
+        }
+
+        .action-card:hover .arrow {
+            transform: translateX(3px);
+            color: var(--orange);
+        }
+
+        .info-section {
+            margin-top: 28px;
+            padding: 27px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: var(--white);
+            box-shadow: 0 8px 25px rgba(16, 26, 51, .05);
+        }
+
+        .info-section h2 {
+            margin-bottom: 9px;
+            color: var(--navy);
+            font-size: 19px;
+        }
+
+        .info-section > p {
+            max-width: 850px;
+            margin-bottom: 22px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .info-points {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .info-point {
+            padding-left: 14px;
+            border-left: 3px solid var(--orange);
+        }
+
+        .info-point h4 {
+            margin-bottom: 6px;
+            color: #273149;
+            font-size: 13px;
+        }
+
+        .info-point p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .recovery-note {
+            display: flex;
+            gap: 15px;
+            margin-top: 24px;
+            padding: 23px 25px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .note-icon {
+            color: var(--orange);
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .recovery-note h3 {
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
+        .recovery-note p {
+            color: #c8cfdd;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 23px;
+            background: var(--navy);
+            color: #9ea7b9;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        footer span {
+            color: var(--orange);
+            font-weight: 900;
+        }
+
+        @media (max-width: 950px) {
+            .action-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .info-points {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                padding: 16px 5%;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a:not(.logout) {
+                display: none;
+            }
+
+            .welcome-section {
+                padding: 38px 5% 68px;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-section {
+                padding: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header class="topbar">
+    <a class="brand" href="{{ url_for('ngo.dashboard') }}">
+        ResQ<span>Meal</span>
+    </a>
+
+    <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="{{ url_for('ngo.profile') }}">Profile</a>
+        <a class="logout" href="{{ url_for('ngo.logout') }}">Logout</a>
+    </nav>
+</header>
+
+<section class="welcome-section">
+    <span class="welcome-tag">NGO Operations</span>
+    <h1>Welcome to your NGO Dashboard</h1>
+    <p>
+        Manage recovery requirements, review suitable surplus-food
+        opportunities and monitor your NGO's recovery activities through
+        ResQMeal.
+    </p>
+
+    <div class="status-badge">
+        <span class="status-dot"></span>
+        Account Status: ACTIVE
+    </div>
+</section>
+
+<main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-list">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <h2 class="section-title">Recovery Operations</h2>
+
+    <div class="action-grid">
+        <a href="{{ url_for('ngo.recovery_requirements') }}"
+           class="action-card">
+            <div class="card-number">01</div>
+            <div class="card-icon">+</div>
+            <h3>Recovery Requirements</h3>
+            <p>Define the food type, quantity, location and time your NGO requires.</p>
+            <span class="arrow">→</span>
+        </a>
+
+        <a href="{{ url_for('ngo.recovery_management') }}"
+           class="action-card">
+            <div class="card-number">02</div>
+            <div class="card-icon">AI</div>
+            <h3>Recovery Matches</h3>
+            <p>Review recommended surplus-food opportunities and respond to suitable matches.</p>
+            <span class="arrow">→</span>
+        </a>
+
+        <a href="{{ url_for('ngo.recovery_management') }}"
+           class="action-card">
+            <div class="card-number">03</div>
+            <div class="card-icon">RM</div>
+            <h3>Recovery Management</h3>
+            <p>Manage accepted recoveries and follow verification, pickup and distribution.</p>
+            <span class="arrow">→</span>
+        </a>
+
+        <a href="{{ url_for('ngo.batch_verifications') }}"
+           class="action-card">
+            <div class="card-number">04</div>
+            <div class="card-icon">✓</div>
+            <h3>Batch Verification</h3>
+            <p>Open the verification workspace for assigned recovery matches.</p>
+            <span class="arrow">→</span>
+        </a>
+
+        <a href="{{ url_for('ngo.notifications') }}"
+           class="action-card">
+            <div class="card-number">05</div>
+            <div class="card-icon">!</div>
+            <h3>Notifications</h3>
+            <p>Review recovery updates and important account notifications.</p>
+            <span class="arrow">→</span>
+        </a>
+
+        <a href="{{ url_for('ngo.profile') }}"
+           class="action-card">
+            <div class="card-number">06</div>
+            <div class="card-icon">NGO</div>
+            <h3>NGO Profile</h3>
+            <p>View your registered NGO information and account details.</p>
+            <span class="arrow">→</span>
+        </a>
+    </div>
+
+    <section class="info-section">
+        <h2>How Your NGO Uses ResQMeal</h2>
+        <p>
+            Your NGO can state its recovery requirements, review recommendations
+            from approved donors, physically inspect assigned food, confirm
+            collection and record distribution.
+        </p>
+
+        <div class="info-points">
+            <div class="info-point">
+                <h4>01 · Set Requirements</h4>
+                <p>Specify food preferences, quantity, service area and required time.</p>
+            </div>
+
+            <div class="info-point">
+                <h4>02 · Review Matches</h4>
+                <p>Assess recommended recovery opportunities and accept a suitable quantity.</p>
+            </div>
+
+            <div class="info-point">
+                <h4>03 · Complete Recovery</h4>
+                <p>Complete the mandatory physical checks before pickup and distribution.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="recovery-note">
+        <div class="note-icon">✓</div>
+        <div>
+            <h3>Verification Is Mandatory</h3>
+            <p>
+                All six required on-site food checks must pass before a recovery
+                can proceed to pickup. Recovery records should reflect the
+                actual accepted, collected and distributed quantities.
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    ResQ<span>Meal</span> &nbsp;·&nbsp; Surplus Food Recovery Platform
+</footer>
+</body>
+</html>

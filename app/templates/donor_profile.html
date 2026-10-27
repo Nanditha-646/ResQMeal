@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Donor Profile | ResQMeal</title>
+
+    <style>
+        :root {
+            --navy: #17233C;
+            --navy-dark: #10182B;
+            --navy-light: #243453;
+            --orange: #F2A93B;
+            --orange-soft: #FFD88A;
+            --white: #FFFFFF;
+            --offwhite: #F5F6F8;
+            --text: #202735;
+            --muted: #68738A;
+            --border: #DDE2EA;
+            --soft: #EEF1F5;
+            --success: #218C87;
+            --success-bg: #E8F4F2;
+            --approved: #B67812;
+            --approved-bg: #FFF4DF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background: var(--offwhite);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ==================== TOP BAR ==================== */
+
+        .topbar {
+            min-height: 78px;
+            padding: 0 5%;
+            background: var(--navy-dark);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--orange);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 3px solid var(--orange);
+            background: var(--navy);
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .brand h1 {
+            color: var(--white);
+            font-size: 18px;
+            letter-spacing: 1.2px;
+        }
+
+        .brand h1 span {
+            color: var(--orange);
+        }
+
+        .brand p {
+            margin-top: 3px;
+            color: #BFC7D6;
+            font-size: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .logout {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 16px;
+            border: 1px solid rgba(255,255,255,0.28);
+            border-radius: 7px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 800;
+            transition: 0.2s ease;
+        }
+
+        .logout:hover {
+            background: var(--orange);
+            color: var(--navy-dark);
+            border-color: var(--orange);
+        }
+
+        /* ==================== MAIN ==================== */
+
+        .main {
+            width: min(1080px, 92%);
+            margin: 0 auto;
+            padding: 42px 0 60px;
+        }
+
+        /* ==================== PAGE HEADING ==================== */
+
+        .page-heading {
+            background: var(--navy);
+            color: var(--white);
+            padding: 30px 34px;
+            border-radius: 12px;
+            border-left: 5px solid var(--orange);
+            margin-bottom: 22px;
+            box-shadow: 0 12px 30px rgba(16,24,43,0.13);
+        }
+
+        .page-heading .eyebrow {
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 9px;
+        }
+
+        .page-heading h2 {
+            font-size: 32px;
+            line-height: 1.1;
+            letter-spacing: -0.7px;
+        }
+
+        .page-heading p {
+            margin-top: 8px;
+            color: #CFD6E1;
+            font-size: 12px;
+            line-height: 1.6;
+            max-width: 650px;
+        }
+
+        /* ==================== PROFILE CARD ==================== */
+
+        .profile-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 26px 28px;
+            margin-bottom: 16px;
+            box-shadow: 0 7px 22px rgba(23,35,60,0.055);
+        }
+
+        .profile-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--navy);
+            font-size: 17px;
+            margin-bottom: 21px;
+            padding-bottom: 11px;
+            border-bottom: 2px solid var(--navy);
+        }
+
+        .profile-card h3::before {
+            content: "";
+            width: 5px;
+            height: 18px;
+            background: var(--orange);
+            border-radius: 2px;
+        }
+
+        /* ==================== DETAILS ==================== */
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px 25px;
+        }
+
+        .detail {
+            min-width: 0;
+            padding: 12px 14px;
+            background: #FAFBFC;
+            border: 1px solid #E5E8ED;
+            border-radius: 7px;
+        }
+
+        .detail.full {
+            grid-column: 1 / -1;
+        }
+
+        .detail-label {
+            display: block;
+            margin-bottom: 6px;
+            color: #7A8496;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+        }
+
+        .detail-value {
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        /* ==================== STATUS ==================== */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.3px;
+        }
+
+        .status-active {
+            background: var(--success-bg);
+            color: var(--success);
+            border: 1px solid #B9DCD8;
+        }
+
+        .status-approved {
+            background: var(--approved-bg);
+            color: var(--approved);
+            border: 1px solid #E8CB91;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            margin-right: 7px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* ==================== EVENT SECTION ==================== */
+
+        .event-section {
+            display: none;
+        }
+
+        /* ==================== ACTIONS ==================== */
+
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 18px;
+            border-radius: 7px;
+            background: var(--navy);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 800;
+            transition: 0.2s ease;
+        }
+
+        .back-button:hover {
+            background: var(--navy-light);
+            transform: translateY(-1px);
+        }
+
+        /* ==================== FOOTER ==================== */
+
+        .footer {
+            margin-top: 32px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: #8A93A3;
+            font-size: 10px;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+
+        @media (max-width: 700px) {
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .brand p {
+                display: none;
+            }
+
+            .brand h1 {
+                font-size: 15px;
+            }
+
+            .main {
+                width: 92%;
+                padding: 28px 0 45px;
+            }
+
+            .page-heading {
+                padding: 25px 22px;
+            }
+
+            .page-heading h2 {
+                font-size: 27px;
+            }
+
+            .profile-card {
+                padding: 21px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail.full {
+                grid-column: auto;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .back-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 420px) {
+
+            .topbar {
+                padding: 0 13px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logout {
+                padding: 8px 11px;
+            }
+
+            .page-heading h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== TOP BAR ==================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="logo">
+                R<span>Q</span>
+            </div>
+
+            <div>
+                <h1>
+                    RESQ<span>MEAL</span>
+                </h1>
+
+                <p>
+                    AI-assisted food waste reduction
+                </p>
+            </div>
+
+        </div>
+
+        <a
+            href="/donor/logout"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </header>
+
+
+    <!-- ==================== MAIN ==================== -->
+
+    <main class="main">
+
+
+        <!-- ==================== PAGE HEADING ==================== -->
+
+        <section class="page-heading">
+
+            <div class="eyebrow">
+                Donor Account
+            </div>
+
+            <h2>
+                Donor Profile
+            </h2>
+
+            <p>
+                View your registered donor information,
+                application details and account status.
+            </p>
+
+        </section>
+
+
+        <!-- ==================== ACCOUNT INFORMATION ==================== -->
+
+        <section class="profile-card">
+
+            <h3>
+                Account Information
+            </h3>
+
+            <div class="details-grid">
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Donor Code
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['donor_code'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Application Code
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['application_code'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Username
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['username'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Account Status
+                    </span>
+
+                    <div class="detail-value">
+
+                        <span class="status status-active">
+
+                            <span class="status-dot"></span>
+
+                            {{ donor['account_status'] }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Application Status
+                    </span>
+
+                    <div class="detail-value">
+
+                        <span class="status status-approved">
+
+                            <span class="status-dot"></span>
+
+                            {{ donor['application_status'] }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Activated On
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['activated_at'] or 'Not available' }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== REGISTERED DONOR DETAILS ==================== -->
+
+        <section class="profile-card">
+
+            <h3>
+                Registered Donor Details
+            </h3>
+
+            <div class="details-grid">
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Business / Donor Name
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['business_name'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Business Type
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['business_type'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Owner / Responsible Person
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['owner'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Registered Mobile Number
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['phone'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Email
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['email'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        City
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['city'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        State
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['state'] or 'Not provided' }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Postal Code
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['postal_code'] or 'Not provided' }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail full">
+
+                    <span class="detail-label">
+                        Address
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['address'] }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== ADDITIONAL INFORMATION ==================== -->
+
+        <section class="profile-card">
+
+            <h3>
+                Additional Information
+            </h3>
+
+            <div class="details-grid">
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Year Established
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['year_established'] or 'Not provided' }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Food Service Since
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['food_service_since_year'] or 'Not provided' }}
+                    </div>
+
+                </div>
+
+
+                {% if donor['event_name'] %}
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Event Name
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['event_name'] }}
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if donor['event_type'] %}
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Event Type
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['event_type'] }}
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if donor['event_date'] %}
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Event Date
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['event_date'] }}
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== APPLICATION INFORMATION ==================== -->
+
+        <section class="profile-card">
+
+            <h3>
+                Application Information
+            </h3>
+
+            <div class="details-grid">
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Application Submitted
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['submitted_at'] or 'Not available' }}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <span class="detail-label">
+                        Application Reviewed
+                    </span>
+
+                    <div class="detail-value">
+                        {{ donor['reviewed_at'] or 'Not available' }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== ACTIONS ==================== -->
+
+        <div class="actions">
+
+            <a
+                href="/donor/dashboard"
+                class="back-button"
+            >
+                ← Back to Donor Dashboard
+            </a>
+
+        </div>
+
+
+        <!-- ==================== FOOTER ==================== -->
+
+        <div class="footer">
+            ResQMeal • Recover More. Waste Less.
+        </div>
+
+    </main>
+
+</body>
+</html>

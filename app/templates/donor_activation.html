@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Activate Donor Account | ResQMeal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: #17233C;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #202735;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #202735;
+            color: #F2A93B;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .brand-name {
+            color: #F6F7FA;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .tagline {
+            margin-top: 5px;
+            color: #F2A93B;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .card {
+            background: #F6F7FA;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        .card h1 {
+            color: #17233C;
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .intro {
+            color: #3E506F;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #202735;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #D5D9E1;
+            border-radius: 9px;
+            background: #FFFFFF;
+            color: #202735;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            border-color: #F2A93B;
+            box-shadow: 0 0 0 3px rgba(242, 169, 59, 0.15);
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: #718096;
+            font-size: 12px;
+        }
+
+        .message {
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border-radius: 9px;
+            background: #FCE8E8;
+            color: #A63D3D;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .success {
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border-radius: 9px;
+            background: #E4F3F1;
+            color: #176D68;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #F2A93B;
+            color: #17233C;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            filter: brightness(0.97);
+        }
+
+        .info {
+            margin-top: 20px;
+            padding: 13px 14px;
+            border-left: 4px solid #F2A93B;
+            border-radius: 7px;
+            background: #EEF1F5;
+            color: #3E506F;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .back {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #3E506F;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .back:hover {
+            color: #17233C;
+        }
+
+        @media (max-width: 520px) {
+            body {
+                padding: 16px;
+            }
+
+            .card {
+                padding: 24px 20px;
+            }
+
+            .card h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="brand">
+        <div class="logo">RQ</div>
+
+        <div class="brand-name">
+            RESQMEAL
+        </div>
+
+        <div class="tagline">
+            Recover More. Waste Less.
+        </div>
+    </div>
+
+    <div class="card">
+
+        <h1>Activate Donor Account</h1>
+
+        <p class="intro">
+            Your application must be approved by Admin before you can
+            activate your donor account.
+        </p>
+
+        {% if message %}
+            <div class="message">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        {% if success %}
+            <div class="success">
+                {{ success }}
+            </div>
+        {% endif %}
+
+        <form method="POST"
+              action="{{ url_for('donor.activate') }}">
+
+            <div class="field">
+                <label for="phone">
+                    Registered Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter your registered mobile number"
+                    autocomplete="tel"
+                    required
+                >
+
+                <div class="hint">
+                    Use the same mobile number provided during donor registration.
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="new_password">
+                    Create New Password
+                </label>
+
+                <input
+                    type="password"
+                    id="new_password"
+                    name="new_password"
+                    placeholder="Create your password"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <div class="hint">
+                    Password must contain at least 8 characters.
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="confirm_password">
+                    Confirm New Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    placeholder="Re-enter your password"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                >
+            </div>
+
+            <button
+                type="submit"
+                class="button">
+                Activate Account
+            </button>
+
+        </form>
+
+        <div class="info">
+            After successful activation, your donor account will become
+            <strong>ACTIVE</strong>. You can then log in using your
+            registered mobile number and the password you created.
+        </div>
+
+        <a
+            href="{{ url_for('donor.login') }}"
+            class="back">
+            ← Back to Donor Login
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

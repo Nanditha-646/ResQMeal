@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Profile | ResQMeal</title>
+
+    <style>
+        :root {
+            --background: #101522;
+            --panel: #192235;
+            --panel-light: #202d43;
+            --orange: #f5a623;
+            --text: #f5f7fb;
+            --muted: #aab5c8;
+            --border: rgba(255, 255, 255, 0.10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 22px 6%;
+            border-bottom: 1px solid var(--border);
+            background: #141c2b;
+        }
+
+        .brand {
+            color: var(--orange);
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .back-link {
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .back-link:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .container {
+            width: min(1050px, 90%);
+            margin: 45px auto;
+        }
+
+        .heading {
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin: 10px 0;
+            font-size: clamp(28px, 4vw, 38px);
+        }
+
+        .subtitle {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .profile-card {
+            overflow: hidden;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+
+        .card-header {
+            padding: 25px 28px;
+            background: linear-gradient(
+                120deg,
+                #25334b,
+                #192235
+            );
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h2 {
+            margin: 0 0 8px;
+            font-size: 21px;
+        }
+
+        .card-header p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            padding: 28px;
+        }
+
+        .field {
+            min-width: 0;
+            padding: 18px;
+            background: var(--panel-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .field-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .field-value {
+            overflow-wrap: anywhere;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: rgba(245, 166, 35, 0.13);
+            border: 1px solid rgba(245, 166, 35, 0.35);
+            color: var(--orange);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .notice {
+            margin: 0 28px 28px;
+            padding: 16px 18px;
+            border-left: 3px solid var(--orange);
+            border-radius: 6px;
+            background: rgba(245, 166, 35, 0.07);
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .footer {
+            padding: 24px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                padding: 18px 5%;
+            }
+
+            .brand {
+                font-size: 21px;
+            }
+
+            .container {
+                margin: 30px auto;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+                padding: 18px;
+            }
+
+            .card-header {
+                padding: 22px 18px;
+            }
+
+            .notice {
+                margin: 0 18px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">ResQMeal</div>
+
+    <a
+        class="back-link"
+        href="{{ url_for('ngo.dashboard') }}"
+    >
+        ← Back to Dashboard
+    </a>
+</header>
+
+<main class="container">
+
+    <section class="heading">
+        <div class="eyebrow">Organization Account</div>
+        <h1>NGO Profile</h1>
+        <p class="subtitle">
+            View your organization's registered information,
+            verification status, and account details.
+        </p>
+    </section>
+
+    <section class="profile-card">
+
+        <div class="card-header">
+            <h2>Organization Information</h2>
+            <p>
+                Your profile information is displayed from the
+                details available to your authenticated NGO account.
+            </p>
+        </div>
+
+        <div class="profile-grid">
+
+            <div class="field">
+                <span class="field-label">Organization Name</span>
+                <div class="field-value">
+                    {{ ngo.get('organization_name') or
+                       ngo.get('ngo_name') or
+                       ngo.get('name') or 'Not available' }}
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">NGO ID</span>
+                <div class="field-value">
+                    {{ ngo.get('ngo_id') or 'Not available' }}
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Registered Email</span>
+                <div class="field-value">
+                    {{ ngo.get('email') or
+                       ngo.get('email_address') or
+                       'Not available' }}
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Registered Mobile</span>
+                <div class="field-value">
+                    {{ ngo.get('mobile_number') or
+                       ngo.get('phone') or
+                       ngo.get('mobile') or
+                       'Not available' }}
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Service Area</span>
+                <div class="field-value">
+                    {{ ngo.get('service_area') or
+                       ngo.get('city') or
+                       'Not available' }}
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Verification Status</span>
+                <div class="field-value">
+                    <span class="status">
+                        {{ ngo.get('verification_status') or
+                           ngo.get('status') or
+                           'Not available' }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Account Status</span>
+                <div class="field-value">
+                    <span class="status">
+                        {{ ngo.get('account_status') or
+                           'Not available' }}
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="notice">
+            <strong>Account information</strong><br>
+            This page is intended for viewing your registered
+            organization details. Changes to verified information
+            should follow the application's authorized update process.
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    ResQMeal · AI-Assisted Food Waste Reduction
+</footer>
+
+</body>
+</html>

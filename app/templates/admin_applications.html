@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Donor Applications | ResQMeal</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f6f7fa;
+            color: #202735;
+        }
+
+        header {
+            background: #17233c;
+            color: white;
+            padding: 18px 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #17233c;
+        }
+
+        .back-button {
+            text-decoration: none;
+            background: #17233c;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+
+        th {
+            background: #17233c;
+            color: white;
+            padding: 13px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e3e6eb;
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #fafbfc;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .pending {
+            background: #fff1d6;
+            color: #8a5a00;
+        }
+
+        .approved {
+            background: #dff4ed;
+            color: #176b54;
+        }
+
+        .rejected {
+            background: #f9dddd;
+            color: #9b3333;
+        }
+
+        .review {
+            background: #e3e9f5;
+            color: #34496c;
+        }
+
+        .correction {
+            background: #eee2f8;
+            color: #68428a;
+        }
+
+        .view-button {
+            display: inline-block;
+            padding: 8px 13px;
+            background: #3e506f;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .view-button:hover {
+            opacity: 0.9;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #697386;
+        }
+
+        .page-info {
+            margin-bottom: 18px;
+            color: #697386;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+
+            .container {
+                padding: 12px;
+                margin: 20px auto;
+            }
+
+            .top-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        RESQMEAL
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="top-section">
+
+        <h1>
+            Donor Applications
+        </h1>
+
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="back-button">
+
+            ← Admin Dashboard
+
+        </a>
+
+    </div>
+
+
+    <div class="page-info">
+
+        Review and manage donor registration applications
+        submitted through ResQMeal.
+
+    </div>
+
+
+    <div class="table-card">
+
+
+        {% if applications %}
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Application ID
+                    </th>
+
+                    <th>
+                        Application Code
+                    </th>
+
+                    <th>
+                        Business Name
+                    </th>
+
+                    <th>
+                        Business Type
+                    </th>
+
+                    <th>
+                        Owner / In-charge
+                    </th>
+
+                    <th>
+                        Phone
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+                    <th>
+                        City
+                    </th>
+
+                    <th>
+                        Event
+                    </th>
+
+                    <th>
+                        Event Date
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Submitted
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+            {% for application in applications %}
+
+
+                <tr>
+
+
+                    <td>
+                        {{ application.donor_application_id }}
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+                            {{ application.application_code }}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+                        {{ application.business_name }}
+                    </td>
+
+
+                    <td>
+                        {{ application.business_type }}
+                    </td>
+
+
+                    <td>
+                        {{ application.owner }}
+                    </td>
+
+
+                    <td>
+                        {{ application.phone }}
+                    </td>
+
+
+                    <td>
+                        {{ application.email }}
+                    </td>
+
+
+                    <td>
+                        {{ application.city }}
+                    </td>
+
+
+                    <td>
+
+
+                        {% if application.event_name %}
+
+                            {{ application.event_name }}
+
+                            {% if application.event_type %}
+
+                                <br>
+
+                                <small>
+                                    {{ application.event_type }}
+                                </small>
+
+                            {% endif %}
+
+                        {% else %}
+
+                            —
+
+                        {% endif %}
+
+
+                    </td>
+
+
+                    <td>
+
+
+                        {% if application.event_date %}
+
+                            {{ application.event_date }}
+
+                        {% else %}
+
+                            —
+
+                        {% endif %}
+
+
+                    </td>
+
+
+                    <td>
+
+
+                        {% if application.application_status == "PENDING" %}
+
+                            <span class="status pending">
+                                PENDING
+                            </span>
+
+
+                        {% elif application.application_status == "UNDER_REVIEW" %}
+
+                            <span class="status review">
+                                UNDER REVIEW
+                            </span>
+
+
+                        {% elif application.application_status == "APPROVED" %}
+
+                            <span class="status approved">
+                                APPROVED
+                            </span>
+
+
+                        {% elif application.application_status == "REJECTED" %}
+
+                            <span class="status rejected">
+                                REJECTED
+                            </span>
+
+
+                        {% elif application.application_status == "CORRECTION_REQUIRED" %}
+
+                            <span class="status correction">
+                                CORRECTION REQUIRED
+                            </span>
+
+
+                        {% else %}
+
+                            <span class="status pending">
+                                {{ application.application_status }}
+                            </span>
+
+                        {% endif %}
+
+
+                    </td>
+
+
+                    <td>
+
+                        {{ application.submitted_at }}
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="{{ url_for(
+                                'admin.application_details',
+                                application_id=application.donor_application_id
+                            ) }}"
+                            class="view-button"
+                        >
+
+                            View Details
+
+                        </a>
+
+                    </td>
+
+
+                </tr>
+
+
+            {% endfor %}
+
+
+            </tbody>
+
+
+        </table>
+
+
+        {% else %}
+
+
+            <div class="empty">
+
+                No donor applications found.
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

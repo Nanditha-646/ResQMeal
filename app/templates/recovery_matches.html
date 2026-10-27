@@ -1,0 +1,2526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recovery Matches | ResQMeal</title>
+
+<style>
+:root {
+    --navy: #101b32;
+    --navy-light: #1b2b49;
+    --orange: #f29a38;
+    --orange-dark: #dc7d1b;
+    --cream: #fbf8f2;
+    --white: #ffffff;
+    --text: #273247;
+    --muted: #7b8494;
+    --border: #e8eaf0;
+    --success: #16835d;
+    --success-bg: #e9f7f0;
+    --danger: #bd3b42;
+    --danger-bg: #fff0f0;
+    --warning: #a96613;
+    --warning-bg: #fff5e5;
+    --blue: #3568ad;
+    --blue-bg: #edf4ff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--cream);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* NAVIGATION */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    color: var(--white);
+}
+
+.topbar-inner {
+    width: min(1440px, 100%);
+    min-height: 76px;
+    margin: auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.brand-symbol {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: var(--orange);
+    color: var(--navy);
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.brand-name {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.brand-name span {
+    color: var(--orange);
+}
+
+.brand-subtitle {
+    display: block;
+    color: #bdc7d7;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.nav-link {
+    padding: 10px 12px;
+    color: #dce3ef;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 9px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(255,255,255,0.09);
+    color: var(--orange);
+}
+
+.nav-link.logout {
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* PAGE */
+
+.page-container {
+    width: min(1240px, 100%);
+    margin: auto;
+    padding: 35px 26px 55px;
+}
+
+.breadcrumb {
+    margin-bottom: 20px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.breadcrumb a {
+    color: var(--navy);
+    font-weight: 700;
+}
+
+.breadcrumb span {
+    margin: 0 8px;
+}
+
+/* HERO */
+
+.page-hero {
+    padding: 36px;
+    border-radius: 23px;
+    background:
+        radial-gradient(circle at 90% 15%,
+            rgba(242,154,56,0.23), transparent 30%),
+        linear-gradient(120deg, #101b32, #1c2e4c);
+    color: var(--white);
+    box-shadow: 0 12px 35px rgba(16,27,50,0.07);
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    padding: 7px 12px;
+    border: 1px solid rgba(242,154,56,0.4);
+    border-radius: 50px;
+    background: rgba(242,154,56,0.1);
+    color: #ffc47f;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.eyebrow-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--orange);
+}
+
+.page-hero h1 {
+    margin-bottom: 12px;
+    font-size: clamp(29px, 4vw, 43px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.page-hero h1 span {
+    color: var(--orange);
+}
+
+.page-hero p {
+    max-width: 660px;
+    color: #d1d9e6;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 23px;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 43px;
+    padding: 11px 17px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.07);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.hero-button:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+}
+
+.hero-button.primary {
+    border-color: var(--orange);
+    background: var(--orange);
+    color: var(--navy);
+}
+
+/* FLASH MESSAGES */
+
+.flash-container {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.flash-message {
+    display: flex;
+    gap: 11px;
+    margin-bottom: 10px;
+    padding: 14px 16px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 13px;
+}
+
+.flash-message.success {
+    background: var(--success-bg);
+    color: #126b4b;
+}
+
+.flash-message.error,
+.flash-message.danger {
+    background: var(--danger-bg);
+    color: #9f3036;
+}
+
+.flash-message.warning {
+    background: var(--warning-bg);
+    color: #89550e;
+}
+
+.flash-message.info {
+    background: var(--blue-bg);
+    color: #315d9c;
+}
+
+/* SUMMARY */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 25px 0 34px;
+}
+
+.summary-card {
+    padding: 21px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--white);
+    box-shadow: 0 5px 18px rgba(16,27,50,0.035);
+}
+
+.summary-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.summary-label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.summary-icon {
+    width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: #fff1df;
+    color: var(--orange-dark);
+}
+
+.summary-number {
+    color: var(--navy);
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.summary-description {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* SECTION */
+
+.section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    color: var(--navy);
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.section-heading p {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.results-count {
+    padding: 8px 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* FILTERS */
+
+.filter-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 14px;
+    margin-bottom: 23px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: white;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.form-control {
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 12px;
+    outline: none;
+    border: 1px solid #dfe3eb;
+    border-radius: 9px;
+    background: white;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.form-control:focus {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(242,154,56,0.12);
+}
+
+.filter-button {
+    min-height: 43px;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 9px;
+    background: var(--navy);
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* MATCH GRID */
+
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.match-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 7px 25px rgba(16,27,50,0.045);
+}
+
+.match-card::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--orange);
+    content: "";
+}
+
+.match-card.expired {
+    border-color: #f0cdcd;
+}
+
+.match-card.expired::before {
+    background: var(--danger);
+}
+
+.match-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 23px 22px 17px;
+}
+
+.match-heading {
+    min-width: 0;
+}
+
+.match-reference {
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.match-heading h3 {
+    overflow-wrap: anywhere;
+    color: var(--navy);
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.match-subtitle {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    max-width: 145px;
+    padding: 7px 10px;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    font-size: 9px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.status-available,
+.status-completed,
+.status-distributed {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.status-partial {
+    background: var(--warning-bg);
+    color: var(--warning);
+}
+
+.status-expired,
+.status-failed,
+.status-declined,
+.status-cancelled {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+.status-accepted,
+.status-assigned,
+.status-verification {
+    background: var(--blue-bg);
+    color: var(--blue);
+}
+
+.status-default {
+    background: #f2f4f7;
+    color: #626d80;
+}
+
+.match-card-body {
+    flex: 1;
+    padding: 0 22px 20px;
+}
+
+/* FOOD HIGHLIGHT */
+
+.food-highlight {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding: 16px;
+    border: 1px solid #f1e4d2;
+    border-radius: 13px;
+    background: #fffaf3;
+}
+
+.food-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 13px;
+    background: #ffecd3;
+    color: #9d5914;
+    font-size: 23px;
+}
+
+.food-highlight-label {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.food-highlight-value {
+    margin-top: 2px;
+    color: var(--navy);
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.food-highlight-value small {
+    font-size: 12px;
+}
+
+.food-type-label {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #f0f2f5;
+    color: #5c6678;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+/* DETAILS */
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px 14px;
+}
+
+.detail-item {
+    min-width: 0;
+}
+
+.detail-label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.detail-value {
+    display: block;
+    overflow-wrap: anywhere;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.detail-value.light {
+    color: #596579;
+    font-weight: 500;
+}
+
+.match-divider {
+    height: 1px;
+    margin: 21px 0;
+    background: var(--border);
+}
+
+/* QUANTITY ALLOCATION */
+
+.allocation-panel {
+    padding: 15px;
+    border: 1px solid #dfe7f2;
+    border-radius: 12px;
+    background: #f7f9fc;
+}
+
+.allocation-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 13px;
+}
+
+.allocation-title h4 {
+    color: var(--navy);
+    font-size: 12px;
+}
+
+.allocation-title span {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.allocation-numbers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.allocation-number {
+    padding: 11px 7px;
+    border: 1px solid #e7ebf1;
+    border-radius: 9px;
+    background: white;
+    text-align: center;
+}
+
+.allocation-number strong {
+    display: block;
+    color: var(--navy);
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.allocation-number span {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.allocation-number.remaining strong {
+    color: var(--success);
+}
+
+.allocation-number.claimed strong {
+    color: var(--blue);
+}
+
+.allocation-note {
+    margin-top: 12px;
+    color: #687489;
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+.progress-track {
+    height: 7px;
+    overflow: hidden;
+    margin-top: 13px;
+    border-radius: 20px;
+    background: #e6eaf0;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--orange);
+}
+
+/* RECOMMENDATIONS AND DEADLINES */
+
+.recommendation-box {
+    margin-top: 19px;
+    padding: 14px;
+    border-left: 3px solid var(--orange);
+    border-radius: 0 9px 9px 0;
+    background: #fffaf3;
+}
+
+.recommendation-box h4 {
+    margin-bottom: 5px;
+    color: var(--navy);
+    font-size: 11px;
+}
+
+.recommendation-box p {
+    color: #6e7787;
+    font-size: 11px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.deadline-alert {
+    display: flex;
+    gap: 9px;
+    margin-top: 15px;
+    padding: 12px;
+    border: 1px solid #f0dfbd;
+    border-radius: 10px;
+    background: var(--warning-bg);
+    color: #89550e;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.deadline-alert.expired-alert {
+    border-color: #f1d2d4;
+    background: var(--danger-bg);
+    color: #9f3036;
+}
+
+/* APPLY FORM */
+
+.apply-panel {
+    margin-top: 20px;
+    padding: 18px;
+    border: 1px solid #e8eaf0;
+    border-radius: 13px;
+    background: white;
+}
+
+.apply-panel h4 {
+    margin-bottom: 5px;
+    color: var(--navy);
+    font-size: 14px;
+}
+
+.apply-description {
+    margin-bottom: 15px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.quantity-label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.quantity-input-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+}
+
+.quantity-input {
+    min-width: 0;
+    width: 100%;
+    min-height: 45px;
+    padding: 11px 12px;
+    outline: none;
+    border: 1px solid #dfe3eb;
+    border-radius: 9px;
+    background: white;
+    color: var(--navy);
+    font-size: 13px;
+}
+
+.quantity-input:focus {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(242,154,56,0.12);
+}
+
+.quantity-unit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 65px;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #f4f6f9;
+    color: #5f6a7e;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.live-balance {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 13px;
+    padding: 12px;
+    border-radius: 9px;
+    background: #f0f8f4;
+}
+
+.live-balance-label {
+    color: #4c6d5d;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.live-balance-value {
+    flex-shrink: 0;
+    color: var(--success);
+    font-size: 16px;
+    font-weight: 800;
+    text-align: right;
+}
+
+.apply-note {
+    margin-top: 11px;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+/* BUTTONS */
+
+.card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 17px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 43px;
+    padding: 11px 15px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--orange);
+    color: var(--navy);
+}
+
+.btn-dark {
+    background: var(--navy);
+    color: white;
+}
+
+.btn-outline {
+    border-color: #dfe3eb;
+    background: white;
+    color: #566176;
+}
+
+.btn-danger {
+    border-color: #f0d3d4;
+    background: white;
+    color: var(--danger);
+}
+
+.btn:disabled {
+    background: #eceff3;
+    color: #9299a6;
+    cursor: not-allowed;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* EMPTY STATE */
+
+.empty-state {
+    grid-column: 1 / -1;
+    padding: 55px 25px;
+    border: 1px dashed #d8dee8;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.8);
+    text-align: center;
+}
+
+.empty-icon {
+    width: 70px;
+    height: 70px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 18px;
+    border-radius: 22px;
+    background: #fff0dd;
+    color: var(--orange-dark);
+    font-size: 29px;
+}
+
+.empty-state h3 {
+    margin-bottom: 8px;
+    color: var(--navy);
+    font-size: 21px;
+}
+
+.empty-state p {
+    max-width: 470px;
+    margin: auto;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.empty-state .btn {
+    margin-top: 19px;
+}
+
+/* FOOTER */
+
+.page-footer {
+    margin-top: 45px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    text-align: center;
+}
+
+.page-footer strong {
+    color: var(--navy);
+}
+
+/* CONFIRMATION DIALOG */
+
+.confirm-dialog {
+    width: min(420px, calc(100% - 30px));
+    margin: auto;
+    padding: 25px;
+    border: 0;
+    border-radius: 17px;
+    box-shadow: 0 20px 70px rgba(16,27,50,0.25);
+}
+
+.confirm-dialog::backdrop {
+    background: rgba(12,22,40,0.65);
+}
+
+.confirm-dialog h3 {
+    margin-bottom: 9px;
+    color: var(--navy);
+    font-size: 19px;
+}
+
+.confirm-dialog p {
+    margin-bottom: 20px;
+    color: #657085;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+    .topbar-inner {
+        padding: 13px 20px;
+    }
+
+    .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .matches-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .match-card {
+        max-width: 760px;
+        width: 100%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 680px) {
+    .topbar {
+        position: relative;
+    }
+
+    .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+        padding: 16px;
+    }
+
+    .nav-links {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .nav-link {
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    .page-container {
+        padding: 23px 14px 40px;
+    }
+
+    .page-hero {
+        padding: 25px 20px;
+    }
+
+    .page-hero h1 {
+        font-size: 31px;
+    }
+
+    .summary-grid {
+        gap: 11px;
+        margin: 20px 0 28px;
+    }
+
+    .summary-card {
+        padding: 15px;
+    }
+
+    .summary-number {
+        font-size: 25px;
+    }
+
+    .filter-panel {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    .filter-button {
+        width: 100%;
+    }
+
+    .match-card-header {
+        flex-direction: column;
+        padding: 20px 17px 15px;
+    }
+
+    .match-card-body {
+        padding: 0 17px 18px;
+    }
+
+    .status-badge {
+        max-width: 100%;
+    }
+
+    .details-grid {
+        gap: 14px 10px;
+    }
+
+    .allocation-numbers {
+        gap: 6px;
+    }
+
+    .allocation-number {
+        padding: 10px 5px;
+    }
+
+    .allocation-number strong {
+        font-size: 14px;
+    }
+
+    .food-highlight {
+        padding: 13px;
+    }
+
+    .apply-panel {
+        padding: 14px;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    .card-actions .btn {
+        width: 100%;
+    }
+
+    .section-heading h2 {
+        font-size: 21px;
+    }
+}
+
+@media (max-width: 370px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .allocation-title {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+
+        <a href="/ngo/dashboard" class="brand">
+            <div class="brand-symbol">R</div>
+
+            <div>
+                <div class="brand-name">ResQ<span>Meal</span></div>
+                <span class="brand-subtitle">Food Recovery Network</span>
+            </div>
+        </a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="/ngo/dashboard" class="nav-link">Dashboard</a>
+            <a href="/ngo/recovery-management" class="nav-link">
+                Recovery Management
+            </a>
+            <a href="/ngo/recovery-matches" class="nav-link active">
+                Recovery Matches
+            </a>
+            <a href="/ngo/profile" class="nav-link">My Profile</a>
+            <a href="/ngo/logout" class="nav-link logout">Logout</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="page-container">
+
+    <div class="breadcrumb">
+        <a href="/ngo/dashboard">Dashboard</a>
+        <span>/</span>
+        Recovery Matches
+    </div>
+
+    <section class="page-hero">
+
+        <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            NGO RECOVERY CENTRE
+        </div>
+
+        <h1>Recovery <span>Matches</span></h1>
+
+        <p>
+            Review available surplus-food opportunities, select the
+            quantity your organisation can recover, and track the
+            remaining quantity for other eligible NGOs.
+        </p>
+
+        <div class="hero-actions">
+            <a href="/ngo/recovery-management"
+               class="hero-button primary">
+                View Recovery Management
+            </a>
+
+            <a href="/ngo/dashboard" class="hero-button">
+                Return to Dashboard
+            </a>
+        </div>
+
+    </section>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+                    {% set safe_category =
+                        category if category in
+                        ['success', 'error', 'danger', 'warning', 'info']
+                        else 'info' %}
+
+                    <div class="flash-message {{ safe_category }}"
+                         role="status">
+                        <span aria-hidden="true">
+                            {% if safe_category == 'success' %}
+                                ✓
+                            {% elif safe_category in ['error', 'danger'] %}
+                                !
+                            {% elif safe_category == 'warning' %}
+                                ⚠
+                            {% else %}
+                                i
+                            {% endif %}
+                        </span>
+
+                        <div>{{ message }}</div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+    {% set total_matches = matches|length %}
+    {% set available_count = namespace(value=0) %}
+    {% set accepted_count = namespace(value=0) %}
+    {% set expired_count = namespace(value=0) %}
+
+    {% for match in matches %}
+        {% set current_status =
+            (match.get('status', '') or '')|upper %}
+        {% set current_availability =
+            (match.get('availability_state', '') or '')|upper %}
+
+        {% if current_status == 'RECOMMENDED'
+            and current_availability in
+            ['AVAILABLE', 'PARTIALLY_CLAIMED'] %}
+            {% set available_count.value =
+                available_count.value + 1 %}
+        {% endif %}
+
+        {% if current_status in
+            ['ASSIGNED', 'ACCEPTED', 'COMPLETED'] %}
+            {% set accepted_count.value =
+                accepted_count.value + 1 %}
+        {% endif %}
+
+        {% if current_availability == 'EXPIRED'
+            or current_status == 'EXPIRED' %}
+            {% set expired_count.value =
+                expired_count.value + 1 %}
+        {% endif %}
+    {% endfor %}
+
+
+    <section class="summary-grid">
+
+        <article class="summary-card">
+            <div class="summary-top">
+                <span class="summary-label">Total Matches</span>
+                <span class="summary-icon">▤</span>
+            </div>
+            <div class="summary-number">{{ total_matches }}</div>
+            <div class="summary-description">
+                Recovery opportunities displayed
+            </div>
+        </article>
+
+        <article class="summary-card">
+            <div class="summary-top">
+                <span class="summary-label">Available</span>
+                <span class="summary-icon">↗</span>
+            </div>
+            <div class="summary-number">
+                {{ available_count.value }}
+            </div>
+            <div class="summary-description">
+                Opportunities awaiting a decision
+            </div>
+        </article>
+
+        <article class="summary-card">
+            <div class="summary-top">
+                <span class="summary-label">Accepted / Active</span>
+                <span class="summary-icon">✓</span>
+            </div>
+            <div class="summary-number">
+                {{ accepted_count.value }}
+            </div>
+            <div class="summary-description">
+                Matches accepted or completed
+            </div>
+        </article>
+
+        <article class="summary-card">
+            <div class="summary-top">
+                <span class="summary-label">Expired</span>
+                <span class="summary-icon">◷</span>
+            </div>
+            <div class="summary-number">
+                {{ expired_count.value }}
+            </div>
+            <div class="summary-description">
+                Expired opportunities displayed
+            </div>
+        </article>
+
+    </section>
+
+
+    <section>
+
+        <div class="section-heading">
+            <div>
+                <h2>Food Recovery Opportunities</h2>
+                <p>
+                    Review the available quantity before submitting
+                    your recovery application.
+                </p>
+            </div>
+
+            <div class="results-count">
+                {{ total_matches }}
+                {% if total_matches == 1 %}match{% else %}matches{% endif %}
+            </div>
+        </div>
+
+
+        <div class="filter-panel">
+
+            <div class="form-group">
+                <label for="matchSearch">Search Opportunities</label>
+                <input
+                    type="search"
+                    id="matchSearch"
+                    class="form-control"
+                    placeholder="Search food, location or match ID..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="statusFilter">Filter by Status</label>
+                <select id="statusFilter" class="form-control">
+                    <option value="all">All statuses</option>
+                    <option value="available">Available</option>
+                    <option value="partial">Partially Claimed</option>
+                    <option value="accepted">Accepted / Assigned</option>
+                    <option value="verification">Verification</option>
+                    <option value="completed">Completed</option>
+                    <option value="expired">Expired</option>
+                    <option value="other">Other statuses</option>
+                </select>
+            </div>
+
+            <button type="button"
+                    class="filter-button"
+                    id="resetFilters">
+                Reset Filters
+            </button>
+
+        </div>
+
+
+        <div class="matches-grid" id="matchesGrid">
+
+            {% if matches %}
+
+                {% for match in matches %}
+
+                    {% set match_status =
+                        (match.get('status', 'RECOMMENDED')
+                        or 'RECOMMENDED')|upper %}
+
+                    {% set availability_state =
+                        (match.get('availability_state', '') or '')|upper %}
+
+                    {% set food_type =
+                        (match.get('food_type', 'Food') or 'Food')|upper %}
+
+                    {% set food_quantity =
+                        match.get('food_quantity',
+                            match.get('quantity',
+                                match.get('available_quantity', 0))) %}
+
+                    {% set food_unit =
+                        (match.get('food_quantity_unit',
+                            match.get('quantity_unit',
+                                match.get('unit', 'KG'))) or 'KG')|upper %}
+
+                    {% set remaining_quantity =
+                        match.get('remaining_quantity',
+                            match.get('available_quantity',
+                                food_quantity)) %}
+
+                    {% set claimed_quantity =
+                        match.get('claimed_quantity',
+                            match.get('allocated_quantity', 0)) %}
+
+                    {% set can_apply =
+                        match_status == 'RECOMMENDED'
+                        and availability_state in
+                        ['AVAILABLE', 'PARTIALLY_CLAIMED'] %}
+
+                    {% set is_expired =
+                        availability_state == 'EXPIRED'
+                        or match_status == 'EXPIRED' %}
+
+                    {% set is_active =
+                        match_status in
+                        ['ASSIGNED', 'ACCEPTED',
+                         'VERIFICATION_PENDING',
+                         'VERIFIED', 'COLLECTED'] %}
+
+                    {% set is_completed =
+                        match_status in ['COMPLETED', 'DISTRIBUTED'] %}
+
+                    {% set is_declined =
+                        match_status in ['DECLINED', 'CANCELLED', 'FAILED'] %}
+
+                    {% set match_category = 'other' %}
+
+                    {% if is_expired %}
+                        {% set match_category = 'expired' %}
+                    {% elif is_completed %}
+                        {% set match_category = 'completed' %}
+                    {% elif match_status in
+                        ['VERIFICATION_PENDING', 'VERIFIED'] %}
+                        {% set match_category = 'verification' %}
+                    {% elif is_active %}
+                        {% set match_category = 'accepted' %}
+                    {% elif can_apply and
+                        availability_state == 'PARTIALLY_CLAIMED' %}
+                        {% set match_category = 'partial' %}
+                    {% elif can_apply %}
+                        {% set match_category = 'available' %}
+                    {% endif %}
+
+                    <article
+                        class="match-card {% if is_expired %}expired{% endif %}"
+                        data-match-card
+                        data-status="{{ match_category }}"
+                        data-search="{{ (
+                            match.get('food_name', '')
+                            ~ ' '
+                            ~ match.get('business_name', '')
+                            ~ ' '
+                            ~ match.get('hotel_name', '')
+                            ~ ' '
+                            ~ match.get('donor_name', '')
+                            ~ ' '
+                            ~ match.get('location', '')
+                            ~ ' '
+                            ~ match.get('service_area', '')
+                            ~ ' '
+                            ~ match.get('food_type', '')
+                            ~ ' '
+                            ~ match.get('match_id', '')
+                            ~ ' '
+                            ~ match.get('food_submission_id', '')
+                        )|lower|e }}"
+                    >
+
+                        <div class="match-card-header">
+
+                            <div class="match-heading">
+                                <div class="match-reference">
+                                    MATCH #{{ match.get('match_id', 'N/A') }}
+                                </div>
+
+                                <h3>
+                                    {{ match.get(
+                                        'food_name',
+                                        match.get(
+                                            'business_name',
+                                            match.get(
+                                                'hotel_name',
+                                                match.get(
+                                                    'donor_name',
+                                                    'Surplus Food Opportunity'
+                                                )
+                                            )
+                                        )
+                                    ) }}
+                                </h3>
+
+                                <div class="match-subtitle">
+                                    Food Submission ID:
+                                    {{ match.get('food_submission_id', 'N/A') }}
+                                </div>
+                            </div>
+
+                            <span class="status-badge
+                                {% if is_expired %}
+                                    status-expired
+                                {% elif is_completed %}
+                                    status-completed
+                                {% elif match_status in
+                                    ['VERIFICATION_PENDING', 'VERIFIED'] %}
+                                    status-verification
+                                {% elif is_active %}
+                                    status-accepted
+                                {% elif can_apply and
+                                    availability_state == 'PARTIALLY_CLAIMED' %}
+                                    status-partial
+                                {% elif can_apply %}
+                                    status-available
+                                {% elif is_declined %}
+                                    status-declined
+                                {% else %}
+                                    status-default
+                                {% endif %}
+                            ">
+                                {% if is_expired %}
+                                    Expired
+                                {% elif is_completed %}
+                                    {{ match_status|replace('_', ' ')|title }}
+                                {% elif match_status == 'VERIFICATION_PENDING' %}
+                                    Verification Pending
+                                {% elif match_status == 'VERIFIED' %}
+                                    Verified
+                                {% elif is_active %}
+                                    {{ match_status|replace('_', ' ')|title }}
+                                {% elif can_apply and
+                                    availability_state == 'PARTIALLY_CLAIMED' %}
+                                    Partially Claimed
+                                {% elif can_apply %}
+                                    Available
+                                {% else %}
+                                    {{ match_status|replace('_', ' ')|title }}
+                                {% endif %}
+                            </span>
+
+                        </div>
+
+
+                        <div class="match-card-body">
+
+                            <div class="food-highlight">
+
+                                <div class="food-icon" aria-hidden="true">
+                                    {% if food_type in ['VEGETARIAN', 'VEG'] %}
+                                        ♧
+                                    {% elif food_type in
+                                        ['NON_VEGETARIAN', 'NON-VEGETARIAN', 'NON VEG'] %}
+                                        ◈
+                                    {% else %}
+                                        ♨
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <div class="food-highlight-label">
+                                        Total Declared Quantity
+                                    </div>
+
+                                    <div class="food-highlight-value">
+                                        {{ food_quantity }}
+                                        <small>{{ food_unit }}</small>
+                                    </div>
+
+                                    <span class="food-type-label">
+                                        {{ food_type|replace('_', ' ')|title }}
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="details-grid">
+
+                                <div class="detail-item">
+                                    <span class="detail-label">
+                                        Donor / Establishment
+                                    </span>
+                                    <span class="detail-value">
+                                        {{ match.get(
+                                            'business_name',
+                                            match.get(
+                                                'hotel_name',
+                                                match.get('donor_name', 'Not specified')
+                                            )
+                                        ) }}
+                                    </span>
+                                </div>
+
+                                <div class="detail-item">
+                                    <span class="detail-label">
+                                        Collection Location
+                                    </span>
+                                    <span class="detail-value">
+                                        {{ match.get(
+                                            'location',
+                                            match.get(
+                                                'donor_location',
+                                                match.get('service_area', 'Not specified')
+                                            )
+                                        ) }}
+                                    </span>
+                                </div>
+
+                                <div class="detail-item">
+                                    <span class="detail-label">Distance</span>
+                                    <span class="detail-value">
+                                        {% if match.get('distance_km') is not none %}
+                                            {{ match.get('distance_km') }} km
+                                        {% elif match.get('distance') is not none %}
+                                            {{ match.get('distance') }} km
+                                        {% else %}
+                                            Not available
+                                        {% endif %}
+                                    </span>
+                                </div>
+
+                                <div class="detail-item">
+                                    <span class="detail-label">Match Score</span>
+                                    <span class="detail-value">
+                                        {% if match.get('match_score') is not none %}
+                                            {{ match.get('match_score') }}%
+                                        {% else %}
+                                            Not available
+                                        {% endif %}
+                                    </span>
+                                </div>
+
+                                <div class="detail-item">
+                                    <span class="detail-label">Required By</span>
+                                    <span class="detail-value">
+                                        {% if match.get('required_by') %}
+                                            {{ match.get('required_by') }}
+                                        {% elif match.get('required_by_date') %}
+                                            {{ match.get('required_by_date') }}
+                                        {% else %}
+                                            Not specified
+                                        {% endif %}
+                                    </span>
+                                </div>
+
+                                <div class="detail-item">
+                                    <span class="detail-label">Recovery Urgency</span>
+                                    <span class="detail-value">
+                                        {% if match.get('urgency') %}
+                                            {{ match.get('urgency')|replace('_', ' ')|title }}
+                                        {% elif match.get('emergency_level') %}
+                                            {{ match.get('emergency_level')|replace('_', ' ')|title }}
+                                        {% elif match.get('is_emergency') %}
+                                            Priority Recovery
+                                        {% else %}
+                                            Standard
+                                        {% endif %}
+                                    </span>
+                                </div>
+
+                                <div class="detail-item">
+                                    <span class="detail-label">Food Status</span>
+                                    <span class="detail-value">
+                                        {{ match.get(
+                                            'food_status',
+                                            match.get('submission_status', 'Not specified')
+                                        )|replace('_', ' ')|title }}
+                                    </span>
+                                </div>
+
+                                <div class="detail-item">
+                                    <span class="detail-label">Match Created</span>
+                                    <span class="detail-value light">
+                                        {% if match.get('created_at') %}
+                                            {{ match.get('created_at') }}
+                                        {% elif match.get('matched_at') %}
+                                            {{ match.get('matched_at') }}
+                                        {% else %}
+                                            Not available
+                                        {% endif %}
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="match-divider"></div>
+
+                            <section class="allocation-panel">
+
+                                <div class="allocation-title">
+                                    <h4>Recovery Quantity Overview</h4>
+                                    <span>{{ food_unit }}</span>
+                                </div>
+
+                                <div class="allocation-numbers">
+
+                                    <div class="allocation-number">
+                                        <strong>{{ food_quantity }}</strong>
+                                        <span>Total Food</span>
+                                    </div>
+
+                                    <div class="allocation-number claimed">
+                                        <strong>{{ claimed_quantity }}</strong>
+                                        <span>Already Claimed</span>
+                                    </div>
+
+                                    <div class="allocation-number remaining">
+                                        <strong>{{ remaining_quantity }}</strong>
+                                        <span>Remaining</span>
+                                    </div>
+
+                                </div>
+
+                                {% set total_numeric = food_quantity|float %}
+                                {% set claimed_numeric = claimed_quantity|float %}
+
+                                {% if total_numeric > 0 %}
+                                    {% set claimed_percent =
+                                        (claimed_numeric / total_numeric * 100)|round(1) %}
+
+                                    {% if claimed_percent > 100 %}
+                                        {% set claimed_percent = 100 %}
+                                    {% endif %}
+
+                                    <div
+                                        class="progress-track"
+                                        role="progressbar"
+                                        aria-label="Food quantity claimed"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        aria-valuenow="{{ claimed_percent }}"
+                                    >
+                                        <div
+                                            class="progress-fill"
+                                            style="width: {{ claimed_percent }}%;"
+                                        ></div>
+                                    </div>
+                                {% endif %}
+
+                                <p class="allocation-note">
+                                    The remaining quantity represents food
+                                    that has not yet been allocated. Apply
+                                    for only the quantity your NGO can
+                                    collect within the recovery window.
+                                </p>
+
+                            </section>
+
+
+                            {% set recommendation_text =
+                                match.get(
+                                    'recommendation_reason',
+                                    match.get(
+                                        'match_details',
+                                        match.get('generated_report', '')
+                                    )
+                                ) %}
+
+                            {% if recommendation_text %}
+                                <div class="recommendation-box">
+                                    <h4>Recovery Recommendation</h4>
+                                    <p>{{ recommendation_text }}</p>
+                                </div>
+                            {% endif %}
+
+
+                            {% if is_expired %}
+
+                                <div class="deadline-alert expired-alert">
+                                    <span aria-hidden="true">!</span>
+                                    <div>
+                                        <strong>Recovery window expired.</strong>
+                                        This opportunity is no longer available
+                                        for a new application.
+                                    </div>
+                                </div>
+
+                            {% elif match.get('available_until') %}
+
+                                <div class="deadline-alert">
+                                    <span aria-hidden="true">◷</span>
+                                    <div>
+                                        <strong>Recovery deadline:</strong>
+                                        {{ match.get('available_until') }}
+                                        <br>
+                                        Apply only if your organisation can
+                                        complete the recovery within the
+                                        permitted window.
+                                    </div>
+                                </div>
+
+                            {% elif match.get('recovery_deadline') %}
+
+                                <div class="deadline-alert">
+                                    <span aria-hidden="true">◷</span>
+                                    <div>
+                                        <strong>Recovery deadline:</strong>
+                                        {{ match.get('recovery_deadline') }}
+                                    </div>
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if can_apply %}
+
+                                <section class="apply-panel">
+
+                                    <h4>Apply for Food Recovery</h4>
+
+                                    <p class="apply-description">
+                                        Enter the quantity your NGO can
+                                        collect. You can request part of
+                                        the available quantity.
+                                    </p>
+
+                                    <form
+                                        method="POST"
+                                        action="/ngo/recovery-match/{{ match.get('match_id') }}/decision"
+                                        class="recovery-application-form"
+                                        data-total-available="{{ remaining_quantity }}"
+                                        data-unit="{{ food_unit }}"
+                                    >
+
+                                        <input
+                                            type="hidden"
+                                            name="decision"
+                                            value="ACCEPT"
+                                        >
+
+                                        <label
+                                            class="quantity-label"
+                                            for="quantity-{{ match.get('match_id') }}"
+                                        >
+                                            Quantity Your NGO Can Recover
+                                        </label>
+
+                                        <div class="quantity-input-row">
+
+                                            <input
+                                                type="number"
+                                                id="quantity-{{ match.get('match_id') }}"
+                                                name="accepted_quantity"
+                                                class="quantity-input accepted-quantity-input"
+                                                min="0.01"
+                                                max="{{ remaining_quantity }}"
+                                                step="any"
+                                                inputmode="decimal"
+                                                placeholder="Enter quantity"
+                                                required
+                                            >
+
+                                            <div class="quantity-unit">
+                                                {{ food_unit }}
+                                            </div>
+
+                                        </div>
+
+                                        <div class="live-balance" aria-live="polite">
+
+                                            <div class="live-balance-label">
+                                                <strong>
+                                                    Estimated Remaining Quantity
+                                                </strong>
+                                                <br>
+                                                Estimated amount after your
+                                                requested allocation.
+                                            </div>
+
+                                            <div class="live-balance-value">
+                                                <span class="live-remaining">
+                                                    {{ remaining_quantity }}
+                                                </span>
+                                                {{ food_unit }}
+                                            </div>
+
+                                        </div>
+
+                                        <p class="apply-note">
+                                            The server must validate the
+                                            requested quantity before
+                                            accepting the application.
+                                            On-site food verification is
+                                            still required.
+                                        </p>
+
+                                        <div class="card-actions">
+                                            <button
+                                                type="submit"
+                                                class="btn btn-primary btn-block apply-button"
+                                            >
+                                                Apply for Recovery →
+                                            </button>
+                                        </div>
+
+                                    </form>
+
+
+                                    <form
+                                        method="POST"
+                                        action="/ngo/recovery-match/{{ match.get('match_id') }}/decision"
+                                        class="decline-form"
+                                        style="margin-top: 10px;"
+                                    >
+
+                                        <input
+                                            type="hidden"
+                                            name="decision"
+                                            value="DECLINE"
+                                        >
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline btn-block decline-button"
+                                        >
+                                            Decline This Match
+                                        </button>
+
+                                    </form>
+
+                                </section>
+
+
+                            {% elif is_expired %}
+
+                                <div class="apply-panel">
+                                    <h4>Application Closed</h4>
+                                    <p class="apply-description">
+                                        The recovery window has expired.
+                                        A new application cannot be submitted.
+                                    </p>
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline btn-block"
+                                        disabled
+                                    >
+                                        Recovery Expired
+                                    </button>
+                                </div>
+
+
+                            {% elif is_active %}
+
+                                <div class="apply-panel">
+                                    <h4>Recovery In Progress</h4>
+                                    <p class="apply-description">
+                                        This match has been accepted or
+                                        assigned. Continue through the
+                                        verification and recovery workflow.
+                                    </p>
+
+                                    <div class="card-actions">
+                                        <a
+                                            href="/ngo/recovery-management"
+                                            class="btn btn-dark btn-block"
+                                        >
+                                            Open Recovery Management →
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                            {% elif is_completed %}
+
+                                <div class="apply-panel">
+                                    <h4>Recovery Completed</h4>
+                                    <p class="apply-description">
+                                        This match is marked as
+                                        {{ match_status|replace('_', ' ')|lower }}.
+                                    </p>
+                                </div>
+
+
+                            {% elif is_declined %}
+
+                                <div class="apply-panel">
+                                    <h4>Match Unavailable</h4>
+                                    <p class="apply-description">
+                                        This match is no longer available
+                                        for a new application.
+                                    </p>
+                                </div>
+
+
+                            {% else %}
+
+                                <div class="apply-panel">
+                                    <h4>Current Match Status</h4>
+                                    <p class="apply-description">
+                                        Status:
+                                        <strong>
+                                            {{ match_status|replace('_', ' ')|title }}
+                                        </strong>
+                                        <br>
+                                        A new application is unavailable
+                                        while this match remains in its
+                                        current state.
+                                    </p>
+
+                                    <a
+                                        href="/ngo/recovery-management"
+                                        class="btn btn-outline btn-block"
+                                    >
+                                        View Recovery Management
+                                    </a>
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+
+                <div
+                    class="empty-state"
+                    id="noFilterResults"
+                    style="display: none;"
+                >
+                    <div class="empty-icon">⌕</div>
+                    <h3>No Matching Opportunities</h3>
+                    <p>
+                        No matches fit your current search or status
+                        filter. Try changing your search or resetting
+                        the filters.
+                    </p>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="emptyResetFilters"
+                    >
+                        Reset Filters
+                    </button>
+                </div>
+
+
+            {% else %}
+
+                <div class="empty-state">
+                    <div class="empty-icon">♧</div>
+                    <h3>No Recovery Matches Yet</h3>
+                    <p>
+                        There are no recovery matches available to
+                        display right now. New opportunities may appear
+                        when eligible surplus food is submitted and
+                        matching records are created.
+                    </p>
+                    <a
+                        href="/ngo/recovery-management"
+                        class="btn btn-primary"
+                    >
+                        Go to Recovery Management →
+                    </a>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <footer class="page-footer">
+        <p>
+            <strong>ResQMeal</strong>
+            &nbsp;|&nbsp;
+            AI-Assisted Food Waste Reduction
+        </p>
+        <p style="margin-top: 6px;">
+            Every recovery decision should prioritise food safety,
+            accurate quantity allocation, and timely collection.
+        </p>
+    </footer>
+
+</main>
+
+
+<dialog class="confirm-dialog" id="declineDialog">
+
+    <h3>Decline This Match?</h3>
+
+    <p>
+        Are you sure your organisation cannot recover this food?
+        The match will be processed according to its current status.
+    </p>
+
+    <div class="dialog-actions">
+
+        <button
+            type="button"
+            class="btn btn-outline"
+            id="cancelDecline"
+        >
+            Keep Match
+        </button>
+
+        <button
+            type="button"
+            class="btn btn-danger"
+            id="confirmDecline"
+        >
+            Confirm Decline
+        </button>
+
+    </div>
+
+</dialog>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    "use strict";
+
+    /* SEARCH AND STATUS FILTERS */
+
+    const searchInput = document.getElementById("matchSearch");
+    const statusFilter = document.getElementById("statusFilter");
+    const resetButton = document.getElementById("resetFilters");
+    const emptyResetButton =
+        document.getElementById("emptyResetFilters");
+
+    const cards = Array.from(
+        document.querySelectorAll("[data-match-card]")
+    );
+
+    const noResults = document.getElementById("noFilterResults");
+
+
+    function applyFilters() {
+
+        const searchText = searchInput
+            ? searchInput.value.trim().toLowerCase()
+            : "";
+
+        const selectedStatus = statusFilter
+            ? statusFilter.value
+            : "all";
+
+        let visibleCount = 0;
+
+        cards.forEach(function (card) {
+
+            const cardText =
+                card.getAttribute("data-search") || "";
+
+            const cardStatus =
+                card.getAttribute("data-status") || "other";
+
+            const matchesSearch =
+                cardText.includes(searchText);
+
+            const matchesStatus =
+                selectedStatus === "all"
+                || cardStatus === selectedStatus;
+
+            const shouldShow =
+                matchesSearch && matchesStatus;
+
+            card.style.display = shouldShow ? "" : "none";
+
+            if (shouldShow) {
+                visibleCount += 1;
+            }
+
+        });
+
+        if (noResults) {
+            noResults.style.display =
+                cards.length > 0 && visibleCount === 0
+                ? ""
+                : "none";
+        }
+
+    }
+
+
+    function resetFilters() {
+
+        if (searchInput) {
+            searchInput.value = "";
+        }
+
+        if (statusFilter) {
+            statusFilter.value = "all";
+        }
+
+        applyFilters();
+
+    }
+
+
+    if (searchInput) {
+        searchInput.addEventListener("input", applyFilters);
+    }
+
+    if (statusFilter) {
+        statusFilter.addEventListener("change", applyFilters);
+    }
+
+    if (resetButton) {
+        resetButton.addEventListener("click", resetFilters);
+    }
+
+    if (emptyResetButton) {
+        emptyResetButton.addEventListener("click", resetFilters);
+    }
+
+
+    /* LIVE REMAINING QUANTITY PREVIEW */
+
+    const applicationForms = document.querySelectorAll(
+        ".recovery-application-form"
+    );
+
+
+    applicationForms.forEach(function (form) {
+
+        const quantityInput = form.querySelector(
+            ".accepted-quantity-input"
+        );
+
+        const remainingDisplay = form.querySelector(
+            ".live-remaining"
+        );
+
+        const submitButton = form.querySelector(
+            ".apply-button"
+        );
+
+        const initialAvailable = Number(
+            form.getAttribute("data-total-available")
+        );
+
+        const unit = form.getAttribute("data-unit") || "";
+
+
+        if (
+            !quantityInput
+            || !remainingDisplay
+            || !Number.isFinite(initialAvailable)
+        ) {
+            return;
+        }
+
+
+        function formatQuantity(value) {
+            return Number(value.toFixed(3)).toString();
+        }
+
+
+        function updateRemainingQuantity() {
+
+            const enteredQuantity = Number(quantityInput.value);
+
+            const isEmpty =
+                quantityInput.value.trim() === "";
+
+            const isValid =
+                !isEmpty
+                && Number.isFinite(enteredQuantity)
+                && enteredQuantity > 0
+                && enteredQuantity <= initialAvailable;
+
+
+            if (isEmpty || !Number.isFinite(enteredQuantity)) {
+
+                remainingDisplay.textContent =
+                    formatQuantity(initialAvailable);
+
+            } else {
+
+                remainingDisplay.textContent = formatQuantity(
+                    Math.max(0, initialAvailable - enteredQuantity)
+                );
+
+            }
+
+
+            if (isEmpty) {
+
+                quantityInput.setCustomValidity("");
+
+            } else if (
+                !Number.isFinite(enteredQuantity)
+                || enteredQuantity <= 0
+            ) {
+
+                quantityInput.setCustomValidity(
+                    "Enter a quantity greater than zero."
+                );
+
+            } else if (enteredQuantity > initialAvailable) {
+
+                quantityInput.setCustomValidity(
+                    "The requested quantity cannot exceed "
+                    + formatQuantity(initialAvailable)
+                    + " "
+                    + unit
+                    + "."
+                );
+
+            } else {
+
+                quantityInput.setCustomValidity("");
+
+            }
+
+
+            if (submitButton) {
+                submitButton.disabled = !isValid;
+            }
+
+        }
+
+
+        quantityInput.addEventListener(
+            "input",
+            updateRemainingQuantity
+        );
+
+        quantityInput.addEventListener(
+            "change",
+            updateRemainingQuantity
+        );
+
+        updateRemainingQuantity();
+
+    });
+
+
+    /* DECLINE CONFIRMATION */
+
+    const declineDialog =
+        document.getElementById("declineDialog");
+
+    const declineForms =
+        document.querySelectorAll(".decline-form");
+
+    const cancelDecline =
+        document.getElementById("cancelDecline");
+
+    const confirmDecline =
+        document.getElementById("confirmDecline");
+
+    let selectedDeclineForm = null;
+
+
+    declineForms.forEach(function (form) {
+
+        form.addEventListener("submit", function (event) {
+
+            if (!declineDialog) {
+
+                const confirmed = window.confirm(
+                    "Are you sure you want to decline this recovery match?"
+                );
+
+                if (!confirmed) {
+                    event.preventDefault();
+                }
+
+                return;
+            }
+
+            event.preventDefault();
+
+            selectedDeclineForm = form;
+
+            if (typeof declineDialog.showModal === "function") {
+
+                declineDialog.showModal();
+
+            } else {
+
+                const confirmed = window.confirm(
+                    "Are you sure you want to decline this recovery match?"
+                );
+
+                if (confirmed) {
+                    form.submit();
+                }
+
+            }
+
+        });
+
+    });
+
+
+    if (cancelDecline && declineDialog) {
+
+        cancelDecline.addEventListener("click", function () {
+
+            declineDialog.close();
+            selectedDeclineForm = null;
+
+        });
+
+    }
+
+
+    if (confirmDecline && declineDialog) {
+
+        confirmDecline.addEventListener("click", function () {
+
+            if (selectedDeclineForm) {
+
+                const formToSubmit = selectedDeclineForm;
+
+                selectedDeclineForm = null;
+                declineDialog.close();
+
+                formToSubmit.submit();
+
+            }
+
+        });
+
+    }
+
+
+    if (declineDialog) {
+
+        declineDialog.addEventListener("click", function (event) {
+
+            if (event.target === declineDialog) {
+                declineDialog.close();
+                selectedDeclineForm = null;
+            }
+
+        });
+
+    }
+
+
+    /* FINAL APPLICATION VALIDATION */
+
+    applicationForms.forEach(function (form) {
+
+        form.addEventListener("submit", function (event) {
+
+            const input = form.querySelector(
+                ".accepted-quantity-input"
+            );
+
+            if (!input) {
+                event.preventDefault();
+                return;
+            }
+
+            const available = Number(
+                form.getAttribute("data-total-available")
+            );
+
+            const requested = Number(input.value);
+
+            if (
+                !Number.isFinite(requested)
+                || requested <= 0
+                || requested > available
+            ) {
+
+                event.preventDefault();
+                input.reportValidity();
+                return;
+
+            }
+
+
+            const unit = form.getAttribute("data-unit") || "";
+
+            const confirmed = window.confirm(
+                "Submit a recovery application for "
+                + requested
+                + " "
+                + unit
+                + "?\n\n"
+                + "The server must verify the available quantity "
+                + "before processing your application."
+            );
+
+            if (!confirmed) {
+                event.preventDefault();
+            }
+
+        });
+
+    });
+
+
+    /* INITIALISE */
+
+    applyFilters();
+
+});
+</script>
+
+</body>
+</html>

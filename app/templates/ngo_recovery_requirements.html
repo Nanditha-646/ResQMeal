@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recovery Requirements | ResQMeal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           TOP BAR
+        ========================== */
+
+        .topbar {
+            height: 72px;
+            background: #101a33;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            color: white;
+            box-shadow: 0 4px 18px rgba(16, 26, 51, 0.18);
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .brand span {
+            color: #f28c28;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f28c28;
+        }
+
+        .logout {
+            border: 1px solid #f28c28;
+            padding: 9px 17px;
+            border-radius: 7px;
+            color: #f28c28 !important;
+        }
+
+        .logout:hover {
+            background: #f28c28;
+            color: #101a33 !important;
+        }
+
+        /* =========================
+           PAGE HEADER
+        ========================== */
+
+        .page-header {
+            background: #101a33;
+            padding: 48px 7% 58px;
+            color: white;
+        }
+
+        .page-header .tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #f28c28;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            max-width: 700px;
+            color: #c8cfdd;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           MAIN CONTENT
+        ========================== */
+
+        .container {
+            width: 86%;
+            max-width: 1200px;
+            margin: -28px auto 60px;
+            position: relative;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 8px 28px rgba(16, 26, 51, 0.08);
+            border: 1px solid #e8ebf1;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 750;
+            color: #101a33;
+            margin-bottom: 7px;
+        }
+
+        .card-subtitle {
+            color: #737c8f;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #273149;
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #f28c28;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #dce1ea;
+            border-radius: 8px;
+            padding: 12px 13px;
+            font-size: 14px;
+            color: #172033;
+            background: #ffffff;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #f28c28;
+            box-shadow: 0 0 0 3px rgba(242, 140, 40, 0.10);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .helper {
+            margin-top: 6px;
+            font-size: 11px;
+            color: #8a92a3;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 13px 18px;
+            background: #f28c28;
+            color: #101a33;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
+            margin-top: 5px;
+        }
+
+        .submit-btn:hover {
+            background: #ff9f3f;
+            transform: translateY(-1px);
+        }
+
+        /* =========================
+           FLASH MESSAGES
+        ========================== */
+
+        .flash-area {
+            margin-bottom: 20px;
+        }
+
+        .flash {
+            padding: 13px 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .flash.success {
+            background: #edf8f1;
+            color: #176b3a;
+            border: 1px solid #ccebd8;
+        }
+
+        .flash.error {
+            background: #fff1f1;
+            color: #9b2929;
+            border: 1px solid #f1cccc;
+        }
+
+        .flash.warning {
+            background: #fff7eb;
+            color: #8a5315;
+            border: 1px solid #f4dfbd;
+        }
+
+        .flash.info {
+            background: #eef4ff;
+            color: #28558f;
+            border: 1px solid #d2def5;
+        }
+
+        /* =========================
+           REQUIREMENTS LIST
+        ========================== */
+
+        .requirement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .requirement-item {
+            border: 1px solid #e4e8ef;
+            border-radius: 10px;
+            padding: 18px;
+            background: #fafbfc;
+        }
+
+        .requirement-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .requirement-number {
+            font-size: 14px;
+            font-weight: 800;
+            color: #101a33;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .status.active {
+            background: #fff1df;
+            color: #bd6410;
+        }
+
+        .status.fulfilled {
+            background: #edf8f1;
+            color: #176b3a;
+        }
+
+        .status.cancelled {
+            background: #fff1f1;
+            color: #9b2929;
+        }
+
+        .status.expired {
+            background: #edf0f4;
+            color: #687184;
+        }
+
+        .requirement-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .detail {
+            padding: 10px;
+            background: white;
+            border-radius: 7px;
+            border: 1px solid #edf0f4;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 10px;
+            color: #8a92a3;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .detail-value {
+            font-size: 13px;
+            color: #253047;
+            font-weight: 650;
+        }
+
+        .notes {
+            margin-top: 12px;
+            padding: 11px 12px;
+            border-left: 3px solid #f28c28;
+            background: #fffaf4;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #626b7c;
+            line-height: 1.5;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 45px 20px;
+            border: 1px dashed #d6dce6;
+            border-radius: 10px;
+            background: #fafbfc;
+        }
+
+        .empty-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+            color: #f28c28;
+        }
+
+        .empty-state h3 {
+            font-size: 16px;
+            color: #263149;
+            margin-bottom: 7px;
+        }
+
+        .empty-state p {
+            color: #858d9e;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           INFORMATION BOX
+        ========================== */
+
+        .info-box {
+            margin-top: 25px;
+            background: #101a33;
+            color: white;
+            border-radius: 12px;
+            padding: 22px 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-symbol {
+            color: #f28c28;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .info-box h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .info-box p {
+            color: #c8cfdd;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #101a33;
+            color: #9ea7b9;
+            text-align: center;
+            padding: 22px;
+            font-size: 11px;
+        }
+
+        footer span {
+            color: #f28c28;
+            font-weight: 700;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 850px) {
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .topbar {
+                padding: 0 5%;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a:not(.logout) {
+                display: none;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .two-column,
+            .requirement-details {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         TOP BAR
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+            ResQ<span>Meal</span>
+        </div>
+
+        <nav class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="{{ url_for('ngo.dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('ngo.profile') }}">
+                Profile
+            </a>
+
+            <a href="{{ url_for('ngo.logout') }}" class="logout">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================== -->
+
+    <section class="page-header">
+
+        <span class="tag">
+            NGO Recovery Module
+        </span>
+
+        <h1>
+            Recovery Requirements
+        </h1>
+
+        <p>
+            Define the type and quantity of surplus food your NGO currently
+            requires. These requirements help ResQMeal identify suitable
+            recovery opportunities for your organization.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="container">
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="flash-area">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <div class="content-grid">
+
+
+            <!-- =========================
+                 CREATE REQUIREMENT
+            ========================== -->
+
+            <section class="card">
+
+                <h2 class="card-title">
+                    Create New Requirement
+                </h2>
+
+                <p class="card-subtitle">
+                    Tell us what your NGO needs so suitable surplus food
+                    can be identified for recovery.
+                </p>
+
+
+                <form method="POST"
+                      action="{{ url_for('ngo.recovery_requirements') }}">
+
+
+                    <!-- FOOD TYPE -->
+
+                    <div class="form-group">
+
+                        <label for="food_type_preference">
+                            Food Type Preference
+                            <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="food_type_preference"
+                            name="food_type_preference"
+                            required>
+
+                            <option value="">
+                                Select food type
+                            </option>
+
+                            <option value="VEGETARIAN">
+                                Vegetarian
+                            </option>
+
+                            <option value="NON_VEGETARIAN">
+                                Non-Vegetarian
+                            </option>
+
+                            <option value="ANY">
+                                Any
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- QUANTITY + UNIT -->
+
+                    <div class="two-column">
+
+                        <div class="form-group">
+
+                            <label for="required_quantity">
+                                Required Quantity
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="required_quantity"
+                                name="required_quantity"
+                                min="0.01"
+                                step="0.01"
+                                placeholder="Example: 25"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="quantity_unit">
+                                Quantity Unit
+                                <span class="required">*</span>
+                            </label>
+
+                            <select
+                                id="quantity_unit"
+                                name="quantity_unit"
+                                required>
+
+                                <option value="">
+                                    Select unit
+                                </option>
+
+                                <option value="KG">
+                                    Kilograms (KG)
+                                </option>
+
+                                <option value="LITRES">
+                                    Litres
+                                </option>
+
+                                <option value="PIECES">
+                                    Pieces
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REQUIRED BY -->
+
+                    <div class="form-group">
+
+                        <label for="required_by">
+                            Required By
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="required_by"
+                            name="required_by"
+                            required>
+
+                        <div class="helper">
+                            Specify the date and time by which the food is needed.
+                        </div>
+
+                    </div>
+
+
+                    <!-- SERVICE AREA -->
+
+                    <div class="form-group">
+
+                        <label for="service_area">
+                            Service Area
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="service_area"
+                            name="service_area"
+                            placeholder="Example: Ballari"
+                            required>
+
+                        <div class="helper">
+                            Enter the area where your NGO can receive the food.
+                        </div>
+
+                    </div>
+
+
+                    <!-- MAXIMUM DISTANCE -->
+
+                    <div class="form-group">
+
+                        <label for="max_distance_km">
+                            Maximum Distance (KM)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="max_distance_km"
+                            name="max_distance_km"
+                            min="0"
+                            step="0.1"
+                            placeholder="Example: 20">
+
+                        <div class="helper">
+                            Optional. Maximum distance your NGO can travel
+                            for collection.
+                        </div>
+
+                    </div>
+
+
+                    <!-- NOTES -->
+
+                    <div class="form-group">
+
+                        <label for="notes">
+                            Additional Notes
+                        </label>
+
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            placeholder="Mention any specific recovery requirements or preferences..."></textarea>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button type="submit" class="submit-btn">
+                        Submit Recovery Requirement
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- =========================
+                 EXISTING REQUIREMENTS
+            ========================== -->
+
+            <section class="card">
+
+                <h2 class="card-title">
+                    Your Recovery Requirements
+                </h2>
+
+                <p class="card-subtitle">
+                    Requirements submitted by your NGO are shown here.
+                    Active requirements can be considered for suitable
+                    recovery matching.
+                </p>
+
+
+                {% if requirements %}
+
+                    <div class="requirement-list">
+
+                        {% for requirement in requirements %}
+
+                            <div class="requirement-item">
+
+                                <div class="requirement-top">
+
+                                    <div class="requirement-number">
+                                        Requirement #{{ requirement.requirement_id }}
+                                    </div>
+
+                                    {% set status = requirement.requirement_status|lower %}
+
+                                    <span class="status {{ status }}">
+                                        {{ requirement.requirement_status }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="requirement-details">
+
+
+                                    <!-- FOOD TYPE -->
+
+                                    <div class="detail">
+
+                                        <span class="detail-label">
+                                            Food Type
+                                        </span>
+
+                                        <span class="detail-value">
+                                            {{ requirement.food_type_preference.replace('_', ' ') }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <!-- QUANTITY -->
+
+                                    <div class="detail">
+
+                                        <span class="detail-label">
+                                            Quantity
+                                        </span>
+
+                                        <span class="detail-value">
+                                            {{ requirement.required_quantity }}
+                                            {{ requirement.quantity_unit }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <!-- REQUIRED BY -->
+
+                                    <div class="detail">
+
+                                        <span class="detail-label">
+                                            Required By
+                                        </span>
+
+                                        <span class="detail-value">
+                                            {{ requirement.required_by }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <!-- SERVICE AREA -->
+
+                                    <div class="detail">
+
+                                        <span class="detail-label">
+                                            Service Area
+                                        </span>
+
+                                        <span class="detail-value">
+                                            {{ requirement.service_area }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <!-- MAX DISTANCE -->
+
+                                    <div class="detail">
+
+                                        <span class="detail-label">
+                                            Maximum Distance
+                                        </span>
+
+                                        <span class="detail-value">
+
+                                            {% if requirement.max_distance_km is not none %}
+                                                {{ requirement.max_distance_km }} KM
+                                            {% else %}
+                                                Not specified
+                                            {% endif %}
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                {% if requirement.notes %}
+
+                                    <div class="notes">
+
+                                        <strong>
+                                            Notes:
+                                        </strong>
+
+                                        {{ requirement.notes }}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            No Recovery Requirements Yet
+                        </h3>
+
+                        <p>
+                            Your NGO has not submitted any recovery
+                            requirements. Use the form on the left to
+                            create your first requirement.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+        </div>
+
+
+        <!-- =========================
+             INFORMATION BOX
+        ========================== -->
+
+        <div class="info-box">
+
+            <div class="info-symbol">
+                ✓
+            </div>
+
+            <div>
+
+                <h3>
+                    How Recovery Requirements Help
+                </h3>
+
+                <p>
+                    Your requirements provide the information needed for
+                    ResQMeal's recovery matching process. Food type,
+                    quantity, required time, service area and distance
+                    preference can be considered when identifying suitable
+                    surplus food opportunities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        ResQ<span>Meal</span>
+        &nbsp;•&nbsp;
+        Surplus Food Recovery Platform
+
+    </footer>
+
+
+    <!-- =========================
+         DATE/TIME VALIDATION
+    ========================== -->
+
+    <script>
+
+        const requiredBy = document.getElementById("required_by");
+
+        if (requiredBy) {
+
+            const now = new Date();
+
+            now.setMinutes(
+                now.getMinutes() - now.getTimezoneOffset()
+            );
+
+            requiredBy.min = now.toISOString().slice(0, 16);
+        }
+
+    
+    </script>
+
+</body>
+</html>

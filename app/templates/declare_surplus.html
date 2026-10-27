@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Declare Surplus | ResQMeal</title>
+
+    <style>
+
+        :root {
+
+            --navy: #17233C;
+            --navy-deep: #10192C;
+            --amber: #F2A93B;
+            --amber-dark: #C77B0C;
+
+            --white: #FFFFFF;
+            --page: #F4F5F7;
+            --soft: #F8F9FB;
+
+            --charcoal: #202735;
+            --muted: #667085;
+
+            --border: #DCE1E8;
+
+            --success: #218C87;
+            --danger: #C84D4D;
+
+        }
+
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            background: var(--page);
+
+            color: var(--charcoal);
+        }
+
+
+        /* =================================================
+           TOP BAR
+        ================================================= */
+
+        .topbar {
+
+            min-height: 78px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 48px;
+
+            background: var(--navy);
+
+            border-bottom:
+                3px solid var(--amber);
+
+            box-shadow:
+                0 8px 24px rgba(23, 35, 60, 0.18);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 20;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .brand-mark {
+
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border:
+                2px solid var(--amber);
+
+            border-radius: 50%;
+
+            background: #101A30;
+
+            color: var(--amber);
+
+            font-size: 13px;
+
+            font-weight: 900;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .brand-mark span {
+            color: var(--white);
+        }
+
+
+        .brand-text strong {
+
+            display: block;
+
+            color: var(--white);
+
+            font-size: 19px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+
+        .brand-text strong span {
+            color: var(--amber);
+        }
+
+
+        .brand-text small {
+
+            display: block;
+
+            margin-top: 4px;
+
+            color: #C5CBD7;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.7px;
+
+            text-transform: uppercase;
+        }
+
+
+        .back-link {
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 38px;
+
+            padding: 0 16px;
+
+            border:
+                1px solid rgba(255,255,255,0.25);
+
+            border-radius: 7px;
+
+            color: var(--white);
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            transition: 0.2s ease;
+        }
+
+
+        .back-link:hover {
+
+            background: var(--amber);
+
+            border-color: var(--amber);
+
+            color: var(--navy);
+        }
+
+
+        /* =================================================
+           PAGE
+        ================================================= */
+
+        .page {
+
+            width: min(1160px, 92%);
+
+            margin: 0 auto;
+
+            padding: 40px 0 55px;
+        }
+
+
+        /* =================================================
+           HERO
+        ================================================= */
+
+        .hero {
+
+            position: relative;
+
+            overflow: hidden;
+
+            margin-bottom: 22px;
+
+            padding: 34px 38px;
+
+            background:
+                linear-gradient(
+                    125deg,
+                    var(--navy-deep),
+                    var(--navy)
+                );
+
+            color: var(--white);
+
+            border-left:
+                5px solid var(--amber);
+
+            box-shadow:
+                0 15px 34px rgba(23, 35, 60, 0.17);
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            right: -80px;
+            top: -130px;
+
+            border:
+                1px solid rgba(242,169,59,0.25);
+
+            border-radius: 50%;
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 110px;
+            height: 110px;
+
+            right: 70px;
+            bottom: -75px;
+
+            border:
+                22px solid rgba(255,255,255,0.035);
+
+            border-radius: 50%;
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 760px;
+        }
+
+
+        .hero-label {
+
+            color: var(--amber);
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+
+        .hero h1 {
+
+            margin-top: 8px;
+
+            color: var(--white);
+
+            font-size: 36px;
+
+            line-height: 1.15;
+
+            font-weight: 900;
+
+            letter-spacing: -0.7px;
+        }
+
+
+        .hero p {
+
+            max-width: 720px;
+
+            margin-top: 11px;
+
+            color: #D4DAE4;
+
+            font-size: 13px;
+
+            line-height: 1.65;
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 18px;
+
+            padding: 7px 11px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            color: #E2E6ED;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .hero-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--amber);
+        }
+
+
+        /* =================================================
+           FLASH MESSAGES
+        ================================================= */
+
+        .flash-area {
+
+            margin-bottom: 20px;
+        }
+
+
+        .flash {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            padding: 13px 15px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid transparent;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        .flash.success {
+
+            background: #EDF8F6;
+
+            border-color: #C9E5E1;
+
+            color: #17645F;
+        }
+
+
+        .flash.error {
+
+            background: #FFF1F1;
+
+            border-color: #EACACA;
+
+            color: #963D3D;
+        }
+
+
+        .flash-icon {
+
+            font-weight: 900;
+
+            min-width: 16px;
+        }
+
+
+        /* =================================================
+           FORM CARD
+        ================================================= */
+
+        .form-card {
+
+            background: var(--white);
+
+            border:
+                1px solid var(--border);
+
+            box-shadow:
+                0 12px 32px rgba(23, 35, 60, 0.08);
+        }
+
+
+        /* =================================================
+           SECTION
+        ================================================= */
+
+        .section {
+
+            padding: 29px 32px;
+
+            border-bottom:
+                1px solid #E3E6EB;
+        }
+
+
+        .section:last-of-type {
+
+            border-bottom: none;
+        }
+
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 21px;
+        }
+
+
+        .section-number {
+
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            background: var(--navy);
+
+            color: var(--amber);
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            border-left:
+                3px solid var(--amber);
+        }
+
+
+        .section-title h2 {
+
+            color: var(--navy);
+
+            font-size: 17px;
+
+            font-weight: 900;
+        }
+
+
+        .section-title p {
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.45;
+        }
+
+
+        /* =================================================
+           FORM GRID
+        ================================================= */
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 19px;
+        }
+
+
+        .field.full {
+
+            grid-column:
+                1 / -1;
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--navy);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.1px;
+        }
+
+
+        .required {
+
+            color: var(--danger);
+        }
+
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 6px;
+
+            padding: 12px 13px;
+
+            background: #FBFCFD;
+
+            color: var(--charcoal);
+
+            font-family: inherit;
+
+            font-size: 12px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        input:hover,
+        select:hover,
+        textarea:hover {
+
+            border-color: #C7CED9;
+        }
+
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+
+            background: var(--white);
+
+            border-color: var(--amber);
+
+            box-shadow:
+                0 0 0 3px rgba(242,169,59,0.12);
+        }
+
+
+        textarea {
+
+            min-height: 105px;
+
+            resize: vertical;
+
+            line-height: 1.55;
+        }
+
+
+        /* =================================================
+           FOOD TYPE
+        ================================================= */
+
+        .food-type {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 10px;
+        }
+
+
+        .food-option {
+
+            position: relative;
+        }
+
+
+        .food-option input {
+
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        .food-option label {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 44px;
+
+            margin: 0;
+
+            padding: 10px;
+
+            background: #FBFCFD;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 6px;
+
+            color: #536075;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            transition: 0.2s ease;
+        }
+
+
+        .food-option label:hover {
+
+            border-color: #C7CED9;
+        }
+
+
+        .food-option input:checked + label {
+
+            background:
+                rgba(242,169,59,0.10);
+
+            border-color: var(--amber);
+
+            color: var(--navy);
+
+            box-shadow:
+                inset 3px 0 0 var(--amber);
+        }
+
+
+        /* =================================================
+           AVAILABILITY
+        ================================================= */
+
+        .availability-box {
+
+            padding: 20px;
+
+            background: #F7F8FA;
+
+            border:
+                1px solid var(--border);
+
+            border-left:
+                4px solid var(--amber);
+        }
+
+
+        .info-note {
+
+            margin-top: 17px;
+
+            padding: 12px 14px;
+
+            background:
+                rgba(242,169,59,0.08);
+
+            border:
+                1px solid rgba(242,169,59,0.16);
+
+            color: #596477;
+
+            font-size: 11px;
+
+            line-height: 1.55;
+        }
+
+
+        /* =================================================
+           DECLARATION
+        ================================================= */
+
+        .declaration {
+
+            padding: 19px 21px;
+
+            background:
+                linear-gradient(
+                    125deg,
+                    var(--navy-deep),
+                    var(--navy)
+                );
+
+            border-left:
+                4px solid var(--amber);
+        }
+
+
+        .declaration label {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 11px;
+
+            margin: 0;
+
+            color: #E1E5EC;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            line-height: 1.6;
+
+            cursor: pointer;
+        }
+
+
+        .declaration input {
+
+            width: 16px;
+            height: 16px;
+
+            flex-shrink: 0;
+
+            margin-top: 2px;
+
+            padding: 0;
+
+            accent-color: var(--amber);
+        }
+
+
+        /* =================================================
+           ACTION AREA
+        ================================================= */
+
+        .actions {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 11px;
+
+            padding: 23px 32px;
+
+            background: #F8F9FB;
+
+            border-top:
+                1px solid #E3E6EB;
+        }
+
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 40px;
+
+            padding: 0 20px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            font-family: inherit;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+
+        .btn-secondary {
+
+            background: #E9ECF1;
+
+            color: var(--navy);
+        }
+
+
+        .btn-secondary:hover {
+
+            background: #DDE2E9;
+        }
+
+
+        .btn-primary {
+
+            background: var(--amber);
+
+            color: var(--navy);
+
+            box-shadow:
+                0 7px 18px rgba(242,169,59,0.22);
+        }
+
+
+        .btn-primary:hover {
+
+            background: #E9A034;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 10px 22px rgba(242,169,59,0.28);
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        .footer-note {
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #8A93A3;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.4px;
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 760px) {
+
+            .topbar {
+
+                padding: 0 18px;
+
+                min-height: 70px;
+            }
+
+
+            .brand-text small {
+
+                display: none;
+            }
+
+
+            .brand-text strong {
+
+                font-size: 17px;
+            }
+
+
+            .brand-mark {
+
+                width: 41px;
+                height: 41px;
+            }
+
+
+            .page {
+
+                width: 94%;
+
+                padding-top: 25px;
+            }
+
+
+            .hero {
+
+                padding: 27px 23px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 30px;
+            }
+
+
+            .section {
+
+                padding: 25px 19px;
+            }
+
+
+            .grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .field.full {
+
+                grid-column: auto;
+            }
+
+
+            .food-type {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .actions {
+
+                flex-direction: column-reverse;
+
+                padding: 20px 19px;
+            }
+
+
+            .btn {
+
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================================
+     TOP BAR
+================================================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-mark">
+            R<span>Q</span>
+        </div>
+
+
+        <div class="brand-text">
+
+            <strong>
+                RESQ<span>MEAL</span>
+            </strong>
+
+            <small>
+                AI-Assisted Food Waste Reduction
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="{{ url_for('donor.dashboard') }}"
+        class="back-link"
+    >
+        ← Dashboard
+    </a>
+
+</header>
+
+
+
+<!-- =================================================
+     MAIN PAGE
+================================================= -->
+
+<main class="page">
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                Donor Operations
+            </div>
+
+
+            <h1>
+                Declare Surplus
+            </h1>
+
+
+            <p>
+                Record available surplus food so ResQMeal can
+                evaluate suitable recovery opportunities and
+                connect it with verified NGO requirements.
+            </p>
+
+
+            <div class="hero-badge">
+
+                <span class="hero-dot"></span>
+
+                Recovery declaration · On-site verification follows
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FLASH MESSAGES
+    ================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-area">
+
+                {% for category, message in messages %}
+
+                    <div class="flash {{ category }}">
+
+                        <span class="flash-icon">
+
+                            {% if category == "success" %}
+                                ✓
+                            {% else %}
+                                !
+                            {% endif %}
+
+                        </span>
+
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- =================================================
+         FORM
+    ================================================== -->
+
+    <form
+        class="form-card"
+        method="POST"
+        action="{{ url_for('donor.declare_surplus') }}"
+    >
+
+
+        <!-- =================================================
+             FOOD DETAILS
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div class="section-number">
+                    01
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Food Details
+                    </h2>
+
+                    <p>
+                        Tell us what surplus food is available.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <div class="field">
+
+                    <label>
+                        Food Type <span class="required">*</span>
+                    </label>
+
+
+                    <div class="food-type">
+
+
+                        <div class="food-option">
+
+                            <input
+                                type="radio"
+                                id="vegetarian"
+                                name="food_type"
+                                value="VEGETARIAN"
+                                required
+                            >
+
+
+                            <label for="vegetarian">
+                                Vegetarian
+                            </label>
+
+                        </div>
+
+
+                        <div class="food-option">
+
+                            <input
+                                type="radio"
+                                id="non_vegetarian"
+                                name="food_type"
+                                value="NON_VEGETARIAN"
+                            >
+
+
+                            <label for="non_vegetarian">
+                                Non-Vegetarian
+                            </label>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label for="quantity">
+
+                        Quantity
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        name="quantity"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="e.g. 25"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label for="quantity_unit">
+
+                        Quantity Unit
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <select
+                        id="quantity_unit"
+                        name="quantity_unit"
+                        required
+                    >
+
+                        <option value="">
+                            Select unit
+                        </option>
+
+                        <option value="KG">
+                            Kilograms (kg)
+                        </option>
+
+                        <option value="LITRES">
+                            Litres (L)
+                        </option>
+
+                        <option value="PIECES">
+                            Pieces
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label for="preparation_date">
+
+                        Preparation Date
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="preparation_date"
+                        name="preparation_date"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label for="preparation_time">
+
+                        Preparation Time
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <input
+                        type="time"
+                        id="preparation_time"
+                        name="preparation_time"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label for="served_to_customers">
+
+                        Served to Customers?
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <select
+                        id="served_to_customers"
+                        name="served_to_customers"
+                        required
+                    >
+
+                        <option value="">
+                            Select an option
+                        </option>
+
+                        <option value="1">
+                            Yes
+                        </option>
+
+                        <option value="0">
+                            No
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             HANDLING
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div class="section-number">
+                    02
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Preparation & Handling
+                    </h2>
+
+                    <p>
+                        Provide information that helps the NGO
+                        representative understand the batch.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <div class="field full">
+
+                    <label for="handling_information">
+
+                        Handling Information
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <textarea
+                        id="handling_information"
+                        name="handling_information"
+                        placeholder="Describe how the food has been handled after preparation..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <div class="field full">
+
+                    <label for="storage_handling_information">
+
+                        Storage & Handling Information
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <textarea
+                        id="storage_handling_information"
+                        name="storage_handling_information"
+                        placeholder="Describe storage conditions and handling practices..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CONSUMPTION INFORMATION
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div class="section-number">
+                    03
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Consumption Information
+                    </h2>
+
+                    <p>
+                        Provide the applicable consumption date and time
+                        when available.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <div class="field">
+
+                    <label for="applicable_consumption_date">
+
+                        Applicable Consumption Date
+
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="applicable_consumption_date"
+                        name="applicable_consumption_date"
+                    >
+
+                </div>
+
+
+
+                <div class="field">
+
+                    <label for="applicable_consumption_time">
+
+                        Applicable Consumption Time
+
+                    </label>
+
+
+                    <input
+                        type="time"
+                        id="applicable_consumption_time"
+                        name="applicable_consumption_time"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECOVERY WINDOW
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div class="section-number">
+                    04
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Recovery Window
+                    </h2>
+
+                    <p>
+                        Tell ResQMeal when the surplus can be collected.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="availability-box">
+
+
+                <div class="grid">
+
+
+                    <div class="field">
+
+                        <label for="available_from">
+
+                            Available From
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <input
+                            type="datetime-local"
+                            id="available_from"
+                            name="available_from"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label for="available_until">
+
+                            Available Until
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <input
+                            type="datetime-local"
+                            id="available_until"
+                            name="available_until"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="info-note">
+
+                    The availability window helps the recovery system
+                    determine urgency and prioritize suitable NGO
+                    requirements.
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ADDITIONAL NOTES
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div class="section-number">
+                    05
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Additional Notes
+                    </h2>
+
+                    <p>
+                        Add any useful information about this surplus batch.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="donor_notes">
+                    Donor Notes
+                </label>
+
+
+                <textarea
+                    id="donor_notes"
+                    name="donor_notes"
+                    placeholder="Optional notes for the NGO representative..."
+                ></textarea>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DONOR DECLARATION
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="declaration">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        name="donor_declaration"
+                        value="1"
+                        required
+                    >
+
+
+                    <span>
+
+                        I confirm that the information provided for this
+                        surplus batch is accurate to the best of my knowledge.
+                        I understand that the NGO representative will perform
+                        an on-site batch verification before recovery is accepted.
+
+                    </span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="actions">
+
+
+            <a
+                href="{{ url_for('donor.dashboard') }}"
+                class="btn btn-secondary"
+            >
+                Cancel
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Declare Surplus →
+            </button>
+
+
+        </div>
+
+
+    </form>
+
+
+
+    <div class="footer-note">
+
+        ResQMeal · Recover More. Waste Less.
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

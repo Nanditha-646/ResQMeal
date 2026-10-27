@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ResQMeal | Admin Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #17233c;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #17233c;
+            color: white;
+            min-height: 76px;
+            padding: 16px 42px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #f2a93b;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .logo-circle {
+            width: 43px;
+            height: 43px;
+            border: 3px solid #f2a93b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #101a2e;
+            color: #f2a93b;
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand-text {
+            line-height: 1.1;
+        }
+
+        .brand-name {
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: 1.4px;
+        }
+
+        .brand-name span {
+            color: #f2a93b;
+        }
+
+        .brand-subtitle {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #cbd5e1;
+            letter-spacing: 0.8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .admin-label {
+            font-size: 13px;
+            color: #dbe4f2;
+            font-weight: 600;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: #17233c;
+            background: #f2a93b;
+            padding: 11px 20px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 800;
+            transition: 0.2s ease;
+        }
+
+        .logout:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 38px 24px 55px;
+        }
+
+
+        /* =========================
+           PAGE INTRO
+        ========================= */
+
+        .intro {
+            background: #17233c;
+            color: white;
+            padding: 34px 38px;
+            border-radius: 12px;
+            margin-bottom: 26px;
+            position: relative;
+            overflow: hidden;
+            border-left: 6px solid #f2a93b;
+        }
+
+        .intro::after {
+            content: "RQ";
+            position: absolute;
+            right: 28px;
+            bottom: -35px;
+            font-size: 145px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.035);
+            pointer-events: none;
+        }
+
+        .intro-tag {
+            display: inline-block;
+            color: #f2a93b;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .intro h1 {
+            margin: 0 0 10px;
+            font-size: 34px;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+
+        .intro h1 span {
+            color: #f2a93b;
+        }
+
+        .intro p {
+            margin: 0;
+            color: #d8e0ec;
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 690px;
+        }
+
+        .admin-info {
+            margin-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 12px 16px;
+            border-radius: 7px;
+            min-width: 190px;
+        }
+
+        .info-label {
+            display: block;
+            font-size: 10px;
+            color: #aebbd0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .code-value {
+            color: #f2a93b;
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================
+           SECTION HEADING
+        ========================= */
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin: 30px 0 15px;
+            gap: 20px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #17233c;
+        }
+
+        .section-heading p {
+            margin: 4px 0 0;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .section-line {
+            width: 52px;
+            height: 4px;
+            background: #f2a93b;
+            margin-top: 9px;
+            border-radius: 2px;
+        }
+
+
+        /* =========================
+           ADMIN MODULES
+        ========================= */
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px;
+        }
+
+        .module {
+            background: white;
+            border: 1px solid #dce3ed;
+            border-top: 4px solid #17233c;
+            border-radius: 10px;
+            padding: 24px;
+            min-height: 190px;
+            position: relative;
+            transition: 0.2s ease;
+            box-shadow: 0 6px 18px rgba(23, 35, 60, 0.05);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .module:hover {
+            transform: translateY(-3px);
+            border-top-color: #f2a93b;
+            box-shadow: 0 10px 24px rgba(23, 35, 60, 0.09);
+        }
+
+        .module-number {
+            position: absolute;
+            top: 17px;
+            right: 18px;
+            font-size: 12px;
+            font-weight: 900;
+            color: #a4afbf;
+            letter-spacing: 1px;
+        }
+
+        .module-icon {
+            width: 43px;
+            height: 43px;
+            background: #eef3f9;
+            border: 1px solid #d8e1ec;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 17px;
+        }
+
+        .module h3 {
+            margin: 0 0 8px;
+            color: #17233c;
+            font-size: 17px;
+        }
+
+        .module p {
+            margin: 0;
+            color: #657186;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .module-status {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+            font-weight: 900;
+            color: #17233c;
+            background: #edf2f8;
+            padding: 6px 9px;
+            border-radius: 4px;
+        }
+
+
+        /* =========================
+           CONTROL STRIP
+        ========================= */
+
+        .control-strip {
+            margin-top: 28px;
+            background: #ffffff;
+            border: 1px solid #dce3ed;
+            border-radius: 10px;
+            padding: 22px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .control-title {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .control-mark {
+            width: 38px;
+            height: 38px;
+            background: #17233c;
+            color: #f2a93b;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .control-title h3 {
+            margin: 0;
+            font-size: 15px;
+            color: #17233c;
+        }
+
+        .control-title p {
+            margin: 4px 0 0;
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .control-badge {
+            background: #fff4df;
+            color: #9a6500;
+            border: 1px solid #f4d18d;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #17233c;
+            color: white;
+            padding: 25px 24px;
+            text-align: center;
+            border-top: 3px solid #f2a93b;
+        }
+
+        .footer-brand {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1.2px;
+        }
+
+        .footer-brand span {
+            color: #f2a93b;
+        }
+
+        .footer-caption {
+            margin-top: 6px;
+            color: #bdc8d8;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-note {
+            margin-top: 12px;
+            color: #f2a93b;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .modules {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header {
+                padding: 15px 24px;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 14px 18px;
+            }
+
+            .brand-subtitle {
+                display: none;
+            }
+
+            .admin-label {
+                display: none;
+            }
+
+            .logo-circle {
+                width: 39px;
+                height: 39px;
+            }
+
+            .brand-name {
+                font-size: 18px;
+            }
+
+            .logout {
+                padding: 9px 14px;
+            }
+
+            main {
+                padding: 25px 15px 40px;
+            }
+
+            .intro {
+                padding: 26px 23px;
+            }
+
+            .intro h1 {
+                font-size: 27px;
+            }
+
+            .intro p {
+                font-size: 13px;
+            }
+
+            .modules {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .control-strip {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .control-badge {
+                align-self: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="logo-circle">
+            RQ
+        </div>
+
+        <div class="brand-text">
+
+            <div class="brand-name">
+                RESQ<span>MEAL</span>
+            </div>
+
+            <div class="brand-subtitle">
+                AI-ASSISTED FOOD WASTE REDUCTION
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="admin-label">
+            ADMIN CONTROL CENTER
+        </div>
+
+        <a
+            href="{{ url_for('admin.logout') }}"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+
+    <!-- =========================
+         INTRODUCTION
+    ========================= -->
+
+    <section class="intro">
+
+        <div class="intro-tag">
+            Administrative Control
+        </div>
+
+        <h1>
+            Admin <span>Dashboard</span>
+        </h1>
+
+        <p>
+            Welcome to the ResQMeal administrative control center.
+            Monitor registrations, verification activities, recovery
+            operations and system records from one centralized workspace.
+        </p>
+
+
+        <div class="admin-info">
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Administrator
+                </span>
+
+                <span class="info-value">
+                    {{ admin_username }}
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Admin Code
+                </span>
+
+                <span class="info-value code-value">
+                    {{ admin_code }}
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Access Status
+                </span>
+
+                <span class="info-value">
+                    Active
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ADMIN MODULES
+    ========================= -->
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>
+                Administrative Modules
+            </h2>
+
+            <div class="section-line"></div>
+
+            <p>
+                Centralized oversight for the ResQMeal network.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <section class="modules">
+
+
+        <!-- MODULE 01 : DONOR MANAGEMENT -->
+
+        <a
+            href="{{ url_for('admin.applications') }}"
+            class="module"
+        >
+
+            <div class="module-number">
+                01
+            </div>
+
+            <div class="module-icon">
+                🏨
+            </div>
+
+            <h3>
+                Donor Management
+            </h3>
+
+            <p>
+                Manage hotels, restaurants and event or party
+                donor applications and account activities.
+            </p>
+
+            <span class="module-status">
+                Donor Control
+            </span>
+
+        </a>
+
+
+        <!-- MODULE 02 : NGO VERIFICATION -->
+
+        <a
+            href="{{ url_for('admin.ngo_applications') }}"
+            class="module"
+        >
+
+            <div class="module-number">
+                02
+            </div>
+
+            <div class="module-icon">
+                🤝
+            </div>
+
+            <h3>
+                NGO Verification
+            </h3>
+
+            <p>
+                Review submitted NGO information and supporting
+                documents before approval and platform access.
+            </p>
+
+            <span class="module-status">
+                Verification
+            </span>
+
+        </a>
+
+
+        <!-- MODULE 03 : RECOVERY MONITORING -->
+
+        <div class="module">
+
+            <div class="module-number">
+                03
+            </div>
+
+            <div class="module-icon">
+                ♻️
+            </div>
+
+            <h3>
+                Recovery Monitoring
+            </h3>
+
+            <p>
+                Monitor active recovery operations, completed
+                recoveries and unsuccessful recovery cases.
+            </p>
+
+            <span class="module-status">
+                Monitoring
+            </span>
+
+        </div>
+
+
+        <!-- MODULE 04 : VERIFICATION RECORDS -->
+
+        <div class="module">
+
+            <div class="module-number">
+                04
+            </div>
+
+            <div class="module-icon">
+                ✓
+            </div>
+
+            <h3>
+                Verification Records
+            </h3>
+
+            <p>
+                Review physical verification outcomes and
+                records submitted during recovery activities.
+            </p>
+
+            <span class="module-status">
+                Records
+            </span>
+
+        </div>
+
+
+        <!-- MODULE 05 : NOTIFICATIONS -->
+
+        <div class="module">
+
+            <div class="module-number">
+                05
+            </div>
+
+            <div class="module-icon">
+                🔔
+            </div>
+
+            <h3>
+                Notifications
+            </h3>
+
+            <p>
+                View important administrative alerts and
+                notifications generated by the platform.
+            </p>
+
+            <span class="module-status">
+                Alerts
+            </span>
+
+        </div>
+
+
+        <!-- MODULE 06 : DATABASE RECORDS -->
+
+        <div class="module">
+
+            <div class="module-number">
+                06
+            </div>
+
+            <div class="module-icon">
+                🗄️
+            </div>
+
+            <h3>
+                Database Records
+            </h3>
+
+            <p>
+                Access structured system records through the
+                admin-only database management area.
+            </p>
+
+            <span class="module-status">
+                Admin Only
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================
+         CONTROL STRIP
+    ========================= -->
+
+    <section class="control-strip">
+
+        <div class="control-title">
+
+            <div class="control-mark">
+                RQ
+            </div>
+
+            <div>
+
+                <h3>
+                    ResQMeal Administrative Oversight
+                </h3>
+
+                <p>
+                    Review. Verify. Monitor. Maintain responsible recovery operations.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="control-badge">
+            Authorized Access
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-brand">
+        RESQ<span>MEAL</span>
+    </div>
+
+    <div class="footer-caption">
+        AI-assisted food waste reduction
+    </div>
+
+    <div class="footer-note">
+        Recover More. Waste Less.
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

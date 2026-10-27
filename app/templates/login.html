@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ResQMeal | Login</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <main
+        style="
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        "
+    >
+
+        <section style="width: 100%; max-width: 900px;">
+
+            <div style="text-align: center; margin-bottom: 35px;">
+                <h1>RESQMEAL</h1>
+
+                <p>
+                    Recover. Verify. Redistribute.
+                </p>
+            </div>
+
+
+            <div
+                style="
+                    display: grid;
+                    grid-template-columns:
+                        repeat(auto-fit, minmax(240px, 1fr));
+                    gap: 20px;
+                "
+            >
+
+                <a
+                    href="#"
+                    style="text-decoration: none;"
+                >
+                    <div class="card">
+
+                        <h2>
+                            Hotel / Restaurant
+                        </h2>
+
+                        <p>
+                            Access your donor account and manage
+                            surplus food recovery submissions.
+                        </p>
+
+                    </div>
+                </a>
+
+
+                <a
+                    href="#"
+                    style="text-decoration: none;"
+                >
+                    <div class="card">
+
+                        <h2>
+                            NGO / Organization
+                        </h2>
+
+                        <p>
+                            Access verified recovery opportunities
+                            and manage collection activities.
+                        </p>
+
+                    </div>
+                </a>
+
+
+                <a
+                    href="#"
+                    style="text-decoration: none;"
+                >
+                    <div class="card">
+
+                        <h2>
+                            Admin
+                        </h2>
+
+                        <p>
+                            Authorized platform administration
+                            with two-step verification.
+                        </p>
+
+                    </div>
+                </a>
+
+            </div>
+
+
+            <div style="text-align: center; margin-top: 30px;">
+
+                <a href="/">
+                    ← Back to Home
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NGO Activation | ResQMeal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fa;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        header {
+            background: #071a3d;
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            border-bottom: 4px solid #f28c28;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            border: 3px solid #f28c28;
+            border-radius: 50%;
+            background: #071a3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f28c28;
+            font-size: 17px;
+            font-weight: 900;
+        }
+
+        .brand-name {
+            font-size: 23px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand-name .resq {
+            color: #f28c28;
+        }
+
+        .brand-name .meal {
+            color: #ffffff;
+        }
+
+        .brand-caption {
+            color: #cbd5e1;
+            font-size: 11px;
+            margin-top: 3px;
+            letter-spacing: 0.5px;
+        }
+
+        .home-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 17px;
+            border-radius: 7px;
+        }
+
+        .home-link:hover {
+            border-color: #f28c28;
+            color: #f28c28;
+        }
+
+        /* ==================================================
+           MAIN
+        ================================================== */
+
+        main {
+            min-height: calc(100vh - 76px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 55px 20px;
+        }
+
+        .activation-wrapper {
+            width: 100%;
+            max-width: 1080px;
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 18px 45px rgba(7, 26, 61, 0.12);
+            border: 1px solid #e3e8ef;
+        }
+
+        /* ==================================================
+           INFORMATION SIDE
+        ================================================== */
+
+        .information {
+            background: #071a3d;
+            color: #ffffff;
+            padding: 52px 45px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .information::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border: 35px solid rgba(242, 140, 40, 0.08);
+            border-radius: 50%;
+            right: -100px;
+            bottom: -90px;
+        }
+
+        .step-label {
+            display: inline-block;
+            color: #f28c28;
+            border: 1px solid rgba(242, 140, 40, 0.6);
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .information h1 {
+            font-size: 39px;
+            line-height: 1.12;
+            margin-bottom: 18px;
+            font-weight: 900;
+        }
+
+        .information h1 span {
+            color: #f28c28;
+        }
+
+        .information > p {
+            color: #d9e1ec;
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 440px;
+        }
+
+        .activation-points {
+            margin-top: 32px;
+            display: grid;
+            gap: 13px;
+        }
+
+        .point {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 13px 14px;
+            background: rgba(255,255,255,0.06);
+            border-left: 3px solid #f28c28;
+            border-radius: 5px;
+        }
+
+        .point-icon {
+            color: #f28c28;
+            font-size: 16px;
+            font-weight: 900;
+            min-width: 18px;
+        }
+
+        .point-text {
+            color: #e5ebf3;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* ==================================================
+           FORM SIDE
+        ================================================== */
+
+        .form-panel {
+            padding: 52px 50px;
+            background: #ffffff;
+        }
+
+        .form-heading {
+            margin-bottom: 30px;
+        }
+
+        .form-heading h2 {
+            color: #071a3d;
+            font-size: 29px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .form-heading p {
+            color: #667085;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ==================================================
+           FLASH MESSAGES
+        ================================================== */
+
+        .messages {
+            margin-bottom: 22px;
+        }
+
+        .message {
+            padding: 12px 14px;
+            border-radius: 7px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 9px;
+        }
+
+        .message.error {
+            background: #fff1f1;
+            border: 1px solid #f0b5b5;
+            color: #9f2020;
+        }
+
+        .message.success {
+            background: #eefaf2;
+            border: 1px solid #b7dfc2;
+            color: #216b36;
+        }
+
+        /* ==================================================
+           FORM
+        ================================================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #172033;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #f28c28;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7b8798;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #cfd6df;
+            border-radius: 7px;
+            padding: 0 14px 0 42px;
+            color: #172033;
+            background: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        input:focus {
+            border-color: #f28c28;
+            box-shadow: 0 0 0 3px rgba(242, 140, 40, 0.10);
+        }
+
+        .password-note {
+            margin-top: 7px;
+            color: #7a8494;
+            font-size: 11px;
+        }
+
+        .activate-button {
+            width: 100%;
+            height: 50px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 7px;
+            background: #f28c28;
+            color: #071a3d;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .activate-button:hover {
+            background: #ff9e3d;
+            transform: translateY(-1px);
+        }
+
+        .login-note {
+            text-align: center;
+            margin-top: 21px;
+            color: #667085;
+            font-size: 13px;
+        }
+
+        .login-note a {
+            color: #071a3d;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .login-note a:hover {
+            color: #f28c28;
+        }
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 820px) {
+
+            .activation-wrapper {
+                grid-template-columns: 1fr;
+                max-width: 620px;
+            }
+
+            .information {
+                padding: 38px 30px;
+            }
+
+            .information h1 {
+                font-size: 31px;
+            }
+
+            .form-panel {
+                padding: 38px 30px;
+            }
+        }
+
+        @media (max-width: 520px) {
+
+            header {
+                padding: 0 20px;
+            }
+
+            .brand-name {
+                font-size: 19px;
+            }
+
+            .brand-caption {
+                font-size: 9px;
+            }
+
+            .home-link {
+                padding: 8px 11px;
+                font-size: 12px;
+            }
+
+            main {
+                padding: 25px 12px;
+            }
+
+            .information {
+                padding: 32px 23px;
+            }
+
+            .form-panel {
+                padding: 32px 23px;
+            }
+
+            .information h1 {
+                font-size: 28px;
+            }
+
+            .form-heading h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="brand">
+
+        <div class="logo">
+            RQ
+        </div>
+
+        <div>
+            <div class="brand-name">
+                <span class="resq">RESQ</span><span class="meal">MEAL</span>
+            </div>
+
+            <div class="brand-caption">
+                AI-assisted food waste reduction
+            </div>
+        </div>
+
+    </div>
+
+    <a
+        href="/"
+        class="home-link"
+    >
+        Home
+    </a>
+
+</header>
+
+
+<main>
+
+    <div class="activation-wrapper">
+
+        <!-- ==================================================
+             INFORMATION
+        ================================================== -->
+
+        <section class="information">
+
+            <div class="step-label">
+                NGO ACCOUNT ACTIVATION
+            </div>
+
+            <h1>
+                Activate Your
+                <span>NGO Account</span>
+            </h1>
+
+            <p>
+                Your NGO application has completed the administrative
+                verification process. Activate your approved account
+                by creating your permanent login password.
+            </p>
+
+            <div class="activation-points">
+
+                <div class="point">
+
+                    <div class="point-icon">
+                        ✓
+                    </div>
+
+                    <div class="point-text">
+                        Your NGO documents have been verified by ResQMeal administration.
+                    </div>
+
+                </div>
+
+                <div class="point">
+
+                    <div class="point-icon">
+                        ✓
+                    </div>
+
+                    <div class="point-text">
+                        Use the same registered mobile number submitted during NGO registration.
+                    </div>
+
+                </div>
+
+                <div class="point">
+
+                    <div class="point-icon">
+                        ✓
+                    </div>
+
+                    <div class="point-text">
+                        Create your own permanent password for future NGO access.
+                    </div>
+
+                </div>
+
+                <div class="point">
+
+                    <div class="point-icon">
+                        ✓
+                    </div>
+
+                    <div class="point-text">
+                        After activation, you can access the NGO dashboard and recovery network.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ACTIVATION FORM
+        ================================================== -->
+
+        <section class="form-panel">
+
+            <div class="form-heading">
+
+                <h2>
+                    Set Up Your Access
+                </h2>
+
+                <p>
+                    Enter the registered mobile number and create
+                    a permanent password for your NGO account.
+                </p>
+
+            </div>
+
+
+            <!-- FLASH MESSAGES -->
+
+            {% with messages = get_flashed_messages(
+                with_categories=true
+            ) %}
+
+                {% if messages %}
+
+                    <div class="messages">
+
+                        {% for category, message in messages %}
+
+                            <div
+                                class="message {{ category }}"
+                            >
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <form
+                method="POST"
+                action="{{ url_for('ngo.activate') }}"
+            >
+
+                <!-- MOBILE NUMBER -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Registered Mobile Number
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ☎
+                        </span>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Enter registered mobile number"
+                            autocomplete="tel"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Create Permanent Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create your password"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="password-note">
+                        Password must contain at least 8 characters.
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="confirm_password">
+                        Confirm Permanent Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔐
+                        </span>
+
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            name="confirm_password"
+                            placeholder="Re-enter your password"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="activate-button"
+                >
+                    Activate NGO Account
+                </button>
+
+            </form>
+
+
+            <div class="login-note">
+
+                Already activated?
+
+                <a href="{{ url_for('ngo.login') }}">
+                    Go to NGO Login
+                </a>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+</body>
+</html>

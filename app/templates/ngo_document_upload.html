@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NGO Document Verification | ResQMeal</title>
+
+    <style>
+
+        :root {
+            --navy-deep: #0D1728;
+            --navy: #14233D;
+            --navy-light: #20395E;
+            --orange: #F2A04B;
+            --orange-dark: #D98232;
+            --white: #FFFFFF;
+            --light: #F4F7FB;
+            --line: #D8E0EA;
+            --text: #172B46;
+            --muted: #61748D;
+            --success: #218C87;
+            --error: #C94F4F;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy-deep),
+                    var(--navy)
+                );
+
+            color: var(--text);
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 28px 18px 45px;
+        }
+
+        .container {
+            width: min(1050px, 100%);
+            margin: 0 auto;
+        }
+
+        /* ==================================================
+           BRAND
+        ================================================== */
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .brand-logo {
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 2px solid var(--orange);
+            border-radius: 50%;
+
+            background: var(--navy);
+
+            color: var(--orange);
+
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand-name {
+            color: var(--white);
+
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: 0.2px;
+        }
+
+        .brand-name span {
+            color: var(--orange);
+        }
+
+        .brand-subtitle {
+            margin-top: 2px;
+
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.68
+                );
+
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* ==================================================
+           MAIN CARD
+        ================================================== */
+
+        .main-card {
+            overflow: hidden;
+
+            background: var(--white);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 30px 70px
+                rgba(0, 0, 0, 0.32);
+        }
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .page-header {
+            position: relative;
+
+            padding: 32px 34px 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy-light),
+                    var(--navy)
+                );
+
+            border-bottom:
+                3px solid
+                var(--orange);
+        }
+
+        .header-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+        .header-content {
+            max-width: 700px;
+        }
+
+        .eyebrow {
+            margin-bottom: 8px;
+
+            color: var(--orange);
+
+            font-size: 10px;
+            font-weight: 900;
+
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .page-title {
+            margin: 0;
+
+            color: var(--white);
+
+            font-size: 30px;
+            line-height: 1.2;
+
+            font-weight: 900;
+        }
+
+        .page-description {
+            margin: 13px 0 0;
+
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .verification-badge {
+            flex-shrink: 0;
+
+            padding: 11px 14px;
+
+            border:
+                1px solid
+                rgba(
+                    242,
+                    160,
+                    75,
+                    0.55
+                );
+
+            border-radius: 9px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.05
+                );
+
+            color: var(--orange);
+
+            font-size: 10px;
+            font-weight: 900;
+
+            text-align: center;
+            text-transform: uppercase;
+
+            letter-spacing: 0.8px;
+        }
+
+        .header-points {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 21px;
+        }
+
+        .header-point {
+            padding: 8px 11px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.28
+                );
+
+            border-radius: 7px;
+
+            color: var(--white);
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* ==================================================
+           APPLICATION BAR
+        ================================================== */
+
+        .application-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 18px;
+
+            margin: 20px 22px 0;
+
+            padding: 15px 17px;
+
+            background: var(--light);
+
+            border:
+                1px solid
+                var(--line);
+
+            border-left:
+                4px solid
+                var(--orange);
+
+            border-radius: 10px;
+        }
+
+        .application-label {
+            margin-bottom: 4px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+            font-weight: 900;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .application-name {
+            color: var(--text);
+
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .application-code {
+            padding: 9px 13px;
+
+            border-radius: 7px;
+
+            background: var(--navy);
+
+            color: var(--orange);
+
+            font-size: 12px;
+            font-weight: 900;
+
+            letter-spacing: 0.7px;
+        }
+
+        /* ==================================================
+           MESSAGES
+        ================================================== */
+
+        .messages {
+            padding: 0 22px;
+        }
+
+        .message {
+            margin-top: 16px;
+
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            color: #8E3030;
+
+            background: #FFF1F1;
+
+            border:
+                1px solid
+                #E9B8B8;
+        }
+
+        .message.success {
+            color: #176B67;
+
+            background: #EEF9F8;
+
+            border:
+                1px solid
+                #B8DFDC;
+        }
+
+        /* ==================================================
+           SUCCESS
+        ================================================== */
+
+        .success-panel {
+            margin: 22px;
+
+            padding: 32px 25px;
+
+            background: var(--light);
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius: 12px;
+
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 14px;
+
+            border-radius: 50%;
+
+            background: #E7F5F3;
+
+            border:
+                1px solid
+                #A9D8D3;
+
+            color: var(--success);
+
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        .success-panel h2 {
+            margin: 0;
+
+            color: var(--text);
+
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .success-panel p {
+            max-width: 620px;
+
+            margin: 9px auto 0;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        /* ==================================================
+           DOCUMENT AREA
+        ================================================== */
+
+        .document-area {
+            margin: 22px;
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius: 12px;
+
+            overflow: hidden;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 16px 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy-light),
+                    var(--navy)
+                );
+
+            border-bottom:
+                2px solid
+                var(--orange);
+        }
+
+        .section-number {
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 8px;
+
+            background:
+                rgba(
+                    242,
+                    160,
+                    75,
+                    0.12
+                );
+
+            border:
+                1px solid
+                rgba(
+                    242,
+                    160,
+                    75,
+                    0.45
+                );
+
+            color: var(--orange);
+
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .section-title {
+            color: var(--white);
+
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .section-body {
+            padding: 21px;
+
+            background: var(--light);
+        }
+
+        .section-description {
+            margin: 0 0 17px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        /* ==================================================
+           DOCUMENT GRID
+        ================================================== */
+
+        .document-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 13px;
+        }
+
+        .document-card {
+            padding: 17px;
+
+            background: var(--white);
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius: 10px;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .document-card:hover {
+            border-color: #B8C7D8;
+
+            box-shadow:
+                0 8px 22px
+                rgba(20, 35, 61, 0.07);
+        }
+
+        .document-card:focus-within {
+            border-color: var(--orange);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    242,
+                    160,
+                    75,
+                    0.10
+                );
+        }
+
+        .document-heading {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-bottom: 12px;
+        }
+
+        .document-number {
+            width: 29px;
+            height: 29px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 7px;
+
+            background: var(--navy);
+
+            color: var(--orange);
+
+            font-size: 9px;
+            font-weight: 900;
+        }
+
+        .document-title {
+            padding-top: 2px;
+
+            color: var(--text);
+
+            font-size: 12px;
+            font-weight: 900;
+
+            line-height: 1.45;
+        }
+
+        .required {
+            color: var(--error);
+
+            font-size: 11px;
+        }
+
+        .file-input {
+            width: 100%;
+
+            padding: 9px;
+
+            background: #FBFCFE;
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius: 7px;
+
+            color: var(--text);
+
+            font-family: inherit;
+
+            font-size: 10px;
+
+            cursor: pointer;
+        }
+
+        .file-input:focus {
+            outline: none;
+
+            border-color: var(--orange);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    242,
+                    160,
+                    75,
+                    0.11
+                );
+        }
+
+        .file-help {
+            margin-top: 7px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.5;
+        }
+
+        /* ==================================================
+           SUBMIT
+        ================================================== */
+
+        .submit-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-top: 18px;
+            padding-top: 18px;
+
+            border-top:
+                1px solid
+                var(--line);
+        }
+
+        .submit-note {
+            max-width: 560px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .submit-note strong {
+            color: var(--text);
+        }
+
+        .submit-button {
+            min-width: 205px;
+
+            padding: 13px 18px;
+
+            border: none;
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--orange),
+                    var(--orange-dark)
+                );
+
+            color: var(--white);
+
+            font-family: inherit;
+
+            font-size: 12px;
+            font-weight: 900;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 9px 22px
+                rgba(
+                    217,
+                    130,
+                    50,
+                    0.24
+                );
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 26px
+                rgba(
+                    217,
+                    130,
+                    50,
+                    0.30
+                );
+        }
+
+        .submit-button:disabled {
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        /* ==================================================
+           FOOTER
+        ================================================== */
+
+        .footer {
+            margin-top: 17px;
+
+            text-align: center;
+
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.55
+                );
+
+            font-size: 9px;
+
+            line-height: 1.6;
+        }
+
+        .footer strong {
+            color: var(--orange);
+        }
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 760px) {
+
+            .page {
+                padding: 20px 11px 32px;
+            }
+
+            .brand {
+                margin-bottom: 17px;
+            }
+
+            .page-header {
+                padding: 25px 21px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .page-title {
+                font-size: 25px;
+            }
+
+            .page-description {
+                font-size: 12px;
+            }
+
+            .verification-badge {
+                width: fit-content;
+            }
+
+            .application-bar {
+                margin: 15px 15px 0;
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+            .document-area {
+                margin: 15px;
+            }
+
+            .document-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-body {
+                padding: 16px;
+            }
+
+            .submit-area {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .submit-button {
+                width: 100%;
+            }
+
+            .messages {
+                padding: 0 15px;
+            }
+
+            .success-panel {
+                margin: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="container">
+
+        <!-- ==================================================
+             BRAND
+        ================================================== -->
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                RQ
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    <span>RESQ</span>MEAL
+                </div>
+
+                <div class="brand-subtitle">
+                    AI-assisted food waste reduction
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             MAIN CARD
+        ================================================== -->
+
+        <div class="main-card">
+
+
+            <!-- ==================================================
+                 HEADER
+            ================================================== -->
+
+            <div class="page-header">
+
+                <div class="header-top">
+
+                    <div class="header-content">
+
+                        <div class="eyebrow">
+                            NGO Verification
+                        </div>
+
+                        <h1 class="page-title">
+                            Complete NGO Verification
+                        </h1>
+
+                        <p class="page-description">
+                            Upload the required organizational
+                            documents to continue your ResQMeal
+                            NGO verification. Each document is
+                            reviewed individually by the
+                            ResQMeal administration team.
+                        </p>
+
+                    </div>
+
+
+                    <div class="verification-badge">
+                        Admin<br>
+                        Review
+                    </div>
+
+                </div>
+
+
+                <div class="header-points">
+
+                    <div class="header-point">
+                        Organization Documents
+                    </div>
+
+                    <div class="header-point">
+                        Four Mandatory Documents
+                    </div>
+
+                    <div class="header-point">
+                        Individual Verification
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 APPLICATION INFORMATION
+            ================================================== -->
+
+            <div class="application-bar">
+
+                <div>
+
+                    <div class="application-label">
+                        NGO Application
+                    </div>
+
+                    <div class="application-name">
+                        {{ application.ngo_name }}
+                    </div>
+
+                </div>
+
+
+                <div class="application-code">
+                    {{ application.application_code }}
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 FLASH MESSAGES
+            ================================================== -->
+
+            {% with messages = get_flashed_messages(
+                with_categories=true
+            ) %}
+
+                {% if messages %}
+
+                    <div class="messages">
+
+                        {% for category, message in messages %}
+
+                            <div
+                                class="message
+                                {% if category == 'error' %}
+                                    error
+                                {% else %}
+                                    success
+                                {% endif %}"
+                            >
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- ==================================================
+                 SUCCESS STATE
+            ================================================== -->
+
+            {% if upload_success %}
+
+                <div class="success-panel">
+
+                    <div class="success-icon">
+                        ✓
+                    </div>
+
+                    <h2>
+                        Documents Submitted Successfully
+                    </h2>
+
+                    <p>
+                        All four required documents have been
+                        received and recorded. Your NGO application
+                        is now under administrative document review.
+                    </p>
+
+                </div>
+
+            {% else %}
+
+
+                <!-- ==================================================
+                     DOCUMENT UPLOAD FORM
+                ================================================== -->
+
+                <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                    id="documentUploadForm"
+                >
+
+                    <div class="document-area">
+
+                        <div class="section-heading">
+
+                            <div class="section-number">
+                                01
+                            </div>
+
+                            <div class="section-title">
+                                Mandatory Verification Documents
+                            </div>
+
+                        </div>
+
+
+                        <div class="section-body">
+
+                            <p class="section-description">
+                                Upload clear and readable copies of
+                                all four documents. Accepted formats:
+                                PDF, JPG, JPEG and PNG. Maximum file
+                                size: 10 MB per document.
+                            </p>
+
+
+                            <div class="document-grid">
+
+
+                                <!-- DOCUMENT 1 -->
+
+                                <div class="document-card">
+
+                                    <div class="document-heading">
+
+                                        <div class="document-number">
+                                            01
+                                        </div>
+
+                                        <div class="document-title">
+                                            NGO Registration Certificate
+                                            <span class="required">
+                                                *
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <input
+                                        type="file"
+                                        name="registration_certificate"
+                                        class="file-input"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        required
+                                    >
+
+                                    <div class="file-help">
+                                        Upload the official NGO
+                                        registration certificate.
+                                    </div>
+
+                                </div>
+
+
+                                <!-- DOCUMENT 2 -->
+
+                                <div class="document-card">
+
+                                    <div class="document-heading">
+
+                                        <div class="document-number">
+                                            02
+                                        </div>
+
+                                        <div class="document-title">
+                                            NGO / Organization PAN
+                                            <span class="required">
+                                                *
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <input
+                                        type="file"
+                                        name="pan_document"
+                                        class="file-input"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        required
+                                    >
+
+                                    <div class="file-help">
+                                        Upload the PAN document
+                                        belonging to the organization.
+                                    </div>
+
+                                </div>
+
+
+                                <!-- DOCUMENT 3 -->
+
+                                <div class="document-card">
+
+                                    <div class="document-heading">
+
+                                        <div class="document-number">
+                                            03
+                                        </div>
+
+                                        <div class="document-title">
+                                            Address Proof
+                                            <span class="required">
+                                                *
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <input
+                                        type="file"
+                                        name="address_proof"
+                                        class="file-input"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        required
+                                    >
+
+                                    <div class="file-help">
+                                        Upload a valid document
+                                        confirming the NGO address.
+                                    </div>
+
+                                </div>
+
+
+                                <!-- DOCUMENT 4 -->
+
+                                <div class="document-card">
+
+                                    <div class="document-heading">
+
+                                        <div class="document-number">
+                                            04
+                                        </div>
+
+                                        <div class="document-title">
+                                            Authorized Representative
+                                            ID Proof
+                                            <span class="required">
+                                                *
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <input
+                                        type="file"
+                                        name="authorized_representative_id"
+                                        class="file-input"
+                                        accept=".pdf,.jpg,.jpeg,.png"
+                                        required
+                                    >
+
+                                    <div class="file-help">
+                                        Upload the identity proof of
+                                        the authorized representative.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ==================================================
+                                 SUBMIT AREA
+                            ================================================== -->
+
+                            <div class="submit-area">
+
+                                <div class="submit-note">
+                                    All four documents are mandatory.
+                                    Once submitted, each document enters
+                                    <strong>PENDING</strong> status for
+                                    individual administrative review.
+                                </div>
+
+
+                                <button
+                                    type="submit"
+                                    class="submit-button"
+                                    id="submitButton"
+                                >
+                                    Submit Documents →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ==================================================
+             FOOTER
+        ================================================== -->
+
+        <div class="footer">
+            <strong>RESQMEAL</strong>
+            · AI-assisted food waste reduction
+            · Recover More. Waste Less.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const form = document.getElementById(
+        "documentUploadForm"
+    );
+
+    const submitButton = document.getElementById(
+        "submitButton"
+    );
+
+    if (form && submitButton) {
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Uploading Documents...";
+
+            }
+        );
+
+    }
+
+</script>
+
+</body>
+</html>

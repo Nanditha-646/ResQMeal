@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NGO Verification | ResQMeal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6fa;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* ================= HEADER ================= */
+
+        .topbar {
+            background: #071a35;
+            min-height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            box-shadow: 0 4px 16px rgba(7, 26, 53, 0.16);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 3px solid #f47b20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f47b20;
+            font-weight: 900;
+            font-size: 17px;
+            letter-spacing: 1px;
+        }
+
+        .brand-name {
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand-name .resq {
+            color: #f47b20;
+        }
+
+        .brand-name .meal {
+            color: #ffffff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .admin-label {
+            color: #d9e2f0;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            text-decoration: none;
+            background: #f47b20;
+            color: #ffffff;
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .logout-btn:hover {
+            background: #d96512;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            width: 90%;
+            max-width: 1250px;
+            margin: 38px auto 60px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #17365f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .back-link:hover {
+            color: #f47b20;
+        }
+
+        .hero {
+            background: #071a35;
+            border-radius: 14px;
+            padding: 34px 38px;
+            margin-bottom: 26px;
+            color: #ffffff;
+            border-left: 6px solid #f47b20;
+        }
+
+        .hero small {
+            display: block;
+            color: #f47b20;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            margin-bottom: 9px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 31px;
+            margin-bottom: 9px;
+        }
+
+        .hero p {
+            color: #cbd6e6;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 760px;
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border: 1px solid #dce2eb;
+            border-radius: 10px;
+            padding: 21px;
+            box-shadow: 0 5px 16px rgba(15, 34, 59, 0.05);
+        }
+
+        .summary-card span {
+            display: block;
+            color: #68758a;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .summary-card strong {
+            font-size: 27px;
+            color: #071a35;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-card {
+            background: #ffffff;
+            border: 1px solid #dce2eb;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 7px 22px rgba(15, 34, 59, 0.06);
+        }
+
+        .table-heading {
+            padding: 21px 24px;
+            background: #f9fafc;
+            border-bottom: 1px solid #e2e6ed;
+        }
+
+        .table-heading h2 {
+            color: #071a35;
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .table-heading p {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th {
+            background: #071a35;
+            color: #ffffff;
+            text-align: left;
+            padding: 14px 15px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        td {
+            padding: 16px 15px;
+            border-bottom: 1px solid #e8ebf0;
+            vertical-align: middle;
+            font-size: 13px;
+            color: #26344a;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #fbfcfe;
+        }
+
+        .ngo-name {
+            font-weight: 900;
+            color: #071a35;
+            margin-bottom: 4px;
+        }
+
+        .application-code {
+            font-size: 11px;
+            color: #7b8799;
+            font-weight: 700;
+        }
+
+        .location {
+            font-weight: 700;
+        }
+
+        .representative {
+            font-weight: 700;
+        }
+
+        .email {
+            color: #516075;
+            margin-top: 4px;
+            word-break: break-word;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status {
+            display: inline-block;
+            padding: 7px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .status-submitted,
+        .status-review {
+            background: #fff1df;
+            color: #a84f00;
+        }
+
+        .status-correction {
+            background: #fff7d7;
+            color: #806500;
+        }
+
+        .status-verified {
+            background: #e8f4ee;
+            color: #17643f;
+        }
+
+        .status-rejected {
+            background: #fdeaea;
+            color: #a32727;
+        }
+
+        .status-active {
+            background: #e8f4ee;
+            color: #17643f;
+        }
+
+        .status-default {
+            background: #edf0f5;
+            color: #536176;
+        }
+
+        /* ================= ACTION ================= */
+
+        .view-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #071a35;
+            color: #ffffff;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .view-btn:hover {
+            background: #f47b20;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            text-align: center;
+            padding: 55px 25px;
+        }
+
+        .empty-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #eef2f7;
+            color: #071a35;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        .empty h3 {
+            color: #071a35;
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .topbar {
+                padding: 15px 5%;
+                min-height: auto;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 27px 24px;
+            }
+
+            .hero h1 {
+                font-size: 25px;
+            }
+
+            .page {
+                width: 94%;
+                margin-top: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topbar">
+
+        <a href="{{ url_for('admin.dashboard') }}" class="brand">
+
+            <div class="logo">RQ</div>
+
+            <div class="brand-name">
+                <span class="resq">RESQ</span><span class="meal">MEAL</span>
+            </div>
+
+        </a>
+
+        <div class="header-right">
+
+            <span class="admin-label">
+                Administrative Oversight
+            </span>
+
+            <a
+                href="{{ url_for('admin.logout') }}"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= PAGE ================= -->
+
+    <main class="page">
+
+        <a
+            href="{{ url_for('admin.dashboard') }}"
+            class="back-link"
+        >
+            ← Back to Admin Dashboard
+        </a>
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero">
+
+            <small>NGO VERIFICATION</small>
+
+            <h1>NGO Applications</h1>
+
+            <p>
+                Review registered NGOs and continue to their application
+                details to verify the mandatory supporting documents.
+            </p>
+
+        </section>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        {% set total_count = applications|length %}
+
+        {% set review_count = applications
+            |selectattr("application_status", "in",
+                [
+                    "APPLICATION_SUBMITTED",
+                    "DOCUMENT_REVIEW"
+                ]
+            )
+            |list
+            |length
+        %}
+
+        {% set verified_count = applications
+            |selectattr("application_status", "equalto", "VERIFIED")
+            |list
+            |length
+        %}
+
+        <section class="summary">
+
+            <div class="summary-card">
+                <span>Total Applications</span>
+                <strong>{{ total_count }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Awaiting Review</span>
+                <strong>{{ review_count }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Verified NGOs</span>
+                <strong>{{ verified_count }}</strong>
+            </div>
+
+        </section>
+
+
+        <!-- ================= APPLICATION TABLE ================= -->
+
+        <section class="table-card">
+
+            <div class="table-heading">
+
+                <h2>Registered NGO Applications</h2>
+
+                <p>
+                    Open an application to inspect its information and
+                    verify the four mandatory NGO documents.
+                </p>
+
+            </div>
+
+
+            {% if applications %}
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>NGO</th>
+
+                                <th>Location</th>
+
+                                <th>Representative</th>
+
+                                <th>Phone</th>
+
+                                <th>Status</th>
+
+                                <th>Submitted</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for application in applications %}
+
+                                <tr>
+
+                                    <td>
+
+                                        <div class="ngo-name">
+                                            {{ application.ngo_name }}
+                                        </div>
+
+                                        <div class="application-code">
+                                            {{ application.application_code }}
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="location">
+                                            {{ application.city }}
+                                        </div>
+
+                                        <div class="email">
+                                            {{ application.state }}
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="representative">
+                                            {{ application.authorized_representative_name }}
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {{ application.phone }}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {% if application.application_status == "APPLICATION_SUBMITTED" %}
+
+                                            <span class="status status-submitted">
+                                                Application Submitted
+                                            </span>
+
+                                        {% elif application.application_status == "DOCUMENT_REVIEW" %}
+
+                                            <span class="status status-review">
+                                                Document Review
+                                            </span>
+
+                                        {% elif application.application_status == "CORRECTION_REQUIRED" %}
+
+                                            <span class="status status-correction">
+                                                Correction Required
+                                            </span>
+
+                                        {% elif application.application_status == "VERIFIED" %}
+
+                                            <span class="status status-verified">
+                                                Verified
+                                            </span>
+
+                                        {% elif application.application_status == "ACTIVE_NGO" %}
+
+                                            <span class="status status-active">
+                                                Active NGO
+                                            </span>
+
+                                        {% elif application.application_status == "REJECTED" %}
+
+                                            <span class="status status-rejected">
+                                                Rejected
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="status status-default">
+                                                {{ application.application_status }}
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {% if application.submitted_at %}
+
+                                            {{ application.submitted_at.strftime('%d %b %Y') }}
+
+                                        {% else %}
+
+                                            —
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <a
+                                            href="{{
+                                                url_for(
+                                                    'admin.ngo_application_details',
+                                                    application_id=application.ngo_application_id
+                                                )
+                                            }}"
+                                            class="view-btn"
+                                        >
+                                            Review
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        ✓
+                    </div>
+
+                    <h3>No NGO Applications</h3>
+
+                    <p>
+                        There are currently no NGO applications available
+                        for administrative review.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+</html>

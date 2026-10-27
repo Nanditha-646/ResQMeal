@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0D1528">
+
+    <title>Recovery Management | ResQMeal</title>
+
+    <style>
+        :root {
+            --navy: #17233C;
+            --deep: #0D1528;
+            --navy-soft: #243452;
+            --amber: #F2A93B;
+            --amber-light: #FFC766;
+            --white: #FFFFFF;
+            --off-white: #F6F7FA;
+            --text: #202735;
+            --muted: #7C8799;
+            --border: #E0E4EA;
+            --green: #287F66;
+            --red: #B83B46;
+            --shadow: 0 15px 40px rgba(13,21,40,.10);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background: var(--off-white);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button, input, select, textarea {
+            font: inherit;
+        }
+
+        .page {
+            width: min(1380px, 94%);
+            margin: auto;
+            padding-bottom: 45px;
+        }
+
+        .topbar {
+            min-height: 78px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--navy);
+            border: 3px solid var(--amber);
+            color: var(--white);
+            font-weight: 900;
+        }
+
+        .brand-mark span,
+        .brand-name span {
+            color: var(--amber);
+        }
+
+        .brand-name {
+            color: var(--navy);
+            font-weight: 900;
+            letter-spacing: 1.5px;
+        }
+
+        .back-button {
+            padding: 10px 15px;
+            background: var(--white);
+            border: 1px solid #D9DEE6;
+            border-radius: 8px;
+            color: var(--navy);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .back-button:hover {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            margin-top: 30px;
+            padding: 38px;
+            border-radius: 17px;
+            background: linear-gradient(135deg, var(--navy), var(--deep));
+            box-shadow: var(--shadow);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            right: -100px;
+            top: -170px;
+            border: 1px solid rgba(242,169,59,.25);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 35px rgba(242,169,59,.025),
+                0 0 0 70px rgba(242,169,59,.018);
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            color: var(--amber-light);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-top: 13px;
+            color: var(--white);
+            font-size: clamp(32px, 5vw, 54px);
+            line-height: 1.08;
+            letter-spacing: -1.5px;
+        }
+
+        .hero h1 span {
+            color: var(--amber);
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin-top: 14px;
+            color: #C5CDDA;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .role-banner {
+            margin-top: 17px;
+            padding: 14px 17px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .role-banner p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .role-banner strong {
+            color: var(--navy);
+        }
+
+        .role-pill {
+            padding: 7px 10px;
+            background: #FFF5E3;
+            color: #8A641E;
+            border: 1px solid #F0D39E;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .7px;
+            white-space: nowrap;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .summary-card {
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            box-shadow: 0 7px 22px rgba(20,32,55,.05);
+        }
+
+        .summary-label {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+        .summary-value {
+            margin-top: 8px;
+            color: var(--navy);
+            font-size: 29px;
+            font-weight: 900;
+        }
+
+        .section-header {
+            margin: 35px 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+        }
+
+        .section-header h2 {
+            color: var(--navy);
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        .section-header p {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .section-tag {
+            color: #8A6A2D;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+        .flash-list {
+            margin-top: 18px;
+        }
+
+        .flash {
+            margin-bottom: 9px;
+            padding: 13px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .flash.success {
+            background: #E9F7F0;
+            color: #236747;
+            border: 1px solid #B9E4CD;
+        }
+
+        .flash.error,
+        .flash.danger {
+            background: #FFF0F0;
+            color: #9F3038;
+            border: 1px solid #F0C6C8;
+        }
+
+        .flash.warning {
+            background: #FFF6E5;
+            color: #805B18;
+            border: 1px solid #F1D79E;
+        }
+
+        .flash.info {
+            background: #EDF3FF;
+            color: #294B80;
+            border: 1px solid #CEDCF6;
+        }
+
+        .recovery-card {
+            margin-bottom: 18px;
+            overflow: hidden;
+            background: var(--white);
+            border: 1px solid #DEE3EA;
+            border-radius: 13px;
+            box-shadow: 0 10px 28px rgba(20,32,55,.07);
+        }
+
+        .card-top {
+            padding: 19px 23px;
+            border-bottom: 1px solid #E8EBF0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .id-label {
+            color: var(--muted);
+            font-size: 9px;
+            letter-spacing: 1px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .recovery-id {
+            margin-top: 5px;
+            color: var(--navy);
+            font-size: 19px;
+            font-weight: 900;
+            overflow-wrap: anywhere;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 11px;
+            background: #FFF5E3;
+            border: 1px solid #F0D39E;
+            border-radius: 7px;
+            color: #8A641E;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            overflow-wrap: anywhere;
+        }
+
+        .card-body {
+            padding: 22px;
+        }
+
+        .information-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 11px;
+        }
+
+        .info-box {
+            min-width: 0;
+            padding: 14px;
+            background: #F7F8FA;
+            border: 1px solid #E4E7EC;
+            border-radius: 8px;
+        }
+
+        .info-label {
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            margin-top: 8px;
+            color: var(--navy);
+            font-size: 14px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .amber {
+            color: #B27617;
+        }
+
+        .journey {
+            margin-top: 18px;
+            padding: 20px;
+            background: var(--navy);
+            border-radius: 10px;
+        }
+
+        .journey h3 {
+            margin-bottom: 18px;
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        .journey-line {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .journey-step {
+            text-align: center;
+            min-width: 0;
+        }
+
+        .journey-circle {
+            width: 32px;
+            height: 32px;
+            margin: auto;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #27354F;
+            border: 2px solid #4A5870;
+            color: #A5AFBF;
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+        .journey-step.active .journey-circle {
+            background: var(--amber);
+            border-color: var(--amber);
+            color: var(--navy);
+        }
+
+        .journey-title {
+            margin-top: 8px;
+            color: #AAB4C4;
+            font-size: 9px;
+            font-weight: 800;
+            line-height: 1.5;
+            text-transform: uppercase;
+        }
+
+        .journey-step.active .journey-title {
+            color: var(--amber-light);
+        }
+
+        .details-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .detail-card {
+            padding: 17px;
+            background: #F8F9FB;
+            border: 1px solid #E2E6EC;
+            border-radius: 9px;
+            min-width: 0;
+        }
+
+        .detail-card h4 {
+            margin-bottom: 10px;
+            color: var(--navy);
+            font-size: 12px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 0;
+            border-bottom: 1px solid #E4E7EC;
+            font-size: 11px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: 0;
+        }
+
+        .detail-row span:first-child {
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+
+        .detail-row span:last-child {
+            color: var(--navy);
+            font-weight: 800;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .action-panel {
+            margin-top: 17px;
+            padding: 19px;
+            background: #FFFCF5;
+            border: 1px solid #F0DDB9;
+            border-radius: 10px;
+        }
+
+        .action-panel h4 {
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 14px;
+        }
+
+        .action-panel > p {
+            margin-bottom: 14px;
+            color: #6F7887;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .field {
+            min-width: 0;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            color: #38445A;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            min-height: 40px;
+            padding: 10px 11px;
+            background: var(--white);
+            border: 1px solid #D8DEE7;
+            border-radius: 7px;
+            outline: none;
+            color: var(--text);
+            font-size: 12px;
+        }
+
+        .field textarea {
+            min-height: 75px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: var(--amber);
+            box-shadow: 0 0 0 3px rgba(242,169,59,.12);
+        }
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .check-item {
+            padding: 12px;
+            background: var(--white);
+            border: 1px solid #E3E5E9;
+            border-radius: 8px;
+        }
+
+        .check-item label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 800;
+            line-height: 1.5;
+        }
+
+        .check-item select {
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #D8DEE7;
+            border-radius: 6px;
+            background: var(--white);
+            font-size: 12px;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            min-height: 39px;
+            padding: 10px 15px;
+            border: 0;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 900;
+            transition: .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(.96);
+        }
+
+        .btn-primary {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .btn-amber {
+            background: var(--amber);
+            color: var(--navy);
+        }
+
+        .btn-success {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .btn-danger {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-light {
+            background: var(--white);
+            color: var(--navy);
+            border: 1px solid #D8DEE7;
+        }
+
+        .notice {
+            padding: 12px 14px;
+            margin-top: 13px;
+            background: #F0F3F8;
+            border: 1px solid #DDE3EC;
+            border-radius: 8px;
+            color: #596579;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .notice.success-notice {
+            background: #E9F7F0;
+            border-color: #B9E4CD;
+            color: #236747;
+        }
+
+        .notice.error-notice {
+            background: #FFF0F0;
+            border-color: #F0C6C8;
+            color: #9F3038;
+        }
+
+        .empty-state {
+            padding: 48px 22px;
+            text-align: center;
+            background: var(--white);
+            border: 1px dashed #C9D0DA;
+            border-radius: 13px;
+        }
+
+        .empty-state h3 {
+            color: var(--navy);
+            font-size: 19px;
+        }
+
+        .empty-state p {
+            max-width: 500px;
+            margin: 9px auto 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .ai-panel {
+            margin-top: 27px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--navy), var(--navy-soft));
+            border-radius: 12px;
+            color: var(--white);
+        }
+
+        .ai-badge {
+            display: inline-block;
+            padding: 6px 9px;
+            border: 1px solid rgba(242,169,59,.3);
+            border-radius: 5px;
+            color: var(--amber-light);
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .ai-panel h3 {
+            margin-top: 12px;
+            font-size: 19px;
+        }
+
+        .ai-panel p {
+            margin-top: 9px;
+            max-width: 750px;
+            color: #C5CDDA;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .footer {
+            margin-top: 25px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            text-align: center;
+            font-size: 10px;
+        }
+
+        @media (max-width: 950px) {
+            .information-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .journey-line {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                row-gap: 20px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .page {
+                width: 92%;
+            }
+
+            .hero {
+                padding: 27px 22px;
+            }
+
+            .summary-grid,
+            .details-panel,
+            .form-grid,
+            .check-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .card-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .card-body {
+                padding: 15px;
+            }
+
+            .information-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .role-banner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .journey {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .information-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-line {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .brand-name {
+                font-size: 13px;
+            }
+
+            .back-button {
+                padding: 8px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="page">
+
+    <header class="topbar">
+        {% if session.get("ngo_id") %}
+            <a href="{{ url_for('ngo.dashboard') }}" class="brand">
+        {% elif session.get("donor_id") %}
+            <a href="{{ url_for('donor.dashboard') }}" class="brand">
+        {% else %}
+            <a href="{{ url_for('ngo.login') }}" class="brand">
+        {% endif %}
+                <div class="brand-mark">R<span>Q</span></div>
+                <div class="brand-name">RESQ<span>MEAL</span></div>
+            </a>
+
+        {% if session.get("ngo_id") %}
+            <a class="back-button" href="{{ url_for('ngo.dashboard') }}">
+                ← NGO Dashboard
+            </a>
+        {% elif session.get("donor_id") %}
+            <a class="back-button" href="{{ url_for('donor.dashboard') }}">
+                ← Donor Dashboard
+            </a>
+        {% else %}
+            <a class="back-button" href="{{ url_for('ngo.login') }}">
+                ← Login
+            </a>
+        {% endif %}
+    </header>
+
+    <section class="hero">
+        <div class="eyebrow">● Recovery Command Center</div>
+        <h1>Recovery <span>Management</span></h1>
+        <p>
+            Follow each surplus-food recovery from declaration and
+            matching through acceptance, on-site verification,
+            collection and distribution.
+        </p>
+    </section>
+
+    <section class="role-banner">
+        <p>
+            {% if session.get("ngo_id") %}
+                Viewing recovery activity as <strong>NGO</strong>.
+                Review recommended matches and manage accepted recoveries.
+            {% elif session.get("donor_id") %}
+                Viewing your surplus declarations as <strong>Donor</strong>.
+                Track the recovery progress of your food submissions.
+            {% else %}
+                Recovery Management is available to authorised donors and NGOs.
+            {% endif %}
+        </p>
+
+        <span class="role-pill">
+            {% if session.get("ngo_id") %}
+                NGO RECOVERY
+            {% elif session.get("donor_id") %}
+                DONOR RECOVERY
+            {% else %}
+                RECOVERY
+            {% endif %}
+        </span>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-list">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% set total_records = recovery_records|length %}
+
+    {% set submitted_count = recovery_records
+        |selectattr("status", "equalto", "SUBMITTED")
+        |list|length %}
+
+    {% set active_count = recovery_records
+        |selectattr("status", "in", [
+            "SUBMITTED",
+            "MATCHING",
+            "VERIFICATION_PENDING",
+            "VERIFIED",
+            "COLLECTED"
+        ])
+        |list|length %}
+
+    <section class="summary-grid">
+        <div class="summary-card">
+            <div class="summary-label">Recovery Records</div>
+            <div class="summary-value">{{ total_records }}</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-label">Active Journeys</div>
+            <div class="summary-value">{{ active_count }}</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-label">Awaiting Matching</div>
+            <div class="summary-value">{{ submitted_count }}</div>
+        </div>
+    </section>
+
+    <div class="section-header">
+        <div>
+            <h2>Recovery Journeys</h2>
+            <p>Review recovery details, match status and available actions.</p>
+        </div>
+
+        <div class="section-tag">Recovery records</div>
+    </div>
+
+    {% if recovery_records %}
+
+        {% for record in recovery_records %}
+
+            {% set status = record.status or "SUBMITTED" %}
+            {% set match_status = record.match_status or "" %}
+
+            <article class="recovery-card">
+
+                <div class="card-top">
+                    <div>
+                        <div class="id-label">Recovery Identifier</div>
+
+                        <div class="recovery-id">
+                            {{ record.recovery_id }}
+                        </div>
+
+                        {% if record.match_code %}
+                            <div style="margin-top:6px;color:#7C8799;font-size:11px;">
+                                Match: {{ record.match_code }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <span class="status-pill">
+                        {{ status|replace("_", " ") }}
+
+                        {% if match_status %}
+                            · {{ match_status|replace("_", " ") }}
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="information-grid">
+
+                        <div class="info-box">
+                            <div class="info-label">Food Type</div>
+                            <div class="info-value amber">
+                                {{ (record.food_type or "Not specified")|replace("_", " ") }}
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-label">Declared Quantity</div>
+                            <div class="info-value">
+                                {{ record.quantity }} {{ record.quantity_unit }}
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-label">Accepted Quantity</div>
+                            <div class="info-value">
+                                {% if record.accepted_quantity is defined
+                                      and record.accepted_quantity is not none %}
+                                    {{ record.accepted_quantity }} {{ record.quantity_unit }}
+                                {% else %}
+                                    Not accepted yet
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-label">Preparation Date</div>
+                            <div class="info-value">
+                                {{ record.preparation_date or "Not provided" }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="journey">
+                        <h3>Recovery Journey</h3>
+
+                        <div class="journey-line">
+
+                            {% set steps = [
+                                ("SUBMITTED", "Submitted"),
+                                ("MATCHING", "Matching"),
+                                ("VERIFICATION_PENDING", "Verification"),
+                                ("VERIFIED", "Accepted"),
+                                ("COLLECTED", "Collected"),
+                                ("DISTRIBUTED", "Distributed")
+                            ] %}
+
+                            {% set progress = {
+                                "SUBMITTED": 1,
+                                "MATCHING": 2,
+                                "VERIFICATION_PENDING": 3,
+                                "VERIFIED": 4,
+                                "COLLECTED": 5,
+                                "DISTRIBUTED": 6
+                            } %}
+
+                            {% set current_step = progress.get(status, 0) %}
+
+                            {% for step_status, step_label in steps %}
+                                <div class="journey-step
+                                    {% if progress.get(step_status, 0) <= current_step
+                                          and current_step > 0 %}
+                                        active
+                                    {% endif %}">
+
+                                    <div class="journey-circle">
+                                        {{ "%02d"|format(loop.index) }}
+                                    </div>
+
+                                    <div class="journey-title">
+                                        {{ step_label }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+                    <div class="details-panel">
+
+                        <div class="detail-card">
+                            <h4>Recovery Window</h4>
+
+                            <div class="detail-row">
+                                <span>Available from</span>
+                                <span>{{ record.available_from or "Not specified" }}</span>
+                            </div>
+
+                            <div class="detail-row">
+                                <span>Available until</span>
+                                <span>{{ record.available_until or "Not specified" }}</span>
+                            </div>
+
+                            <div class="detail-row">
+                                <span>Consumption date</span>
+                                <span>{{ record.applicable_consumption_date or "Not specified" }}</span>
+                            </div>
+
+                            <div class="detail-row">
+                                <span>Consumption time</span>
+                                <span>{{ record.applicable_consumption_time or "Not specified" }}</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-card">
+                            <h4>Recovery Information</h4>
+
+                            <div class="detail-row">
+                                <span>Preparation time</span>
+                                <span>{{ record.preparation_time or "Not specified" }}</span>
+                            </div>
+
+                            <div class="detail-row">
+                                <span>Served to customers</span>
+                                <span>
+                                    {% if record.served_to_customers %}
+                                        Yes
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <div class="detail-row">
+                                <span>Created</span>
+                                <span>{{ record.created_at or "Not available" }}</span>
+                            </div>
+
+                            {% if record.donor_notes %}
+                                <div class="detail-row">
+                                    <span>Donor notes</span>
+                                    <span>{{ record.donor_notes }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    {% if session.get("ngo_id") and record.match_id %}
+
+                        {% if match_status == "RECOMMENDED" %}
+
+                            <section class="action-panel">
+                                <h4>Review Recovery Match</h4>
+
+                                <p>
+                                    Confirm the quantity your NGO can collect.
+                                    You may accept a partial quantity when permitted
+                                    by the available balance.
+                                </p>
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('ngo.accept_recovery_match', match_id=record.match_id) }}"
+                                >
+                                    <div class="form-grid">
+
+                                        <div class="field">
+                                            <label for="accepted_quantity_{{ record.match_id }}">
+                                                Quantity to accept
+                                            </label>
+
+                                            <input
+                                                id="accepted_quantity_{{ record.match_id }}"
+                                                name="accepted_quantity"
+                                                type="number"
+                                                min="0.01"
+                                                step="0.01"
+                                                max="{{ record.quantity }}"
+                                                value="{{ record.quantity }}"
+                                                required>
+                                        </div>
+
+                                        <div class="field">
+                                            <label for="accept_notes_{{ record.match_id }}">
+                                                Notes (optional)
+                                            </label>
+
+                                            <input
+                                                id="accept_notes_{{ record.match_id }}"
+                                                name="decision_notes"
+                                                type="text"
+                                                maxlength="500"
+                                                placeholder="Collection arrangements">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="button-row">
+                                        <button class="btn btn-success" type="submit">
+                                            Accept Recovery
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('ngo.decline_recovery_match', match_id=record.match_id) }}"
+                                    onsubmit="return confirm('Decline this recovery recommendation?');"
+                                >
+                                    <div class="field" style="margin-top:12px;">
+                                        <label for="decline_notes_{{ record.match_id }}">
+                                            Reason for declining
+                                        </label>
+
+                                        <textarea
+                                            id="decline_notes_{{ record.match_id }}"
+                                            name="decision_notes"
+                                            maxlength="1000"
+                                            placeholder="Briefly explain why this recovery cannot be accepted."></textarea>
+                                    </div>
+
+                                    <div class="button-row">
+                                        <button class="btn btn-danger" type="submit">
+                                            Decline Match
+                                        </button>
+                                    </div>
+                                </form>
+                            </section>
+
+                        {% elif match_status == "ASSIGNED" %}
+
+                            {% if record.verification_passed %}
+
+                                <section class="action-panel">
+                                    <h4>Verification Passed</h4>
+
+                                    <p>
+                                        The latest verification passed all mandatory
+                                        checks. Continue with collection.
+                                    </p>
+
+                                    <div class="notice success-notice">
+                                        Verification decision:
+                                        {{ record.verification.decision
+                                           if record.verification is defined
+                                              and record.verification
+                                           else "ACCEPT AND COLLECT" }}
+                                    </div>
+
+                                    {% if record.collection
+                                          is defined
+                                          and record.collection %}
+
+                                        <div class="notice success-notice">
+                                            Collection recorded.
+                                            Quantity:
+                                            {{ record.collection.collected_quantity }}
+                                            {{ record.collection.quantity_unit }}.
+                                        </div>
+
+                                        <h4 style="margin-top:18px;">
+                                            Record Distribution
+                                        </h4>
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for('ngo.confirm_distribution', match_id=record.match_id) }}"
+                                            onsubmit="return confirm('Record this distribution quantity?');"
+                                        >
+                                            <div class="form-grid">
+
+                                                <div class="field">
+                                                    <label for="distribution_quantity_{{ record.match_id }}">
+                                                        Quantity distributed
+                                                    </label>
+
+                                                    <input
+                                                        id="distribution_quantity_{{ record.match_id }}"
+                                                        name="distributed_quantity"
+                                                        type="number"
+                                                        min="0.01"
+                                                        step="0.01"
+                                                        max="{{ record.quantity_remaining if record.quantity_remaining is defined else record.collection.collected_quantity }}"
+                                                        required>
+                                                </div>
+
+                                                <div class="field">
+                                                    <label for="recipient_count_{{ record.match_id }}">
+                                                        Number of recipients
+                                                    </label>
+
+                                                    <input
+                                                        id="recipient_count_{{ record.match_id }}"
+                                                        name="recipient_count"
+                                                        type="number"
+                                                        min="1"
+                                                        step="1"
+                                                        required>
+                                                </div>
+
+                                                <div class="field full">
+                                                    <label for="distribution_notes_{{ record.match_id }}">
+                                                        Distribution notes (optional)
+                                                    </label>
+
+                                                    <textarea
+                                                        id="distribution_notes_{{ record.match_id }}"
+                                                        name="distribution_notes"
+                                                        maxlength="2000"
+                                                        placeholder="Record distribution details."></textarea>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="button-row">
+                                                <button class="btn btn-primary" type="submit">
+                                                    Record Distribution
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                    {% else %}
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for('ngo.confirm_pickup', match_id=record.match_id) }}"
+                                            onsubmit="return confirm('Confirm that the verified accepted quantity has been collected?');"
+                                        >
+                                            <div class="button-row">
+                                                <button class="btn btn-success" type="submit">
+                                                    Confirm Pickup
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                    {% endif %}
+                                </section>
+
+                            {% else %}
+
+                                <section class="action-panel">
+                                    <h4>On-site Food Verification</h4>
+
+                                    <p>
+                                        Complete all six mandatory checks at the
+                                        collection location. Every check must pass
+                                        before collection can proceed. Enter the
+                                        actual physically verified quantity and the
+                                        quantity your NGO will collect.
+                                    </p>
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('ngo.verify_recovery', match_id=record.match_id) }}"
+                                    >
+
+                                        <div class="check-grid">
+
+                                            <div class="check-item">
+                                                <label for="odour_{{ record.match_id }}">
+                                                    1. Odour
+                                                </label>
+
+                                                <select
+                                                    id="odour_{{ record.match_id }}"
+                                                    name="odour_condition"
+                                                    required>
+                                                    <option value="">Select result</option>
+                                                    <option value="PASS">PASS</option>
+                                                    <option value="FAIL">FAIL</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="check-item">
+                                                <label for="food_{{ record.match_id }}">
+                                                    2. Food condition
+                                                </label>
+
+                                                <select
+                                                    id="food_{{ record.match_id }}"
+                                                    name="food_condition_check"
+                                                    required>
+                                                    <option value="">Select result</option>
+                                                    <option value="PASS">PASS</option>
+                                                    <option value="FAIL">FAIL</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="check-item">
+                                                <label for="packaging_{{ record.match_id }}">
+                                                    3. Packaging
+                                                </label>
+
+                                                <select
+                                                    id="packaging_{{ record.match_id }}"
+                                                    name="packaging_condition"
+                                                    required>
+                                                    <option value="">Select result</option>
+                                                    <option value="ACCEPTABLE">
+                                                        PASS — Acceptable
+                                                    </option>
+                                                    <option value="NOT_ACCEPTABLE">
+                                                        FAIL — Not acceptable
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="check-item">
+                                                <label for="storage_{{ record.match_id }}">
+                                                    4. Storage and handling
+                                                </label>
+
+                                                <select
+                                                    id="storage_{{ record.match_id }}"
+                                                    name="storage_handling_condition"
+                                                    required>
+                                                    <option value="">Select result</option>
+                                                    <option value="ACCEPTABLE">
+                                                        PASS — Acceptable
+                                                    </option>
+                                                    <option value="NOT_ACCEPTABLE">
+                                                        FAIL — Not acceptable
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="check-item">
+                                                <label for="contamination_{{ record.match_id }}">
+                                                    5. Visible contamination / unsuitable condition
+                                                </label>
+
+                                                <select
+                                                    id="contamination_{{ record.match_id }}"
+                                                    name="contamination_check"
+                                                    required>
+                                                    <option value="">Select result</option>
+                                                    <option value="PASS">
+                                                        PASS — None observed
+                                                    </option>
+                                                    <option value="FAIL">
+                                                        FAIL — Observed
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="check-item">
+                                                <label for="quantity_check_{{ record.match_id }}">
+                                                    6. Quantity check
+                                                </label>
+
+                                                <select
+                                                    id="quantity_check_{{ record.match_id }}"
+                                                    name="quantity_check"
+                                                    required>
+                                                    <option value="">Select result</option>
+                                                    <option value="PASS">PASS</option>
+                                                    <option value="FAIL">FAIL</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-grid">
+
+                                            <div class="field">
+                                                <label for="physical_quantity_{{ record.match_id }}">
+                                                    Physically verified quantity
+                                                    ({{ record.quantity_unit }})
+                                                </label>
+
+                                                <input
+                                                    id="physical_quantity_{{ record.match_id }}"
+                                                    name="physically_verified_quantity"
+                                                    type="number"
+                                                    min="0.01"
+                                                    step="0.01"
+                                                    max="{{ record.quantity }}"
+                                                    required>
+                                            </div>
+
+                                            <div class="field">
+                                                <label for="accepted_quantity_verify_{{ record.match_id }}">
+                                                    Quantity accepted for collection
+                                                    ({{ record.quantity_unit }})
+                                                </label>
+
+                                                <input
+                                                    id="accepted_quantity_verify_{{ record.match_id }}"
+                                                    name="accepted_quantity"
+                                                    type="number"
+                                                    min="0.01"
+                                                    step="0.01"
+                                                    max="{{ record.accepted_quantity if record.accepted_quantity is defined and record.accepted_quantity is not none else record.quantity }}"
+                                                    value="{{ record.accepted_quantity if record.accepted_quantity is defined and record.accepted_quantity is not none else record.quantity }}"
+                                                    required>
+                                            </div>
+
+                                            <div class="field">
+                                                <label for="representative_name_{{ record.match_id }}">
+                                                    NGO representative name
+                                                </label>
+
+                                                <input
+                                                    id="representative_name_{{ record.match_id }}"
+                                                    name="representative_name"
+                                                    type="text"
+                                                    maxlength="150"
+                                                    autocomplete="name"
+                                                    placeholder="Full name of the collecting representative"
+                                                    required>
+                                            </div>
+
+                                            <div class="field">
+                                                <label for="representative_phone_{{ record.match_id }}">
+                                                    NGO representative phone
+                                                </label>
+
+                                                <input
+                                                    id="representative_phone_{{ record.match_id }}"
+                                                    name="representative_phone"
+                                                    type="tel"
+                                                    inputmode="tel"
+                                                    maxlength="20"
+                                                    autocomplete="tel"
+                                                    placeholder="Registered contact number"
+                                                    required>
+                                            </div>
+
+                                            <div class="field full">
+                                                <label for="verification_remarks_{{ record.match_id }}">
+                                                    Verification remarks
+                                                </label>
+
+                                                <textarea
+                                                    id="verification_remarks_{{ record.match_id }}"
+                                                    name="remarks"
+                                                    maxlength="2000"
+                                                    placeholder="Record relevant observations."></textarea>
+                                            </div>
+
+                                            <div class="field full">
+                                                <label for="representative_confirmation_{{ record.match_id }}">
+                                                    Representative confirmation
+                                                </label>
+
+                                                <select
+                                                    id="representative_confirmation_{{ record.match_id }}"
+                                                    name="representative_confirmation"
+                                                    required>
+                                                    <option value="">
+                                                        Confirm after physical inspection
+                                                    </option>
+                                                    <option value="1">
+                                                        I confirm the recorded inspection results
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="notice">
+                                            Do not mark a check as PASS unless the
+                                            food has been physically inspected.
+                                            A failed mandatory check must prevent
+                                            collection.
+                                        </div>
+
+                                        <div class="button-row">
+                                            <button class="btn btn-amber" type="submit">
+                                                Submit Verification
+                                            </button>
+                                        </div>
+
+                                    </form>
+                                </section>
+
+                            {% endif %}
+
+                        {% elif match_status == "COMPLETED" %}
+
+                            <div class="notice success-notice">
+                                This recovery match is completed.
+                                Distribution actions are no longer available.
+                            </div>
+
+                        {% elif match_status in ["DECLINED", "FAILED", "CANCELLED"] %}
+
+                            <div class="notice error-notice">
+                                This match is
+                                {{ match_status|replace("_", " ")|lower }}.
+                                Actions are unavailable for this match.
+                            </div>
+
+                        {% endif %}
+
+                    {% elif session.get("donor_id") %}
+
+                        <div class="notice">
+                            This recovery is displayed in donor tracking mode.
+                            Match acceptance, physical verification, collection
+                            and distribution actions are available to the assigned
+                            NGO.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+            </article>
+
+        {% endfor %}
+
+    {% else %}
+
+        <section class="empty-state">
+            <h3>No recovery journeys yet</h3>
+
+            <p>
+                Recovery records will appear here when food declarations
+                and matching activity become available to your account.
+            </p>
+        </section>
+
+    {% endif %}
+
+    <section class="ai-panel">
+        <span class="ai-badge">AI-ASSISTED RECOVERY</span>
+
+        <h3>Decision support for suitable recovery opportunities</h3>
+
+        <p>
+            Recovery recommendations can consider food type, quantity,
+            NGO requirements, distance and the availability window.
+            Physical verification remains mandatory before collection.
+        </p>
+    </section>
+
+    <footer class="footer">
+        ResQMeal · AI-Assisted Food Waste Reduction · Recover More. Waste Less.
+    </footer>
+
+</div>
+</body>
+</html>
